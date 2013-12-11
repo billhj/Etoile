@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{EB16B270-4A07-4664-8E68-653713770DB1}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>EtoileAnimation</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>..\..\lib\</OutDir>
+    <TargetExt>.lib</TargetExt>
+    <TargetName>$(ProjectName)d</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>..\..\lib\</OutDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\core</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\core</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <None Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\core\animation\BVHLoader.cpp" />
+    <ClCompile Include="..\..\core\animation\DOF.cpp" />
+    <ClCompile Include="..\..\core\animation\IK\CCDSolver.cpp" />
+    <ClCompile Include="..\..\core\animation\IK\JacobianDLSSolver.cpp" />
+    <ClCompile Include="..\..\core\animation\IK\JacobianPseudoInverseSolver.cpp" />
+    <ClCompile Include="..\..\core\animation\IK\JacobianTransposeSolver.cpp" />
+    <ClCompile Include="..\..\core\animation\IK\MassSpringSolver.cpp" />
+    <ClCompile Include="..\..\core\animation\Joint.cpp" />
+    <ClCompile Include="..\..\core\animation\KeyFrameSequence.cpp" />
+    <ClCompile Include="..\..\core\animation\MassSpring\DistanceSpring.cpp" />
+    <ClCompile Include="..\..\core\animation\MassSpring\Mass.cpp" />
+    <ClCompile Include="..\..\core\animation\MassSpring\MassSpring.cpp" />
+    <ClCompile Include="..\..\core\animation\MotionGraph\MotionClipsAnalysis.cpp" />
+    <ClCompile Include="..\..\core\animation\MotionGraph\MotionEdge.cpp" />
+    <ClCompile Include="..\..\core\animation\MotionGraph\MotionGraph.cpp" />
+    <ClCompile Include="..\..\core\animation\MotionGraph\MotionNode.cpp" />
+    <ClCompile Include="..\..\core\animation\Pose.cpp" />
+    <ClCompile Include="..\..\core\animation\Skeleton.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\core\animation\BVHFrame.h" />
+    <ClInclude Include="..\..\core\animation\BVHLoader.h" />
+    <ClInclude Include="..\..\core\animation\DOF.h" />
+    <ClInclude Include="..\..\core\animation\fluid\GridFluid.h" />
+    <ClInclude Include="..\..\core\animation\Frame.h" />
+    <ClInclude Include="..\..\core\animation\FrameParameters.h" />
+    <ClInclude Include="..\..\core\animation\IK\CCDSolver.h" />
+    <ClInclude Include="..\..\core\animation\IK\IKSolver.h" />
+    <ClInclude Include="..\..\core\animation\IK\JacobianDLSSolver.h" />
+    <ClInclude Include="..\..\core\animation\IK\JacobianPseudoInverseSolver.h" />
+    <ClInclude Include="..\..\core\animation\IK\JacobianTransposeSolver.h" />
+    <ClInclude Include="..\..\core\animation\IK\MassSpringSolver.h" />
+    <ClInclude Include="..\..\core\animation\Joint.h" />
+    <ClInclude Include="..\..\core\animation\KeyFrame.h" />
+    <ClInclude Include="..\..\core\animation\KeyFrameSequence.h" />
+    <ClInclude Include="..\..\core\animation\MassSpring\DistanceSpring.h" />
+    <ClInclude Include="..\..\core\animation\MassSpring\Mass.h" />
+    <ClInclude Include="..\..\core\animation\MassSpring\MassSpring.h" />
+    <ClInclude Include="..\..\core\animation\MassSpring\Spring.h" />
+    <ClInclude Include="..\..\core\animation\MotionGraph\MotionClip.h" />
+    <ClInclude Include="..\..\core\animation\MotionGraph\MotionClipLibrary.h" />
+    <ClInclude Include="..\..\core\animation\MotionGraph\MotionClipPairSimilarity.h" />
+    <ClInclude Include="..\..\core\animation\MotionGraph\MotionClipsAnalysis.h" />
+    <ClInclude Include="..\..\core\animation\MotionGraph\MotionEdge.h" />
+    <ClInclude Include="..\..\core\animation\MotionGraph\MotionGraph.h" />
+    <ClInclude Include="..\..\core\animation\MotionGraph\MotionNode.h" />
+    <ClInclude Include="..\..\core\animation\Pose.h" />
+    <ClInclude Include="..\..\core\animation\Skeleton.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

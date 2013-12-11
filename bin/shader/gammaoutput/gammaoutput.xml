@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<Etoile>
+	<QuadPass name="gammaCorrection"  w="800" h="600">
+		<Output type="texture2d" name="output" w="" h="" mipmap="0" internalFormat ="GL_RGBA16F_ARB">	</Output>
+		<Input type="texture2d" name="input"></Input>
+		<Input type="float" name="luminanceMax" value="1"></Input>
+		<Input type="float" name="gamma" value="1"></Input>
+		<GPU name="gammaoutput">
+			<vertex file="gammaoutput.vert"/>
+			<fragment file="gammaoutput.frag"/>
+		</GPU>
+	</QuadPass>
+		
+</Etoile>

@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\core\module\EPlugin.cpp" />
+    <ClCompile Include="..\..\core\module\flowgraph\GraphScene.cpp" />
+    <ClCompile Include="..\..\core\module\flowgraph\Socket.cpp" />
+    <ClCompile Include="..\..\core\module\flowgraph\SocketConnection.cpp" />
+    <ClCompile Include="..\..\core\module\flowgraph\SocketNode.cpp" />
+    <ClCompile Include="..\..\core\module\signals\ImageSignal.cpp" />
+    <ClCompile Include="..\..\core\module\signals\MeshSignal.cpp" />
+    <ClCompile Include="..\..\core\module\signals\RgbaSignal.cpp" />
+    <ClCompile Include="..\..\core\module\signals\ShaderSignal.cpp" />
+    <ClCompile Include="..\..\core\module\signals\TextureSignal.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\core\module\EPlugin.h" />
+    <ClInclude Include="..\..\core\module\flowgraph\BasicGraph.h" />
+    <ClInclude Include="..\..\core\module\flowgraph\GeneralSocket.h" />
+    <ClInclude Include="..\..\core\module\flowgraph\GraphScene.h" />
+    <ClInclude Include="..\..\core\module\flowgraph\ImageSocket.h" />
+    <ClInclude Include="..\..\core\module\flowgraph\MeshSocket.h" />
+    <ClInclude Include="..\..\core\module\flowgraph\RgbaSocket.h" />
+    <ClInclude Include="..\..\core\module\flowgraph\SceneObjectSocket.h" />
+    <ClInclude Include="..\..\core\module\flowgraph\ShaderSocket.h" />
+    <ClInclude Include="..\..\core\module\flowgraph\Socket.h" />
+    <ClInclude Include="..\..\core\module\flowgraph\SocketConnection.h" />
+    <ClInclude Include="..\..\core\module\flowgraph\SocketNode.h" />
+    <ClInclude Include="..\..\core\module\flowgraph\TemplateSocket.h" />
+    <ClInclude Include="..\..\core\module\flowgraph\TextureSocket.h" />
+    <ClInclude Include="..\..\core\module\signals\ESignal.h" />
+    <ClInclude Include="..\..\core\module\signals\GeneralSignal.h" />
+    <ClInclude Include="..\..\core\module\signals\ImageSignal.h" />
+    <ClInclude Include="..\..\core\module\signals\MeshSignal.h" />
+    <ClInclude Include="..\..\core\module\signals\RgbaSignal.h" />
+    <ClInclude Include="..\..\core\module\signals\ShaderSignal.h" />
+    <ClInclude Include="..\..\core\module\signals\TextureSignal.h" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{F282EFCD-4A8F-4610-BD77-D90FBF15505C}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>EtoileModule</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>..\..\lib\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <TargetName>$(ProjectName)d</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>..\..\lib\</OutDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\core</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\core</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -1,0 +1,18 @@
+<Etoile>
+    <Node name="QglviewerRenderer" x="-23" y="-111" />
+    <Node name="GammaQuadPass" x="-256" y="38" />
+    <Node name="DrawMeshPass" x="-271" y="-133" />
+    <Node name="MeshLoader" x="-439" y="-47" />
+    <Node name="OpenFile" x="-468" y="-125" />
+    <Node name="ImageToTexture" x="-437" y="67" />
+    <Node name="RainbowError" x="-36" y="42" />
+    <Connection fromNode="0" toNode="2" fromSocket="2" toSocket="4" />
+    <Connection fromNode="0" toNode="2" fromSocket="1" toSocket="3" />
+    <Connection fromNode="0" toNode="2" fromSocket="0" toSocket="2" />
+    <Connection fromNode="3" toNode="2" fromSocket="1" toSocket="1" />
+    <Connection fromNode="2" toNode="1" fromSocket="1" toSocket="3" />
+    <Connection fromNode="4" toNode="3" fromSocket="0" toSocket="0" />
+    <Connection fromNode="6" toNode="0" fromSocket="0" toSocket="0" />
+    <Connection fromNode="2" toNode="6" fromSocket="2" toSocket="3" />
+    <Connection fromNode="2" toNode="6" fromSocket="0" toSocket="4" />
+</Etoile>

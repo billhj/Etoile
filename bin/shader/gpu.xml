@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<Etoile>
+	<gpuprogram name="drawmesh" vertex="deferred/drawmesh.vert" fragment="deferred/drawmesh.frag">
+	</gpuprogram>
+	<gpuprogram name="deferred" vertex="deferred/deferred.vert" fragment="deferred/deferred.frag">
+	</gpuprogram>
+	<gpuprogram name="depthfield" vertex="depthfield/depthfield.vert" fragment="depthfield/depthfield.frag">
+	</gpuprogram>
+	<gpuprogram name="output" vertex="finaloutput/output.vert" fragment="finaloutput/output.frag">
+	</gpuprogram>	
+	
+</Etoile>

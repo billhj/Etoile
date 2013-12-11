@@ -1,0 +1,170 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tinyxml", "..\..\extern\tinyxml\tinyxml.vcxproj", "{868F7093-3E21-465E-A93B-61D1B2F94170}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "QGLViewer", "..\..\extern\QGLViewer\QGLViewer.vcxproj", "{9C3F4B22-8E85-3905-BE93-6712C48D4BAD}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EtoileMath", "EtoileMath.vcxproj", "{9A508EED-EFB3-435F-B50A-9E251B752527}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EtoileRenderer", "EtoileRenderer.vcxproj", "{200D5D6A-A8C6-496C-9D73-DEBE61EA4B48}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EtoileUtil", "EtoileUtil.vcxproj", "{315ED1CE-69A6-4000-88D9-58898A1967E5}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EtoileGeometry", "EtoileGeometry.vcxproj", "{B489A447-4471-4F81-BF53-FA3601BE0E2B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9A508EED-EFB3-435F-B50A-9E251B752527} = {9A508EED-EFB3-435F-B50A-9E251B752527}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EtoileAnimation", "EtoileAnimation.vcxproj", "{EB16B270-4A07-4664-8E68-653713770DB1}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9A508EED-EFB3-435F-B50A-9E251B752527} = {9A508EED-EFB3-435F-B50A-9E251B752527}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpenMeshCore", "..\..\extern\OpenMesh\Core\OpenMeshCore.vcxproj", "{68E46D49-FF4B-337F-9909-E8CC0C457A5D}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EtoileMeshLoaders", "EtoileMeshLoaders.vcxproj", "{52699584-6D4F-449A-AA23-7677DB4E93B4}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B489A447-4471-4F81-BF53-FA3601BE0E2B} = {B489A447-4471-4F81-BF53-FA3601BE0E2B}
+		{68E46D49-FF4B-337F-9909-E8CC0C457A5D} = {68E46D49-FF4B-337F-9909-E8CC0C457A5D}
+		{315ED1CE-69A6-4000-88D9-58898A1967E5} = {315ED1CE-69A6-4000-88D9-58898A1967E5}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EtoileImageLoaders", "EtoileImageLoaders.vcxproj", "{65BE0FDF-FAB5-4C93-B14E-A3F82E6B65D3}"
+	ProjectSection(ProjectDependencies) = postProject
+		{315ED1CE-69A6-4000-88D9-58898A1967E5} = {315ED1CE-69A6-4000-88D9-58898A1967E5}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EtoileMeshViewer", "..\..\applications\EtoileMeshViewer\EtoileMeshViewer.vcxproj", "{B1652291-E150-488C-8F12-352AFA194E92}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "IKApplication", "..\..\applications\IKApplication\IKApplication.vcxproj", "{767B0FC0-8505-46B5-B4E1-1D2F3CACB9C1}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EtoileAlgo", "EtoileAlgo.vcxproj", "{7A4AB1B9-78A3-491A-A793-9E1DE20B9C42}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ImageViewer", "..\..\applications\ImageViewer\ImageViewer.vcxproj", "{CEBCED83-DA43-3D88-8EB2-73CA8918D82E}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EtoileGraphEditor", "EtoileGraphEditor.vcxproj", "{31713BAA-28E4-45DC-91E1-C46B8B6F9F09}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EtoileModule", "EtoileModule.vcxproj", "{F282EFCD-4A8F-4610-BD77-D90FBF15505C}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EtoileModuleApp", "..\..\applications\EtoileModuleApp\EtoileModuleApp.vcxproj", "{7C6FC805-77DF-47F0-AC1E-7649923ABB2A}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EtoileMocapViewer", "..\..\applications\EtoileMocapViewer\EtoileMocapViewer.vcxproj", "{28D3A8EC-9132-446C-8B57-16A0A060371E}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EtoileQglviewerRenderer", "..\..\applications\EtoileQglviewerRenderer\EtoileQglviewerRenderer.vcxproj", "{6E374E7F-9683-4EB4-904D-CFE3A6B2184C}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VideoPlayer", "..\..\applications\VideoPlayer\VideoPlayer.vcxproj", "{30378972-9482-4F3A-97A0-46342C322BEB}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EtoileQtRendererPlugins", "..\..\applications\EtoileQtRendererPlugins\EtoileQtRendererPlugins.vcxproj", "{C7E5F55E-AC86-432F-A4E2-7027B0F2529E}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ODEDynamics", "..\..\applications\ODEDynamics\ODEDynamics.vcxproj", "{EAF1A776-75E3-4281-BE20-6549CEED53BD}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EtoileMachineLearning", "EtoileMachineLearning.vcxproj", "{CE792516-8E54-4612-8FE3-E3936EFD2178}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{868F7093-3E21-465E-A93B-61D1B2F94170}.Debug|Win32.ActiveCfg = Debug|Win32
+		{868F7093-3E21-465E-A93B-61D1B2F94170}.Debug|Win32.Build.0 = Debug|Win32
+		{868F7093-3E21-465E-A93B-61D1B2F94170}.Release|Win32.ActiveCfg = Release|Win32
+		{868F7093-3E21-465E-A93B-61D1B2F94170}.Release|Win32.Build.0 = Release|Win32
+		{9C3F4B22-8E85-3905-BE93-6712C48D4BAD}.Debug|Win32.ActiveCfg = Debug|Win32
+		{9C3F4B22-8E85-3905-BE93-6712C48D4BAD}.Debug|Win32.Build.0 = Debug|Win32
+		{9C3F4B22-8E85-3905-BE93-6712C48D4BAD}.Release|Win32.ActiveCfg = Release|Win32
+		{9C3F4B22-8E85-3905-BE93-6712C48D4BAD}.Release|Win32.Build.0 = Release|Win32
+		{9A508EED-EFB3-435F-B50A-9E251B752527}.Debug|Win32.ActiveCfg = Debug|Win32
+		{9A508EED-EFB3-435F-B50A-9E251B752527}.Debug|Win32.Build.0 = Debug|Win32
+		{9A508EED-EFB3-435F-B50A-9E251B752527}.Release|Win32.ActiveCfg = Release|Win32
+		{9A508EED-EFB3-435F-B50A-9E251B752527}.Release|Win32.Build.0 = Release|Win32
+		{200D5D6A-A8C6-496C-9D73-DEBE61EA4B48}.Debug|Win32.ActiveCfg = Debug|Win32
+		{200D5D6A-A8C6-496C-9D73-DEBE61EA4B48}.Debug|Win32.Build.0 = Debug|Win32
+		{200D5D6A-A8C6-496C-9D73-DEBE61EA4B48}.Release|Win32.ActiveCfg = Release|Win32
+		{200D5D6A-A8C6-496C-9D73-DEBE61EA4B48}.Release|Win32.Build.0 = Release|Win32
+		{315ED1CE-69A6-4000-88D9-58898A1967E5}.Debug|Win32.ActiveCfg = Debug|Win32
+		{315ED1CE-69A6-4000-88D9-58898A1967E5}.Debug|Win32.Build.0 = Debug|Win32
+		{315ED1CE-69A6-4000-88D9-58898A1967E5}.Release|Win32.ActiveCfg = Release|Win32
+		{315ED1CE-69A6-4000-88D9-58898A1967E5}.Release|Win32.Build.0 = Release|Win32
+		{B489A447-4471-4F81-BF53-FA3601BE0E2B}.Debug|Win32.ActiveCfg = Debug|Win32
+		{B489A447-4471-4F81-BF53-FA3601BE0E2B}.Debug|Win32.Build.0 = Debug|Win32
+		{B489A447-4471-4F81-BF53-FA3601BE0E2B}.Release|Win32.ActiveCfg = Release|Win32
+		{B489A447-4471-4F81-BF53-FA3601BE0E2B}.Release|Win32.Build.0 = Release|Win32
+		{EB16B270-4A07-4664-8E68-653713770DB1}.Debug|Win32.ActiveCfg = Debug|Win32
+		{EB16B270-4A07-4664-8E68-653713770DB1}.Debug|Win32.Build.0 = Debug|Win32
+		{EB16B270-4A07-4664-8E68-653713770DB1}.Release|Win32.ActiveCfg = Release|Win32
+		{EB16B270-4A07-4664-8E68-653713770DB1}.Release|Win32.Build.0 = Release|Win32
+		{68E46D49-FF4B-337F-9909-E8CC0C457A5D}.Debug|Win32.ActiveCfg = Debug|Win32
+		{68E46D49-FF4B-337F-9909-E8CC0C457A5D}.Debug|Win32.Build.0 = Debug|Win32
+		{68E46D49-FF4B-337F-9909-E8CC0C457A5D}.Release|Win32.ActiveCfg = Release|Win32
+		{68E46D49-FF4B-337F-9909-E8CC0C457A5D}.Release|Win32.Build.0 = Release|Win32
+		{52699584-6D4F-449A-AA23-7677DB4E93B4}.Debug|Win32.ActiveCfg = Debug|Win32
+		{52699584-6D4F-449A-AA23-7677DB4E93B4}.Debug|Win32.Build.0 = Debug|Win32
+		{52699584-6D4F-449A-AA23-7677DB4E93B4}.Release|Win32.ActiveCfg = Release|Win32
+		{52699584-6D4F-449A-AA23-7677DB4E93B4}.Release|Win32.Build.0 = Release|Win32
+		{65BE0FDF-FAB5-4C93-B14E-A3F82E6B65D3}.Debug|Win32.ActiveCfg = Debug|Win32
+		{65BE0FDF-FAB5-4C93-B14E-A3F82E6B65D3}.Debug|Win32.Build.0 = Debug|Win32
+		{65BE0FDF-FAB5-4C93-B14E-A3F82E6B65D3}.Release|Win32.ActiveCfg = Release|Win32
+		{65BE0FDF-FAB5-4C93-B14E-A3F82E6B65D3}.Release|Win32.Build.0 = Release|Win32
+		{B1652291-E150-488C-8F12-352AFA194E92}.Debug|Win32.ActiveCfg = Debug|Win32
+		{B1652291-E150-488C-8F12-352AFA194E92}.Debug|Win32.Build.0 = Debug|Win32
+		{B1652291-E150-488C-8F12-352AFA194E92}.Release|Win32.ActiveCfg = Release|Win32
+		{B1652291-E150-488C-8F12-352AFA194E92}.Release|Win32.Build.0 = Release|Win32
+		{767B0FC0-8505-46B5-B4E1-1D2F3CACB9C1}.Debug|Win32.ActiveCfg = Debug|Win32
+		{767B0FC0-8505-46B5-B4E1-1D2F3CACB9C1}.Debug|Win32.Build.0 = Debug|Win32
+		{767B0FC0-8505-46B5-B4E1-1D2F3CACB9C1}.Release|Win32.ActiveCfg = Release|Win32
+		{767B0FC0-8505-46B5-B4E1-1D2F3CACB9C1}.Release|Win32.Build.0 = Release|Win32
+		{7A4AB1B9-78A3-491A-A793-9E1DE20B9C42}.Debug|Win32.ActiveCfg = Debug|Win32
+		{7A4AB1B9-78A3-491A-A793-9E1DE20B9C42}.Debug|Win32.Build.0 = Debug|Win32
+		{7A4AB1B9-78A3-491A-A793-9E1DE20B9C42}.Release|Win32.ActiveCfg = Release|Win32
+		{7A4AB1B9-78A3-491A-A793-9E1DE20B9C42}.Release|Win32.Build.0 = Release|Win32
+		{CEBCED83-DA43-3D88-8EB2-73CA8918D82E}.Debug|Win32.ActiveCfg = Debug|Win32
+		{CEBCED83-DA43-3D88-8EB2-73CA8918D82E}.Debug|Win32.Build.0 = Debug|Win32
+		{CEBCED83-DA43-3D88-8EB2-73CA8918D82E}.Release|Win32.ActiveCfg = Release|Win32
+		{CEBCED83-DA43-3D88-8EB2-73CA8918D82E}.Release|Win32.Build.0 = Release|Win32
+		{31713BAA-28E4-45DC-91E1-C46B8B6F9F09}.Debug|Win32.ActiveCfg = Debug|Win32
+		{31713BAA-28E4-45DC-91E1-C46B8B6F9F09}.Debug|Win32.Build.0 = Debug|Win32
+		{31713BAA-28E4-45DC-91E1-C46B8B6F9F09}.Release|Win32.ActiveCfg = Release|Win32
+		{31713BAA-28E4-45DC-91E1-C46B8B6F9F09}.Release|Win32.Build.0 = Release|Win32
+		{F282EFCD-4A8F-4610-BD77-D90FBF15505C}.Debug|Win32.ActiveCfg = Debug|Win32
+		{F282EFCD-4A8F-4610-BD77-D90FBF15505C}.Debug|Win32.Build.0 = Debug|Win32
+		{F282EFCD-4A8F-4610-BD77-D90FBF15505C}.Release|Win32.ActiveCfg = Release|Win32
+		{F282EFCD-4A8F-4610-BD77-D90FBF15505C}.Release|Win32.Build.0 = Release|Win32
+		{7C6FC805-77DF-47F0-AC1E-7649923ABB2A}.Debug|Win32.ActiveCfg = Debug|Win32
+		{7C6FC805-77DF-47F0-AC1E-7649923ABB2A}.Debug|Win32.Build.0 = Debug|Win32
+		{7C6FC805-77DF-47F0-AC1E-7649923ABB2A}.Release|Win32.ActiveCfg = Release|Win32
+		{7C6FC805-77DF-47F0-AC1E-7649923ABB2A}.Release|Win32.Build.0 = Release|Win32
+		{28D3A8EC-9132-446C-8B57-16A0A060371E}.Debug|Win32.ActiveCfg = Debug|Win32
+		{28D3A8EC-9132-446C-8B57-16A0A060371E}.Debug|Win32.Build.0 = Debug|Win32
+		{28D3A8EC-9132-446C-8B57-16A0A060371E}.Release|Win32.ActiveCfg = Release|Win32
+		{28D3A8EC-9132-446C-8B57-16A0A060371E}.Release|Win32.Build.0 = Release|Win32
+		{6E374E7F-9683-4EB4-904D-CFE3A6B2184C}.Debug|Win32.ActiveCfg = Debug|Win32
+		{6E374E7F-9683-4EB4-904D-CFE3A6B2184C}.Debug|Win32.Build.0 = Debug|Win32
+		{6E374E7F-9683-4EB4-904D-CFE3A6B2184C}.Release|Win32.ActiveCfg = Release|Win32
+		{6E374E7F-9683-4EB4-904D-CFE3A6B2184C}.Release|Win32.Build.0 = Release|Win32
+		{30378972-9482-4F3A-97A0-46342C322BEB}.Debug|Win32.ActiveCfg = Debug|Win32
+		{30378972-9482-4F3A-97A0-46342C322BEB}.Debug|Win32.Build.0 = Debug|Win32
+		{30378972-9482-4F3A-97A0-46342C322BEB}.Release|Win32.ActiveCfg = Release|Win32
+		{30378972-9482-4F3A-97A0-46342C322BEB}.Release|Win32.Build.0 = Release|Win32
+		{C7E5F55E-AC86-432F-A4E2-7027B0F2529E}.Debug|Win32.ActiveCfg = Debug|Win32
+		{C7E5F55E-AC86-432F-A4E2-7027B0F2529E}.Debug|Win32.Build.0 = Debug|Win32
+		{C7E5F55E-AC86-432F-A4E2-7027B0F2529E}.Release|Win32.ActiveCfg = Release|Win32
+		{C7E5F55E-AC86-432F-A4E2-7027B0F2529E}.Release|Win32.Build.0 = Release|Win32
+		{EAF1A776-75E3-4281-BE20-6549CEED53BD}.Debug|Win32.ActiveCfg = Debug|Win32
+		{EAF1A776-75E3-4281-BE20-6549CEED53BD}.Debug|Win32.Build.0 = Debug|Win32
+		{EAF1A776-75E3-4281-BE20-6549CEED53BD}.Release|Win32.ActiveCfg = Release|Win32
+		{EAF1A776-75E3-4281-BE20-6549CEED53BD}.Release|Win32.Build.0 = Release|Win32
+		{CE792516-8E54-4612-8FE3-E3936EFD2178}.Debug|Win32.ActiveCfg = Debug|Win32
+		{CE792516-8E54-4612-8FE3-E3936EFD2178}.Debug|Win32.Build.0 = Debug|Win32
+		{CE792516-8E54-4612-8FE3-E3936EFD2178}.Release|Win32.ActiveCfg = Release|Win32
+		{CE792516-8E54-4612-8FE3-E3936EFD2178}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		Qt5Version = 4.8.5
+		QtVersion = $(DefaultQtVersion)
+	EndGlobalSection
+EndGlobal

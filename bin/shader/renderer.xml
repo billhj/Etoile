@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<Etoile>
+	<renderer name="deferred">
+		<pass passtype="mesh" name="drawmesh" gpu="drawmesh" w="1200" h="900">
+			<output>
+				<texture2d name="normalIDMap" w="" h="" mipmap="0" internalFormat ="GL_RGBA16F_ARB"></texture2d>
+				<texture2d name="worldPosMap" w="" h="" mipmap="0" internalFormat ="GL_RGBA32F_ARB"></texture2d>
+				<texture2d name="diffuseComponent" w="" h="" mipmap="0" internalFormat ="GL_RGBA16F_ARB" ></texture2d>
+				<texture2d name="specularComponent" w="" h="" mipmap="0" internalFormat ="GL_RGBA16F_ARB"></texture2d>
+				<texture2d name="ambientComponent" w="" h="" mipmap="0" internalFormat ="GL_RGBA16F_ARB"></texture2d>
+				<texture2d name="worldNormalIDMap" w="" h="" mipmap="0" internalFormat ="GL_RGBA16F_ARB"></texture2d>
+			</output>
+		</pass>
+		<pass passtype="quad" name="deferred" gpu="deferred" w="1200" h ="900">
+			<input>
+					<texture2d name="normalIDMap" bindingname = ""></texture2d>
+					<texture2d name="worldPosMap" bindingname = ""></texture2d>
+					<texture2d name="diffuseComponent" bindingname = ""></texture2d>
+					<texture2d name="specularComponent" bindingname = ""></texture2d>
+					<texture2d name="ambientComponent" bindingname = ""></texture2d>
+			</input>
+			<output>
+				<texture2d name="diffuseMap" w="" h="" mipmap="0" internalFormat ="GL_RGBA16F_ARB"></texture2d>
+				<texture2d name="specularMap" w="" h="" mipmap="0" internalFormat ="GL_RGBA16F_ARB"></texture2d>
+				<texture2d name="ambientMap" w="" h="" mipmap="0" internalFormat ="GL_RGBA16F_ARB"></texture2d>
+				<texture2d name="mvPosMap" w="" h="" mipmap="0" internalFormat ="GL_RGBA32F_ARB"></texture2d>
+			</output>
+		</pass>
+		<pass passtype="quad" name="depthfield" gpu="depthfield" w="1200" h ="900">
+			<input>
+					<texture2d name="mvPosMap" bindingname = ""></texture2d>
+					<texture2d name="diffuseMap" bindingname = "inputMap"></texture2d>
+			</input>
+			<output>
+				<texture2d name="depthfieldMap" w="" h="" mipmap="0" internalFormat ="GL_RGBA32F_ARB"></texture2d>
+			</output>
+		</pass>
+		<pass passtype="quad" name="output" gpu="output" w="1200" h="900">
+			<input>
+				<texture2d name="depthfieldMap" bindingname = "output"></texture2d>
+			</input>
+		</pass>
+	</renderer>
+</Etoile>

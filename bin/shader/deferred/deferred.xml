@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<Etoile>
+	<QuadPass name="deferred"  w="800" h="600">
+		<Output type="texture2d" name="allInOneMap" w="" h="" mipmap="0" internalFormat ="GL_RGBA16F_ARB">	</Output>
+		<Output type="texture2d" name="specularMap" w="" h="" mipmap="0" internalFormat ="GL_RGBA16F_ARB">	</Output>
+		<Output type="texture2d" name="ambientMap" w="" h="" mipmap="0" internalFormat ="GL_RGBA16F_ARB">	</Output>
+		<Output type="texture2d" name="modelViewPos" w="" h="" mipmap="0" internalFormat ="GL_RGBA16F_ARB">	</Output>
+		
+		<Input type="texture2d" name="normalIDMap"></Input>
+		<Input type="texture2d" name="worldPosMap"></Input>
+		<Input type="texture2d" name="diffuseComponent"></Input>
+		<Input type="texture2d" name="specularComponent"></Input>
+		<Input type="texture2d" name="ambientComponent"></Input>
+
+		<GPU name="deferred">
+			<vertex file="deferred.vert"/>
+			<fragment file="deferred.frag"/>
+		</GPU>
+	</QuadPass>
+		
+</Etoile>

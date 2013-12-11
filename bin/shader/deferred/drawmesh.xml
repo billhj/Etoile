@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<Etoile>
+	<MeshPass name="drawmesh"  w="800" h="600">
+		<Output type="texture2d" name="normalIDMap" w="" h="" mipmap="0" internalFormat ="GL_RGBA16F_ARB">	</Output>
+		<Output type="texture2d" name="worldPosMap" w="" h="" mipmap="0" internalFormat ="GL_RGBA16F_ARB">	</Output>
+		<Output type="texture2d" name="diffuseMaterialMap" w="" h="" mipmap="0" internalFormat ="GL_RGBA16F_ARB">	</Output>
+		<Output type="texture2d" name="specularMaterialMap" w="" h="" mipmap="0" internalFormat ="GL_RGBA16F_ARB">	</Output>
+		<Output type="texture2d" name="ambientMaterialMap" w="" h="" mipmap="0" internalFormat ="GL_RGBA16F_ARB">	</Output>
+		<Output type="texture2d" name="worldNormalMap" w="" h="" mipmap="0" internalFormat ="GL_RGBA16F_ARB">	</Output>	
+		<GPU name="drawmesh">
+			<vertex file="drawmesh.vert"/>
+			<fragment file="drawmesh.frag"/>
+		</GPU>
+	</MeshPass>
+		
+</Etoile>

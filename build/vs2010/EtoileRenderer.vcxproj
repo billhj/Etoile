@@ -1,0 +1,159 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{200D5D6A-A8C6-496C-9D73-DEBE61EA4B48}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>EtoileRenderer</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>..\..\lib\</OutDir>
+    <IncludePath>$(IncludePath)</IncludePath>
+    <LibraryPath>$(LibraryPath)</LibraryPath>
+    <TargetExt>.lib</TargetExt>
+    <TargetName>$(ProjectName)d</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>..\..\lib\</OutDir>
+    <IncludePath>$(IncludePath)</IncludePath>
+    <LibraryPath>$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;USING_GLEW;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\core</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <Lib>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;USING_GLEW;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\core</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+    <Lib>
+      <AdditionalDependencies>
+      </AdditionalDependencies>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\core\renderer\OpenGL\ComputeShader.cpp" />
+    <ClCompile Include="..\..\core\renderer\OpenGL\FBO.cpp" />
+    <ClCompile Include="..\..\core\renderer\OpenGL\FBOManager.cpp" />
+    <ClCompile Include="..\..\core\renderer\OpenGL\FragmentShader.cpp" />
+    <ClCompile Include="..\..\core\renderer\OpenGL\GeometryShader.cpp" />
+    <ClCompile Include="..\..\core\renderer\OpenGL\glfunctions.cpp" />
+    <ClCompile Include="..\..\core\renderer\OpenGL\glInfo.cpp" />
+    <ClCompile Include="..\..\core\renderer\OpenGL\GLSLGpuProgram.cpp" />
+    <ClCompile Include="..\..\core\renderer\OpenGL\ImmediateMeshRenderUnit.cpp" />
+    <ClCompile Include="..\..\core\renderer\OpenGL\IndexVBO.cpp" />
+    <ClCompile Include="..\..\core\renderer\OpenGL\LightController.cpp" />
+    <ClCompile Include="..\..\core\renderer\OpenGL\ShaderObject.cpp" />
+    <ClCompile Include="..\..\core\renderer\OpenGL\ShaderProgram.cpp" />
+    <ClCompile Include="..\..\core\renderer\OpenGL\TessCtrlShader.cpp" />
+    <ClCompile Include="..\..\core\renderer\OpenGL\TessEvalShader.cpp" />
+    <ClCompile Include="..\..\core\renderer\OpenGL\GLTexture.cpp" />
+    <ClCompile Include="..\..\core\renderer\OpenGL\GLTexture2D.cpp" />
+    <ClCompile Include="..\..\core\renderer\OpenGL\GLTextureArray.cpp" />
+    <ClCompile Include="..\..\core\renderer\OpenGL\GLTextureCube.cpp" />
+    <ClCompile Include="..\..\core\renderer\OpenGL\TransformFeedbackBufferObject.cpp" />
+    <ClCompile Include="..\..\core\renderer\OpenGL\UniformBufferObject.cpp" />
+    <ClCompile Include="..\..\core\renderer\OpenGL\VBO.cpp" />
+    <ClCompile Include="..\..\core\renderer\OpenGL\VBOMeshRenderUnit.cpp" />
+    <ClCompile Include="..\..\core\renderer\OpenGL\VertexShader.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\core\renderer\DrawFunctions.h" />
+    <ClInclude Include="..\..\core\renderer\MeshRenderUnit.h" />
+    <ClInclude Include="..\..\core\renderer\OpenGL\ComputeShader.h" />
+    <ClInclude Include="..\..\core\renderer\OpenGL\FBO.h" />
+    <ClInclude Include="..\..\core\renderer\OpenGL\FBOManager.h" />
+    <ClInclude Include="..\..\core\renderer\OpenGL\FragmentShader.h" />
+    <ClInclude Include="..\..\core\renderer\OpenGL\GeometryShader.h" />
+    <ClInclude Include="..\..\core\renderer\OpenGL\glDrawFunctions.h" />
+    <ClInclude Include="..\..\core\renderer\OpenGL\glfunctions.h" />
+    <ClInclude Include="..\..\core\renderer\OpenGL\glhead.h" />
+    <ClInclude Include="..\..\core\renderer\OpenGL\glInfo.h" />
+    <ClInclude Include="..\..\core\renderer\OpenGL\GLMeshRenderPass.h" />
+    <ClInclude Include="..\..\core\renderer\OpenGL\GLMeshRenderUnit.h" />
+    <ClInclude Include="..\..\core\renderer\OpenGL\GLRenderPass.h" />
+    <ClInclude Include="..\..\core\renderer\OpenGL\GLSLGpuProgram.h" />
+    <ClInclude Include="..\..\core\renderer\OpenGL\ImmediateMeshRenderUnit.h" />
+    <ClInclude Include="..\..\core\renderer\OpenGL\IndexVBO.h" />
+    <ClInclude Include="..\..\core\renderer\OpenGL\LightController.h" />
+    <ClInclude Include="..\..\core\renderer\OpenGL\GLQuadRenderPass.h" />
+    <ClInclude Include="..\..\core\renderer\OpenGL\ShaderObject.h" />
+    <ClInclude Include="..\..\core\renderer\OpenGL\ShaderProgram.h" />
+    <ClInclude Include="..\..\core\renderer\OpenGL\TessCtrlShader.h" />
+    <ClInclude Include="..\..\core\renderer\OpenGL\TessEvalShader.h" />
+    <ClInclude Include="..\..\core\renderer\OpenGL\GLTexture.h" />
+    <ClInclude Include="..\..\core\renderer\OpenGL\GLTexture2D.h" />
+    <ClInclude Include="..\..\core\renderer\OpenGL\GLTextureArray.h" />
+    <ClInclude Include="..\..\core\renderer\OpenGL\GLTextureCube.h" />
+    <ClInclude Include="..\..\core\renderer\OpenGL\TransformFeedbackBufferObject.h" />
+    <ClInclude Include="..\..\core\renderer\OpenGL\UniformBufferObject.h" />
+    <ClInclude Include="..\..\core\renderer\OpenGL\VBO.h" />
+    <ClInclude Include="..\..\core\renderer\OpenGL\VBOMeshRenderUnit.h" />
+    <ClInclude Include="..\..\core\renderer\OpenGL\VertexShader.h" />
+    <ClInclude Include="..\..\core\renderer\RenderTarget.h" />
+    <ClInclude Include="..\..\core\renderer\RenderPass.h" />
+    <ClInclude Include="..\..\core\renderer\RenderUnit.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

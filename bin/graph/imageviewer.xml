@@ -1,0 +1,5 @@
+<Etoile>
+    <Node name="ImageViewer" x="0" y="0" />
+    <Node name="OpenFile" x="-188" y="1" />
+    <Connection fromNode="1" toNode="0" fromSocket="0" toSocket="1" />
+</Etoile>
