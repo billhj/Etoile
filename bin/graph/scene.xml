@@ -1,0 +1,26 @@
+<Scene>
+	<!--SceneSky file= "C:/Users/Huang/Desktop/etoile/Etoile/bin/img/bg.png">
+	</SceneSky-->
+   <SceneNode>
+		<scale x="1" y="1" z="1"/>
+		<rotation x="0" y="0" z="0" w="1"/>
+		<translation x="0" y="0" z="0"/>
+		<SceneEntity>
+			<Mesh file= "C:/Users/Jing/Downloads/head/head.obj"></Mesh>
+		</SceneEntity>
+   </SceneNode>
+   <SceneNode>
+		<scale x="0.01" y="0.01" z="0.01"/>
+		<rotation x="0" y="0" z="0" w="1"/>
+		<translation x="0" y="0" z="0"/>
+		<SceneEntity>
+			<Skeleton file= "C:/Users/Jing/Documents/matlabmocap/MOCAP0p136/MOCAP0p136/new.bvh"></Skeleton>
+		</SceneEntity>
+   </SceneNode>
+   <SceneNode>
+		<scale x="1" y="1" z="1"/>
+		<rotation x="0" y="0" z="0" w="1"/>
+		<translation x="0" y="0" z="0"/>
+		<Plane></Plane>
+   </SceneNode>
+</Scene>
