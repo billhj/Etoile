@@ -26,8 +26,12 @@ namespace Etoile
 		Texture * getOutputTexture(){return _pOutput;}
 		std::vector<RenderPass*>& getRenderPasses(){return _renderPasses;}
 		void updateMatrix();
+		void initBackgroundTexture();
+		void setbackgroundTexture(Texture* t){_pbackgroud = t;}
+		void backgrounddraw();
 	private:
 		Texture * _pOutput;
+		Texture * _pbackgroud;
 		std::vector<RenderPass*> _renderPasses;
 		QglviewerPlugin* _pParent;
 	};

@@ -14,6 +14,7 @@ public:
 	GraphEditor(QWidget *parent = 0);
 	~GraphEditor();
 	void setGraph(Etoile::GraphScene*);
+	void clearGraphScene();
 	Etoile::GraphScene * getGraph();
 	public slots:
 	void addNode(Etoile::SocketNode*);

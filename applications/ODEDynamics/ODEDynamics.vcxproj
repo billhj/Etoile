@@ -87,6 +87,7 @@
     <ClCompile Include="ODEDynamicsPanel.cpp" />
     <ClCompile Include="ODEDynamicsPlugin.cpp" />
     <ClCompile Include="ODEPhysicsObject.cpp" />
+    <ClCompile Include="ODEPhysicsSkeleton.cpp" />
     <ClCompile Include="ODEPhysicsWorld.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -103,6 +104,7 @@
     <ClInclude Include="GeneratedFiles\ui_ODEDynamicsPanel.h" />
     <ClInclude Include="ODEDynamicsPlugin.h" />
     <ClInclude Include="ODEPhysicsObject.h" />
+    <ClInclude Include="ODEPhysicsSkeleton.h" />
     <ClInclude Include="ODEPhysicsWorld.h" />
   </ItemGroup>
   <ItemGroup>

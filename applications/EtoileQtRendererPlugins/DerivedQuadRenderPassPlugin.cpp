@@ -40,32 +40,34 @@ namespace Etoile
 
 	GammaQuadRenderPassPlugin::GammaQuadRenderPassPlugin(const std::string& name): EtoileGLQuadRenderPassPlugin(name)
 	{
-		this->getType()._description = "GammaQuadPass";
+		this->getType()._description = "GammaQuadPass";loadFile("shader/gammaoutput/gammaoutput.xml");
 	}
 
 	void GammaQuadRenderPassPlugin::init()
 	{
-		loadFile("shader/gammaoutput/gammaoutput.xml");
+		
 	}
 
 	DeferredQuadRenderPassPlugin::DeferredQuadRenderPassPlugin(const std::string& name): EtoileGLQuadRenderPassPlugin(name)
 	{
 		this->getType()._description = "DeferredPass";
+		initMatrixSocket();
+		loadFile("shader/deferred/deferred.xml");
 	}
 
 	void DeferredQuadRenderPassPlugin::init()
 	{
-		initMatrixSocket();
-		loadFile("shader/deferred/deferred.xml");
+		
 	}
 
 	RainbowErrorQuadRenderPassPlugin::RainbowErrorQuadRenderPassPlugin(const std::string& name): EtoileGLQuadRenderPassPlugin(name)
 	{
 		this->getType()._description = "RainbowError";
+		loadFile("shader/rainbowerror/rainbowError.xml");
 	}
 
 	void RainbowErrorQuadRenderPassPlugin::init()
 	{
-		loadFile("shader/rainbowerror/rainbowError.xml");
+		
 	}
 }

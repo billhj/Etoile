@@ -24,6 +24,7 @@ public:
 		void about();
 		void changeStyle();
 		void loadGraph();
+		void clearGraph();
 		void saveGraph();
 protected:
 	//virtual void mouseReleaseEvent(QMouseEvent * event);

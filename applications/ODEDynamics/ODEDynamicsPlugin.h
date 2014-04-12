@@ -8,7 +8,7 @@
 
 #pragma once
 #include "module/EPlugin.h"
-#include "module/flowgraph/SceneObjectSocket.h"
+#include "module/flowgraph/SceneNodeSocket.h"
 #include "ODEPhysicsWorld.h"
 #include "ODEDynamicsPanel.h"
 
@@ -28,21 +28,21 @@ namespace Etoile
 		}
 	};
 
-	class ODESceneObjectInputSocket : public SceneObjectInputSocket
+	class ODESceneInputSocket : public SceneInputSocket
 	{
 	public:
-		ODESceneObjectInputSocket(const std::string& name = "SceneObject");
-		virtual void perform(SceneObject* signal) override;
-		virtual void retrieve(SceneObject* signal) override;
+		ODESceneInputSocket(const std::string& name = "Scene");
+		virtual void perform(Scene* signal) override;
+		virtual void retrieve(Scene* signal) override;
 	};
 
-	class ODEPlaneInputSocket : public PlaneInputSocket
+	/*class ODEPlaneInputSocket : public PlaneInputSocket
 	{
 	public:
 		ODEPlaneInputSocket(const std::string& name = "Plane");
 		virtual void perform(Plane* signal) override;
 		virtual void retrieve(Plane* signal) override;
-	};
+	};*/
 
 	class ODEDynamicsPlugin : public EPlugin, public SocketNode 
 	{
@@ -53,11 +53,13 @@ namespace Etoile
 		virtual void apply() override;
 		virtual void release() override;
 		ODEPhysicsWorld * getPhysicsWorld(){return &world;}
+		void setScene(Scene* scene);
+		Scene* getScene(){return _pScene;}
 	private:
 		ODEDynamicsPanel _panel;
 		ODEPhysicsWorld world;
-		ODESceneObjectInputSocket* _pSceneobjectInput;
-		ODEPlaneInputSocket* _pPlaneInput;
+		ODESceneInputSocket* _pSceneInput;
+		Scene* _pScene;
 	};
 
 }

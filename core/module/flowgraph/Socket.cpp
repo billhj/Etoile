@@ -79,8 +79,8 @@ namespace Etoile
 			_type._icon = 0;
 			_type._color = SocketType::color(255, 133, 7, 255);
 		}
-		else if(type.compare("SOCK_SCENEOBJECT")==0){
-			_type._type = "SOCK_SCENEOBJECT";
+		else if(type.compare("SOCK_SceneNode")==0){
+			_type._type = "SOCK_SceneNode";
 			_type._description = "Scene object data";
 			_type._icon = 0;
 			_type._color = SocketType::color(255, 133, 7, 255);
@@ -91,9 +91,9 @@ namespace Etoile
 			_type._icon = 0;
 			_type._color = SocketType::color(255, 133, 7, 255);
 		}
-		else if(type.compare("SOCK_MESH_RENDER_UNIT")==0){
-			_type._type = "SOCK_MESH_RENDER_UNIT";
-			_type._description = "Mesh geometry data";
+		else if(type.compare("SOCK_SCENE")==0){
+			_type._type = "SOCK_SCENE";
+			_type._description = "Scene";
 			_type._icon = 0;
 			_type._color = SocketType::color(255, 140, 10, 255);
 		}

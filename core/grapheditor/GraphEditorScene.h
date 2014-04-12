@@ -17,6 +17,7 @@ public:
 	~GraphEditorScene();
 	void setGraph(Etoile::GraphScene *graphscene);
 	Etoile::GraphScene* getGraph(){return _pgraphscene;}
+	void clearScene();
 	void addNode(Etoile::BasicNode *node, NodeItem *nitems);
 	void addConnection(Etoile::OutputSocket*, Etoile::InputSocket*);
 	void removeSocketConnection(Etoile::SocketConnection *conn);

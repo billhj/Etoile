@@ -8,23 +8,30 @@
 
 #pragma once
 #include <vector>
+#include "MovableObject.h"
 #include "Mesh.h"
-
 namespace Etoile
 {
-	class Primitive : public Mesh
+	class Primitive : public MovableObject
 	{
+	protected:
+		Mesh* _pMesh;
+		std::vector<Vec3f> _vdata, _ndata;
+		std::vector<Vec2f> _tdata;
+		std::vector<int> _vertices_index_face;
 	public:
-		Primitive(const std::string& name) : Mesh(name){}
-		Material* getMaterial(){return getSubMesh(0)->getMaterial();}
-		void setMaterial(Material* material){getSubMesh(0)->setMaterial(material);}
+		Primitive() : MovableObject(), _pMesh(NULL){}
+		virtual void computerAABB() override;
+		void setMesh(Mesh* mesh);
+		Mesh* getMesh(){return _pMesh;}
+		virtual void perform(Matrix4f& gltransformation) override;
 	};
 
 
 	class Quad : public Primitive
 	{
 	public:
-		Quad(const std::string& name): Primitive(name) { init();}
+		Quad(): Primitive() { init();}
 		virtual void init();
 	protected:
 
@@ -33,7 +40,7 @@ namespace Etoile
 	class Triangle : public Primitive
 	{
 	public:
-		Triangle(const std::string& name): Primitive(name) { init();}
+		Triangle(): Primitive() { init();}
 		virtual void init();
 	protected:
 	};
@@ -42,7 +49,7 @@ namespace Etoile
 	class Plane :  public Primitive
 	{
 	public:
-		Plane(const std::string& name): Primitive(name), _line(4){init();}
+		Plane(): Primitive(), _line(10){init();}
 		void setLine(int line){_line = line;}
 		virtual void init();
 		void reinit();

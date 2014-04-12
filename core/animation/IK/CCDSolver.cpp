@@ -13,10 +13,10 @@ namespace Etoile
 {
 	bool CCDSolver::compute(std::vector<Joint*>& _links, Vec3f target, bool enableConstraints)
 	{
-		for(unsigned int i = 0; i < _links.size(); ++i)
+		/*for(unsigned int i = 0; i < _links.size(); ++i)
 		{
 			_links[i]->reset();
-		}
+		}*/
 		//TO DO
 		/*
 		add constraints
@@ -77,13 +77,14 @@ namespace Etoile
 				crossResult.normalize();
 				turnAngle = acos(cosAngle);	// get the angle
 
+				crossResult = link->getWorldRotation().inverse() * crossResult;
 				Quaternionf rotation;
 				rotation.setAxisAngle(crossResult, turnAngle);
 				rotation.normalize();
 				link->rotate(rotation);
 				if(enableConstraints)
 				{
-					checkDOFsRestrictions(link, link->getDOFs());
+					checkDOFsRestrictions(link, link->getDOFConstraints());
 				}
 
 				link->update();
@@ -98,7 +99,11 @@ namespace Etoile
 				link = link->getParent();
 			}
 
+			for(unsigned int i = 0; i < _links.size(); i++ )
+			{
+				_links[i]->update();
 
+			}
 			rootPos = link->getWorldPosition();
 			curEnd = _links[_links.size()-1]->getWorldPosition();
 			distance = Vec3f(curEnd - endPos).length();

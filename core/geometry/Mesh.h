@@ -23,26 +23,32 @@
 
 namespace Etoile
 {
-	class Mesh : public SceneObject
+	class Mesh
 	{
 	public:
-		Mesh(const std::string& name): _name(name), SceneObject(), _numberOfFaces(0)
+		Mesh(const std::string& name): _name(name), _numberOfFaces(0)
 		{
 		}
-		void setDeviceID(long id)
-		{
-			_deviceID = id;
-		}
-
-		long getDeviceID(){return _deviceID;}
+	
 
 		Mesh(Mesh& m)
 		{
 			_name = m._name;
 			_subMeshList = m._subMeshList;
 			_numberOfFaces = m._numberOfFaces;
-
 		}
+
+		void copy(Mesh& m)
+		{
+			_name = m._name;
+			for(int i = 0; i < m._subMeshList.size(); ++i)
+			{
+				_subMeshList.push_back(new SubMesh(*m._subMeshList[i]));
+			}
+			_numberOfFaces = m._numberOfFaces;
+			initResource();
+		}
+
 		//virtual ~Mesh(){}
 		const std::string getName(){return _name;}
 		void setName(const std::string& name){ _name = name;}
@@ -98,13 +104,15 @@ namespace Etoile
 
 		std::vector<SubMesh*>& getSubMeshList(){return _subMeshList;}
 
-		void initSkin()
+		virtual void initResource()
 		{
 			for(unsigned int i = 0; i < _subMeshList.size(); ++i)
 			{
-				_subMeshList[i]->initSkin();
+				_subMeshList[i]->initResource();
 			}
+			computeAABB();
 		}
+
 
 		void computeAABB()
 		{
@@ -117,8 +125,9 @@ namespace Etoile
 			_aabb.build(aabbs);
 		}
 
-		
+		AxisAlignedBoundingBoxf* getAABB(){return &_aabb;}
 
+		virtual void perform(Matrix4f& transform){}
 
 #ifdef USING_BOOST
 		friend class boost::serialization::access;
@@ -131,12 +140,10 @@ namespace Etoile
 			ar & _subMeshList;
 		}
 #endif
-
+		AxisAlignedBoundingBoxf _aabb;
 		int _numberOfFaces;
 		std::vector<SubMesh*> _subMeshList;
-		std::string _name;
-		long _deviceID;
-		
+		std::string _name;		
 	};
 
 }

@@ -13,6 +13,7 @@ namespace Etoile
 {
 	/*
 	*	dfs marks all vertices connected to start S in time propotional to the sum of their degrees.
+	*  find all the vertices in the graph that are connected to the S
 	**/
 	class DepthFirstPaths : public Paths
 	{

@@ -7,6 +7,7 @@
 #include <QDoubleSpinBox>
 #include <QSpinBox>
 #include <QFormLayout>
+#include <QIcon>
 
 class ParameterInputSocketsWidget : public QWidget
 {
@@ -14,6 +15,8 @@ public:
 	ParameterInputSocketsWidget(QWidget *parent = 0)
 	{
 		layout = new QVBoxLayout;
+		this->setWindowIcon(QIcon("./styles/icon.png"));
+		this->setWindowTitle("Parameters");
 		this->setLayout(layout);
 	}
 	void addWidget(QWidget* widget)
@@ -46,15 +49,15 @@ public:
 		_label->setText(QString(socket->getName().c_str()));
 		_spin->setValue(value);
 	}
-public slots:
-	void sendValue(int)
-	{
-		if(_socket != NULL)
+	public slots:
+		void sendValue(int)
 		{
-			int value = _spin->value();
-			_socket->perform(&value);
+			if(_socket != NULL)
+			{
+				int value = _spin->value();
+				_socket->perform(&value);
+			}
 		}
-	}
 
 private:
 	Etoile::IntInputSocket* _socket;
@@ -85,15 +88,15 @@ public:
 		_label->setText(QString(socket->getName().c_str()));
 		_spin->setValue(value);
 	}
-public slots:
-	void sendValue(double)
-	{
-		if(_socket != NULL)
+	public slots:
+		void sendValue(double)
 		{
-			float value = _spin->value();
-			_socket->perform(&value);
+			if(_socket != NULL)
+			{
+				float value = _spin->value();
+				_socket->perform(&value);
+			}
 		}
-	}
 
 private:
 	Etoile::FloatInputSocket* _socket;
@@ -101,8 +104,9 @@ private:
 	QDoubleSpinBox* _spin;
 };
 
-#include "EtoileGLMeshRenderPassPlugin.h"
+#include "EtoileGLSceneRenderPassPlugin.h"
 #include "EtoileGLQuadRenderPassPlugin.h"
+#include "geometry/Primitive.h"
 #include <qpushbutton.h>
 
 class GpuCompileWidget : public QWidget
@@ -125,42 +129,74 @@ public:
 		if(pass == NULL) return;
 		_pass = pass;
 	}
-public slots:
-	void compile()
-	{
-		if(_pass != NULL)
+	public slots:
+		void compile()
 		{
-			Etoile::GLMeshRenderPass* meshpass = dynamic_cast<Etoile::GLMeshRenderPass*>(_pass);
-			if(meshpass != NULL)
+			if(_pass != NULL)
 			{
-				std::vector<Etoile::RenderUnit*>& units = meshpass->getRenderUnits();
-				for(unsigned int i = 0; i < units.size(); ++i)
+
+				Etoile::GLSceneRenderPass* meshpass = dynamic_cast<Etoile::GLSceneRenderPass*>(_pass);
+				if(meshpass != NULL)
 				{
-					Etoile::RenderUnit* unit = units[i];
-					Etoile::MeshRenderUnit* munit = dynamic_cast<Etoile::MeshRenderUnit*>(unit);
-					if(munit != NULL)
+					std::vector<Etoile::RenderUnit*>& units = meshpass->getRenderUnits();
+					for(unsigned int i = 0; i < units.size(); ++i)
 					{
-						Etoile::Mesh* m = munit->getMesh();
-						for(unsigned int j = 0; j < m->getSubMeshList().size(); ++j)
+						Etoile::GLSceneRenderUnit* munit = dynamic_cast<Etoile::GLSceneRenderUnit*>(units[i]);
+						if(munit != NULL)
 						{
-							Etoile::SubMesh* submesh = m->getSubMeshList()[j];
-							Etoile::Material* mt = submesh->getMaterial();
-							if(mt->getGpuProgram() != NULL)
-								mt->getGpuProgram()->reCompile();
+							Etoile::Scene* scene = munit->getScene();
+							for(unsigned int j = 0; j < scene->getSceneNodes().size(); ++j)
+							{
+								Etoile::SceneNode* node = scene->getSceneNodes()[j];
+								for(unsigned int k = 0; k < node->getMovableObjects().size(); ++k)
+								{
+									Etoile::MovableObject* obj = node->getMovableObjects()[k];
+									Etoile::SceneEntity* entity = dynamic_cast<Etoile::SceneEntity*>(obj);
+									if(entity != NULL)
+									{
+										Etoile::Mesh* mesh = dynamic_cast<Etoile::Mesh*>(entity->getMesh());
+										if(mesh != NULL)
+										{
+											for(unsigned int l = 0; l < mesh->getSubMeshList().size(); ++l)
+											{
+												Etoile::SubMesh* submesh = mesh->getSubMeshList()[l];
+												Etoile::Material* mt = submesh->getMaterial();
+												if(mt->getGpuProgram() != NULL)
+													mt->getGpuProgram()->reCompile();
+											}
+										}
+									}
+									Etoile::Plane* plane = dynamic_cast<Etoile::Plane*>(obj);
+									if(plane != NULL)
+									{
+										Etoile::Mesh* mesh = dynamic_cast<Etoile::Mesh*>(plane->getMesh());
+										if(mesh != NULL)
+										{
+											for(unsigned int l = 0; l < mesh->getSubMeshList().size(); ++l)
+											{
+												Etoile::SubMesh* submesh = mesh->getSubMeshList()[l];
+												Etoile::Material* mt = submesh->getMaterial();
+												if(mt->getGpuProgram() != NULL)
+													mt->getGpuProgram()->reCompile();
+											}
+										}
+									}
+
+								}
+							}
 						}
 					}
 				}
-			}
 
-			Etoile::GLQuadRenderPass* quadpass = dynamic_cast<Etoile::GLQuadRenderPass*>(_pass);
-			if(quadpass != NULL)
-			{
-				Etoile::Material* mt = quadpass->getMaterial();
-				if(mt->getGpuProgram() != NULL)
-					mt->getGpuProgram()->reCompile();
+				Etoile::GLQuadRenderPass* quadpass = dynamic_cast<Etoile::GLQuadRenderPass*>(_pass);
+				if(quadpass != NULL)
+				{
+					Etoile::Material* mt = quadpass->getMaterial();
+					if(mt->getGpuProgram() != NULL)
+						mt->getGpuProgram()->reCompile();
+				}
 			}
 		}
-	}
 
 private:
 	Etoile::RenderPass* _pass;
@@ -169,6 +205,7 @@ private:
 };
 
 #include <QCheckBox>
+#include "renderer/OpenGL/GLRenderMesh.h"
 class AABBWidget : public QWidget
 {
 	Q_OBJECT
@@ -184,36 +221,63 @@ public:
 		connect(_box,SIGNAL(stateChanged(int)), this, SLOT(changed(int)));
 	}
 	~AABBWidget(){}
-	void bindPass(Etoile::GLMeshRenderPass* pass)
+	void bindPass(Etoile::GLSceneRenderPass* pass)
 	{
 		if(pass == NULL) return;
 		_pass = pass;
 		_box->setChecked(true);
 	}
-public slots:
-	void changed(int v)
-	{
-		if(_pass != NULL)
+	public slots:
+		void changed(int v)
 		{
-			Etoile::GLMeshRenderPass* meshpass = dynamic_cast<Etoile::GLMeshRenderPass*>(_pass);
-			if(meshpass != NULL)
+			if(_pass != NULL)
 			{
-				std::vector<Etoile::RenderUnit*>& units = meshpass->getRenderUnits();
-				for(unsigned int i = 0; i < units.size(); ++i)
+				Etoile::GLSceneRenderPass* meshpass = dynamic_cast<Etoile::GLSceneRenderPass*>(_pass);
+				if(meshpass != NULL)
 				{
-					Etoile::RenderUnit* unit = units[i];
-					Etoile::GLMeshRenderUnit* munit = dynamic_cast<Etoile::GLMeshRenderUnit*>(unit);
-					if(munit != NULL)
+					std::vector<Etoile::RenderUnit*>& units = meshpass->getRenderUnits();
+					for(unsigned int i = 0; i < units.size(); ++i)
 					{
-						munit->setAABBenable(v);
+						Etoile::GLSceneRenderUnit* munit = dynamic_cast<Etoile::GLSceneRenderUnit*>(units[i]);
+						if(munit != NULL)
+						{
+							Etoile::Scene* scene = munit->getScene();
+							if(scene == NULL) return;
+							for(unsigned int j = 0; j < scene->getSceneNodes().size(); ++j)
+							{
+								Etoile::SceneNode* node = scene->getSceneNodes()[j];
+								for(unsigned int k = 0; k < node->getMovableObjects().size(); ++k)
+								{
+									Etoile::MovableObject* obj = node->getMovableObjects()[k];
+									Etoile::SceneEntity* entity = dynamic_cast<Etoile::SceneEntity*>(obj);
+									if(entity != NULL)
+									{
+										Etoile::GLRenderMesh* mesh = dynamic_cast<Etoile::GLRenderMesh*>(entity->getMesh());
+										if(mesh != NULL)
+										{
+											mesh->setAABBenable(v);
+										}
+									}
+									Etoile::Plane* plane = dynamic_cast<Etoile::Plane*>(obj);
+									if(plane != NULL)
+									{
+										Etoile::GLRenderMesh* mesh = dynamic_cast<Etoile::GLRenderMesh*>(plane->getMesh());
+										if(mesh != NULL)
+										{
+											mesh->setAABBenable(v);
+										}
+									}
+								}
+							}
+						}
 					}
+
 				}
 			}
 		}
-	}
 
 private:
-	Etoile::GLMeshRenderPass* _pass;
+	Etoile::GLSceneRenderPass* _pass;
 	QCheckBox* _box;
 	QLabel* _label;
 };

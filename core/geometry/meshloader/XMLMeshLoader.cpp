@@ -48,7 +48,7 @@ namespace Etoile{
 		//_pMesh->createVBO(usage, eInternalType);
 		//meshToUnitCube();
 		//creatGpuData();
-		_pMesh->initSkin();
+		_pMesh->initResource();
 		_pMesh->computeAABB();
 		return b;
 	}

@@ -26,7 +26,7 @@ namespace Etoile
 		float _weight;
 		Edges _edges;
 	public:
-		MST(EdgeWeightedUndirectedGraph * graph)
+		MST(EdgeWeightedUndirectedGraph * graph): _weight(0)
 		{
 			
 		}

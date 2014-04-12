@@ -180,18 +180,33 @@ namespace Etoile
 			{ 
 				_id[i] = j; 
 				_sz[j] += _sz[i]; 
-				root(i);
+				//root(i);
 			}
 			else                 
 			{ 
 				_id[j] = i; 
 				_sz[i] += _sz[j]; 
-				root(j);
+				//root(j);
 			}
 
 			_count--;
 		}
+		
+		virtual int find(int p) override
+		{
+			int root = p;
+			while (root != _id[root])
+				root = _id[root];
+			while (p != root) 
+			{
+				int newp = _id[p];
+				_id[p] = root;
+				p = newp;
+			}
+			return root;
+		}
 
+		/*
 		int root(int i)
 		{
 			while(i != _id[i])
@@ -200,6 +215,6 @@ namespace Etoile
 				i = _id[i];
 			}
 			return i;
-		}
+		}*/
 	};
 }

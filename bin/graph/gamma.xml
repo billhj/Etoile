@@ -1,8 +1,8 @@
 <Etoile>
     <Node name="QglviewerRenderer" x="-62" y="-3" />
     <Node name="GammaQuadPass" x="-255" y="22" />
-    <Node name="DrawMeshPass" x="-271" y="-133" />
-    <Node name="MeshLoader" x="-439" y="-47" />
+    <Node name="DrawScenePass" x="-271" y="-133" />
+    <Node name="SceneEditing" x="-439" y="-47" />
     <Node name="OpenFile" x="-468" y="-125" />
     <Node name="ImageToTexture" x="-437" y="67" />
     <Connection fromNode="0" toNode="2" fromSocket="2" toSocket="4" />

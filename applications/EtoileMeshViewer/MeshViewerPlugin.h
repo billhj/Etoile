@@ -25,7 +25,7 @@ namespace Etoile
 			this->plugins_names.push_back("MeshViewer");
 		}
 	};
-	
+
 	class MeshStringSocket : public StringInputSocket
 	{
 	public:
@@ -39,25 +39,37 @@ namespace Etoile
 
 	class MeshViewerMeshInputSocket : public MeshInputSocket
 	{
-		
+
 	public:
 		MeshViewerMeshInputSocket(const std::string& name = "Mesh");
 		virtual void perform(Etoile::Mesh* signal) override;
 		virtual void retrieve(Etoile::Mesh* signal) override
 		{
-			GLMeshRenderPass* plugin = (GLMeshRenderPass*)(this->getNode());
+			GLSceneRenderPass* plugin = (GLSceneRenderPass*)(this->getNode());
 			std::vector<RenderUnit*>& units = plugin->getRenderUnits();
 			for(unsigned int i = 0; i < units.size(); ++i)
 			{
-				RenderUnit* unit = units[i];
-				MeshRenderUnit* munit = dynamic_cast<MeshRenderUnit*>(unit);
-				if(munit != NULL)
+				GLSceneRenderUnit* unit = dynamic_cast<GLSceneRenderUnit*>(units[i]);
+				if(unit != NULL)
 				{
-					Mesh* m = munit->getMesh();
-					if(m == signal)
+					Scene* scene = unit->getScene();
+					for(unsigned int  j = 0; j < scene->getSceneNodes().size(); ++j)
 					{
-						units.erase(units.begin() + i);
-						delete unit;
+						SceneNode* pnode = scene->getSceneNodes()[j];
+						for(int i = 0; i < pnode->getMovableObjects().size(); ++i)
+						{
+							MovableObject* obj = pnode->getMovableObjects()[i];
+							SceneEntity* entity = dynamic_cast<SceneEntity*>(obj);
+							if(entity != NULL)
+							{
+								Mesh* mesh = dynamic_cast<Mesh*>(entity->getMesh());
+								if(mesh == signal)
+								{
+									units.erase(units.begin() + i);
+									delete unit;
+								}
+							}
+						}
 					}
 				}
 			}

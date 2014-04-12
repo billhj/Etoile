@@ -84,7 +84,7 @@ namespace Etoile
 	private:
 		ShaderProgram* _pShader;
 		bool _tessellate;
-		std::string _vertex, _fragment, _geometry, _control, _evaluation;
+		//std::string _vertex, _fragment, _geometry, _control, _evaluation;
 		int _incrementTexture;
 	};
 

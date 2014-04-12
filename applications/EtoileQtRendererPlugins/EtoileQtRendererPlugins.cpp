@@ -7,7 +7,6 @@
 */
 
 #include "EtoileQtRendererPlugins.h"
-#include "EtoileMeshPlugin.h"
 
 /**
 * @brief For tracking memory leaks under windows using the crtdbg

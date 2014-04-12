@@ -52,7 +52,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\core</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\extern;..\..\core</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
@@ -69,7 +69,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\core</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\extern;..\..\core</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
@@ -84,13 +84,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\core\animation\BVHLoader.cpp" />
-    <ClCompile Include="..\..\core\animation\DOF.cpp" />
+    <ClCompile Include="..\..\core\animation\dynamics\DJoint.cpp" />
+    <ClCompile Include="..\..\core\animation\dynamics\DRigidBody.cpp" />
     <ClCompile Include="..\..\core\animation\IK\CCDSolver.cpp" />
     <ClCompile Include="..\..\core\animation\IK\JacobianDLSSolver.cpp" />
     <ClCompile Include="..\..\core\animation\IK\JacobianPseudoInverseSolver.cpp" />
     <ClCompile Include="..\..\core\animation\IK\JacobianTransposeSolver.cpp" />
     <ClCompile Include="..\..\core\animation\IK\MassSpringSolver.cpp" />
-    <ClCompile Include="..\..\core\animation\Joint.cpp" />
     <ClCompile Include="..\..\core\animation\KeyFrameSequence.cpp" />
     <ClCompile Include="..\..\core\animation\MassSpring\DistanceSpring.cpp" />
     <ClCompile Include="..\..\core\animation\MassSpring\Mass.cpp" />
@@ -100,12 +100,17 @@
     <ClCompile Include="..\..\core\animation\MotionGraph\MotionGraph.cpp" />
     <ClCompile Include="..\..\core\animation\MotionGraph\MotionNode.cpp" />
     <ClCompile Include="..\..\core\animation\Pose.cpp" />
-    <ClCompile Include="..\..\core\animation\Skeleton.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\core\animation\BVHFrame.h" />
     <ClInclude Include="..\..\core\animation\BVHLoader.h" />
-    <ClInclude Include="..\..\core\animation\DOF.h" />
+    <ClInclude Include="..\..\core\animation\Controller.h" />
+    <ClInclude Include="..\..\core\animation\dynamics\DJoint.h" />
+    <ClInclude Include="..\..\core\animation\dynamics\DMass.h" />
+    <ClInclude Include="..\..\core\animation\dynamics\DMultiBodySolver.h" />
+    <ClInclude Include="..\..\core\animation\dynamics\DRigidBody.h" />
+    <ClInclude Include="..\..\core\animation\dynamics\DSkeleton.h" />
+    <ClInclude Include="..\..\core\animation\dynamics\SpatialAlgebra.h" />
     <ClInclude Include="..\..\core\animation\fluid\GridFluid.h" />
     <ClInclude Include="..\..\core\animation\Frame.h" />
     <ClInclude Include="..\..\core\animation\FrameParameters.h" />
@@ -115,7 +120,6 @@
     <ClInclude Include="..\..\core\animation\IK\JacobianPseudoInverseSolver.h" />
     <ClInclude Include="..\..\core\animation\IK\JacobianTransposeSolver.h" />
     <ClInclude Include="..\..\core\animation\IK\MassSpringSolver.h" />
-    <ClInclude Include="..\..\core\animation\Joint.h" />
     <ClInclude Include="..\..\core\animation\KeyFrame.h" />
     <ClInclude Include="..\..\core\animation\KeyFrameSequence.h" />
     <ClInclude Include="..\..\core\animation\MassSpring\DistanceSpring.h" />
@@ -130,7 +134,7 @@
     <ClInclude Include="..\..\core\animation\MotionGraph\MotionGraph.h" />
     <ClInclude Include="..\..\core\animation\MotionGraph\MotionNode.h" />
     <ClInclude Include="..\..\core\animation\Pose.h" />
-    <ClInclude Include="..\..\core\animation\Skeleton.h" />
+    <ClInclude Include="..\..\core\animation\SkeletonAnimation.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -84,26 +84,38 @@
     <ClInclude Include="..\..\core\geometry\AxisAlignedBoundingBox.h" />
     <ClInclude Include="..\..\core\geometry\Camera.h" />
     <ClInclude Include="..\..\core\geometry\ContainmentTests.h" />
+    <ClInclude Include="..\..\core\geometry\DOFConstraint.h" />
     <ClInclude Include="..\..\core\geometry\GpuProgram.h" />
     <ClInclude Include="..\..\core\geometry\IntersectionTests.h" />
+    <ClInclude Include="..\..\core\geometry\Joint.h" />
     <ClInclude Include="..\..\core\geometry\Light.h" />
     <ClInclude Include="..\..\core\geometry\Material.h" />
     <ClInclude Include="..\..\core\geometry\Mesh.h" />
+    <ClInclude Include="..\..\core\geometry\MovableObject.h" />
     <ClInclude Include="..\..\core\geometry\Octree.h" />
     <ClInclude Include="..\..\core\geometry\Primitive.h" />
     <ClInclude Include="..\..\core\geometry\RegularBspTree.h" />
-    <ClInclude Include="..\..\core\geometry\SceneObject.h" />
+    <ClInclude Include="..\..\core\geometry\Scene.h" />
+    <ClInclude Include="..\..\core\geometry\SceneEntity.h" />
+    <ClInclude Include="..\..\core\geometry\SceneManager.h" />
+    <ClInclude Include="..\..\core\geometry\SceneNode.h" />
+    <ClInclude Include="..\..\core\geometry\SceneSky.h" />
+    <ClInclude Include="..\..\core\geometry\Skeleton.h" />
     <ClInclude Include="..\..\core\geometry\SubMesh.h" />
     <ClInclude Include="..\..\core\geometry\Texture.h" />
     <ClInclude Include="..\..\core\geometry\VertexBoneAssignment.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\core\geometry\Camera.cpp" />
+    <ClCompile Include="..\..\core\geometry\DOFConstraint.cpp" />
+    <ClCompile Include="..\..\core\geometry\Joint.cpp" />
     <ClCompile Include="..\..\core\geometry\Light.cpp" />
     <ClCompile Include="..\..\core\geometry\Material.cpp" />
     <ClCompile Include="..\..\core\geometry\Octree.cpp" />
     <ClCompile Include="..\..\core\geometry\Primitive.cpp" />
-    <ClCompile Include="..\..\core\geometry\SceneObject.cpp" />
+    <ClCompile Include="..\..\core\geometry\SceneEntity.cpp" />
+    <ClCompile Include="..\..\core\geometry\SceneNode.cpp" />
+    <ClCompile Include="..\..\core\geometry\Skeleton.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

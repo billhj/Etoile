@@ -8,8 +8,8 @@
 
 #pragma once
 #include <vector>
-#include "animation/Joint.h"
-#include "animation/DOF.h"
+#include "geometry/Joint.h"
+#include "geometry/DOFConstraint.h"
 
 namespace Etoile
 {
@@ -86,7 +86,7 @@ namespace Etoile
 			return endpos;
 		}
 
-		virtual void checkDOFsRestrictions(Joint* joint, const DOFs& dofs)
+		virtual void checkDOFsRestrictions(Joint* joint, const DOFConstraints& dofs)
 		{
 			Quaternionf _localRotation = joint->getLocalRotation();
 			Vec3f angle = _localRotation.getEulerAngleXYZ();

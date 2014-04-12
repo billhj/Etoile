@@ -52,6 +52,10 @@ namespace Etoile
 #if defined(_DEBUG) || defined(DEBUG)
 		std::cout<< "[BVHLoader] : loading is successful " << _skeletonframes->getKeyFrames().size() << " frames"<<std::endl;
 #endif
+		if(_pSkeleton->getJoints().size() == 0)
+		{
+			return false;
+		}
 		return true;
 
 	}

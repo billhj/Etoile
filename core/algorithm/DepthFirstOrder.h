@@ -12,7 +12,7 @@
 namespace Etoile
 {
 	/*
-	*	topoligical sorting using depth first ordering, then reverse it
+	*	topoligical sorting using depth first ordering, then reverse it  (make sure no cycle)
 	*	dfs marks all vertices connected to start S in time propotional to the sum of their degrees.
 	**/
 	class DepthFirstOrder
@@ -75,8 +75,8 @@ namespace Etoile
 				{
 					dfs(directedGraph, w);
 				}
-				_reversePost.push_back(w);
 			}
+			_reversePost.push_back(w);
 		}
 	};
 

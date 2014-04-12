@@ -35,6 +35,15 @@ namespace Etoile
 		std::map<std::string, int>& getIndices(){return _idx;}
 		void setRootJoint(const std::string& name){ _root = name;}
 		const std::string getRootJoint(){ return _root; }
+		FrameParameters* getFrameParameter(const std::string& name)
+		{
+			std::map<std::string, int>::iterator itor = _idx.find(name);
+			if(itor != _idx.end())
+			{
+				return &_info[itor->second];
+			}
+			return NULL;
+		}
 	protected:
 		std::map<std::string, int> _idx;
 		std::vector<FrameParameters> _info;

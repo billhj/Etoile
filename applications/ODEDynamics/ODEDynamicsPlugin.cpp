@@ -21,47 +21,50 @@ Etoile::EPlugin* loadODEDynamicsPlugin()
 namespace Etoile
 {
 
-	ODESceneObjectInputSocket::ODESceneObjectInputSocket(const std::string& name): SceneObjectInputSocket(name)
+	ODESceneInputSocket::ODESceneInputSocket(const std::string& name): SceneInputSocket(name)
 	{
 	}
 
-	void ODESceneObjectInputSocket::perform(SceneObject* signal) 
+	void ODESceneInputSocket::perform(Scene* signal) 
 	{
 		if(signal == NULL) return;
 		ODEDynamicsPlugin* plugin = (ODEDynamicsPlugin*)(this->getNode());
-		ODEPhysicsWorld * world = plugin->getPhysicsWorld();
+		plugin->setScene(signal);
+		/*ODEPhysicsWorld * world = plugin->getPhysicsWorld();
 
 		{
 			std::string name = "" + rand();
-			/*Mesh* mesh = dynamic_cast<Mesh*>(signal);
+			Mesh* mesh = (Mesh*)(signal);
 			if(mesh != NULL)
 			{
 				name = mesh->getName();
-			}*/
+			}
 			ODEPhysicsObject* obj = new ODEPhysicsObject(name, signal);
 			obj->init(world->getWorldID(), world->getSpaceID());
 			obj->initBox();
 			obj->updatePhysicsObject();
 			world->addPhysicsObject(obj);
-		}
+		}*/
 	}
 
-	void ODESceneObjectInputSocket::retrieve(SceneObject* signal) 
+	void ODESceneInputSocket::retrieve(Scene* signal) 
 	{
 		if(signal == NULL) return;
 		ODEDynamicsPlugin* plugin = (ODEDynamicsPlugin*)(this->getNode());
-		ODEPhysicsWorld * world = plugin->getPhysicsWorld();
+		plugin->setScene(NULL);
+		/*ODEPhysicsWorld * world = plugin->getPhysicsWorld();
 		std::map<std::string, ODEPhysicsObject*>::iterator itor = world->getPhysicsObjects().begin();
 		for(; itor != world->getPhysicsObjects().end(); ++itor)
 		{
-			if(signal == itor->second->getSceneObject())
+			if(signal == itor->second->getSceneNode())
 			{
 				world->getPhysicsObjects().erase(itor);
+				return;
 			}
-		}
+		}*/
 	}
 
-	ODEPlaneInputSocket::ODEPlaneInputSocket(const std::string& name): PlaneInputSocket(name)
+	/*ODEPlaneInputSocket::ODEPlaneInputSocket(const std::string& name): PlaneInputSocket(name)
 	{
 	}
 
@@ -79,16 +82,15 @@ namespace Etoile
 	{
 		if(signal == NULL) return;
 		ODEDynamicsPlugin* plugin = (ODEDynamicsPlugin*)(this->getNode());
-	}
+	}*/
 
-	ODEDynamicsPlugin::ODEDynamicsPlugin(const std::string& name): EPlugin(), SocketNode()
+	ODEDynamicsPlugin::ODEDynamicsPlugin(const std::string& name): EPlugin(), SocketNode(), _pScene(NULL)
 	{
 		this->getType()._description = "OpenDynamics";
 		this->getType()._name = name;
-		_pSceneobjectInput = new ODESceneObjectInputSocket();
-		this->addInputSocket(_pSceneobjectInput);
-		_pPlaneInput = new ODEPlaneInputSocket();
-		this->addInputSocket(_pPlaneInput);
+		_pSceneInput = new ODESceneInputSocket();
+		this->addInputSocket(_pSceneInput);
+
 		world.init();
 		world.createGravity(0,-0.001,0);
 
@@ -132,5 +134,10 @@ namespace Etoile
 	void ODEDynamicsPlugin::release()
 	{
 	
+	}
+
+	void ODEDynamicsPlugin::setScene(Scene* scene)
+	{
+		_pScene = scene;
 	}
 }

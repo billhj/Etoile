@@ -62,6 +62,15 @@ namespace Etoile
 		this->getType()._color._a = 240;
 		widget = new ParameterInputSocketsWidget();
 		widget->setVisible(false);
+
+		initMatrixSocket();
+		/*QString fileName = QFileDialog::getOpenFileName(0, QString("select QuadRenderPass"), QDir::currentPath());
+		if (!fileName.isEmpty()) {
+			loadFile(fileName.toStdString());
+		}else{
+			QMessageBox::information(0, QString("OpenFile"),
+				QString("Cannot load %1.").arg(fileName));
+		}*/
 	}
 
 	EtoileGLQuadRenderPassPlugin::~EtoileGLQuadRenderPassPlugin()
@@ -79,18 +88,12 @@ namespace Etoile
 		this->addInputSocket(_pproj);
 		this->addInputSocket(_pviewproj);
 
+
 	}
 
 	void EtoileGLQuadRenderPassPlugin::init()
 	{
-		initMatrixSocket();
-		QString fileName = QFileDialog::getOpenFileName(0, QString("select QuadRenderPass"), QDir::currentPath());
-		if (!fileName.isEmpty()) {
-			loadFile(fileName.toStdString());
-		}else{
-			QMessageBox::information(0, QString("OpenFile"),
-				QString("Cannot load %1.").arg(fileName));
-		}
+		
 	}
 
 	void EtoileGLQuadRenderPassPlugin::apply()

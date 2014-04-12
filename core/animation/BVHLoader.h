@@ -10,7 +10,7 @@
 #include <string>
 #include "KeyFrameSequence.h"
 #include "BVHFrame.h"
-#include "Skeleton.h"
+#include "geometry/Skeleton.h"
 
 namespace Etoile
 {

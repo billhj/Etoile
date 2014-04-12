@@ -103,7 +103,7 @@ namespace Etoile
 		createData();
 		_pMesh->cleanEmptySubMesh();
 		//_pMesh->buildRuntimeData();
-		_pMesh->initSkin();
+		_pMesh->initResource();
 		_pMesh->computeAABB();
 		return true;
 	}

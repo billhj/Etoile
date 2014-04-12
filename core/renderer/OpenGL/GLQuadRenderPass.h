@@ -27,6 +27,7 @@ namespace Etoile
 		virtual void draw() override
 		{
 			useRenderTargets();
+			//glDepthMask(false);
 			if(_pmaterial != NULL)
 			{
 				GLSLGpuProgram* gpuprogram = (GLSLGpuProgram*)_pmaterial->getGpuProgram();
@@ -41,7 +42,7 @@ namespace Etoile
 						Texture* t = itor->second;
 						gpuprogram->bindTexture(bName, t);
 					}
-
+					
 					gpuprogram->use();
 					printOpenGLError();
 					glMatrixMode (GL_PROJECTION);
@@ -64,8 +65,10 @@ namespace Etoile
 					glPopMatrix();
 					gpuprogram->unUse();
 					gpuprogram->unBindBindingTextures();
+					
 				}
 			}
+			//glDepthMask(true);
 			unUseRenderTargets();
 		}
 		Material* getMaterial(){return _pmaterial;}

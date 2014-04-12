@@ -130,13 +130,16 @@ void EtoileModuleApp::createMenus()
 	QAction* graphAct = new QAction("GraphEditor", this);
 	QAction* loadgraph = new QAction("loadGraph", this);
 	QAction* savegraph = new QAction("saveGraph", this);
+	QAction* cleargraph = new QAction("clearGraph", this);
 	connect(loadgraph, SIGNAL(triggered()), this, SLOT(loadGraph()));
 	connect(savegraph, SIGNAL(triggered()), this, SLOT(saveGraph()));
+	connect(cleargraph, SIGNAL(triggered()), this, SLOT(clearGraph()));
 	QTimer::singleShot(2000, graphAct, SLOT(trigger()));
 	graphAct->setShortcut(tr("Ctrl+G"));
 	pluginMenu->addAction(graphAct);
 	pluginMenu->addAction(loadgraph);
 	pluginMenu->addAction(savegraph);
+	pluginMenu->addAction(cleargraph);
 	pluginMenu->addSeparator();
 
     helpMenu = new QMenu(tr("&Help"), this);
@@ -219,7 +222,7 @@ void EtoileModuleApp::applyAction(QAction * action)
 					if(desc->plugins_names[i].compare(action->text().toStdString())==0)
 					{
 						Etoile::EPlugin* plugin = desc->plugins_load_functions[i]();
-						plugin->init();
+						//plugin->init();
 						Etoile::SocketNode * snode = dynamic_cast<Etoile::SocketNode*>(plugin);
 						if(snode != NULL)
 						{
@@ -231,6 +234,11 @@ void EtoileModuleApp::applyAction(QAction * action)
 			}
 		}
 	}
+}
+
+void EtoileModuleApp::clearGraph()
+{
+	_editor->clearGraphScene();
 }
 
 void EtoileModuleApp::loadGraph(QString fileName)

@@ -102,7 +102,7 @@ namespace Etoile
 			{
 				Vec3f bone = _massSpring.getMass(i)->getPosition() -  _massSpring.getMass(i - 1)->getPosition();
 				_upvectors[i - 1] = updateUpVector(_upvectors[i - 1], bone);
-				Quaternionf q = calculateGlobalRotation(_upvectors[i - 1], _o_upvectors[i - 1], bone, _links[i]->computeOriginalLocalPosition(Vec3f()));
+				Quaternionf q = calculateGlobalRotation(_upvectors[i - 1], _o_upvectors[i - 1], bone, _links[i]->getLocalPosition());
 				//Quaternionf q = calculateGlobalRotation(bone.normalized(), _links[i]->getOriginalLocalPosition().normalized());
 				global.push_back(q);
 			}
@@ -117,13 +117,23 @@ namespace Etoile
 
 			if(enableConstraints)
 				checkJointsDOFsRestrictions(_links);
-			_links[0]->update();
+			for(unsigned int i = 0; i < _links.size(); i++ )
+			{
+				_links[i]->update();
+				//std::cout<<i <<" "<< _links[i]->getLocalPosition().length() <<"  "<<_links[i]->getWorldPosition()<<std::endl;
+			}
 			updateUpVectors(_links);
 			updateMassesPosition(_links);
 
 			curEnd = _links[size]->getWorldPosition();
+			
 			++tries;
 		}
+		for(unsigned int i = 0; i < _links.size(); i++ )
+			{
+				_links[i]->update();
+				//std::cout<<i <<" "<<_links[i]->getWorldPosition()<<std::endl;
+			}
 
 		if (tries == _maxTries)
 		{
@@ -190,7 +200,7 @@ namespace Etoile
 			Joint* joint = joints[i];
 			//std::cout<<joint->getName()<<std::endl;
 			Quaternionf _localRotation = joint->getLocalRotation();
-			const DOFs& _dofs = joint->getDOFs();
+			const DOFConstraints& _dofs = joint->getDOFConstraints();
 			Vec3f angle = _localRotation.getEulerAngleXYZ();
 			Vec3f difference;
 			bool modified = false;

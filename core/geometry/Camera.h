@@ -7,13 +7,13 @@
 */
 
 #pragma once
-#include "SceneObject.h"
+#include "SceneNode.h"
 
 namespace Etoile
 {
 	enum CameraType {PERSPECTIVE, ORTHOGRAPHIC};
 
-	class Camera : public SceneObject
+	class Camera : public SceneNode
 	{
 		int _screenWidth, _screenHeight;  // size of the window, in pixels
 		float _fieldOfView; // in radians

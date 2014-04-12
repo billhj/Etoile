@@ -90,6 +90,8 @@ namespace Etoile
 
 	void QglviewerPlugin::release()
 	{
+		getRenderer()->getRenderPasses().clear();
+		getRenderer()->setOutputTexture(NULL);
 		_pRenderer->close();
 	}
 

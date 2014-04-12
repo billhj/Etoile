@@ -22,24 +22,24 @@ namespace Etoile
 		int * _edgeTo;
 		int * _distance;
 	public:
-		BreadthFirstPaths(UndirectedGraph * UndirectedGraph, int start) : Paths(UndirectedGraph, start)
+		BreadthFirstPaths(UndirectedGraph * undirectedGraph, int start) : Paths(undirectedGraph, start)
 		{
-			_marked = new bool[_pUndirectedGraph->numberOfVertices()];
-			for(int i = 0; i < _pUndirectedGraph->numberOfVertices(); ++i)
+			_marked = new bool[undirectedGraph->numberOfVertices()];
+			for(int i = 0; i < undirectedGraph->numberOfVertices(); ++i)
 			{
 				_marked[i] = false;
 			}
-			_edgeTo = new int[_pUndirectedGraph->numberOfVertices()];
-			for(int i = 0; i < _pUndirectedGraph->numberOfVertices(); ++i)
+			_edgeTo = new int[undirectedGraph->numberOfVertices()];
+			for(int i = 0; i < undirectedGraph->numberOfVertices(); ++i)
 			{
 				_edgeTo[i] = -1;
 			}
-			_distance = new int[_pUndirectedGraph->numberOfVertices()];
-			for(int i = 0; i < _pUndirectedGraph->numberOfVertices(); ++i)
+			_distance = new int[undirectedGraph->numberOfVertices()];
+			for(int i = 0; i < undirectedGraph->numberOfVertices(); ++i)
 			{
 				_distance[i] = -1;
 			}
-			bfs(UndirectedGraph, start);
+			bfs(undirectedGraph, start);
 		}
 
 		~BreadthFirstPaths()

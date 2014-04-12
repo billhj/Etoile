@@ -64,6 +64,11 @@ void GraphEditor::setGraph(Etoile::GraphScene* scene)
 	}
 }
 
+void GraphEditor::clearGraphScene()
+{
+	_pScene->clearScene();
+}
+
 Etoile::GraphScene * GraphEditor::getGraph()
 {
 	if(_pScene != NULL){

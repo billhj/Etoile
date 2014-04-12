@@ -8,7 +8,7 @@
 
 
 #include "ODEPhysicsObject.h"
-
+#include "geometry/SceneNode.h"
 /**
 * @brief For tracking memory leaks under windows using the crtdbg
 */
@@ -22,7 +22,7 @@
 
 namespace Etoile
 {
-	ODEPhysicsObject::ODEPhysicsObject(const std::string& name, SceneObject* obj): _name(name), _worldID(NULL), _spaceID(NULL), _pBody(NULL),
+	ODEPhysicsObject::ODEPhysicsObject(const std::string& name, SceneEntity* obj): _name(name), _worldID(NULL), _spaceID(NULL), _pBody(NULL),
 		_pMass(NULL), _pGeom(NULL), _pObj(obj), _type(NO_TYPE)
 	{
 	}
@@ -38,7 +38,7 @@ namespace Etoile
 		_spaceID = spaceID;
 	}
 
-	void ODEPhysicsObject::updateSceneObject()
+	void ODEPhysicsObject::updateSceneEntity()
 	{
 		if(_pObj == NULL || _pGeom == NULL || _pMass == NULL || _pBody == NULL)
 		{
@@ -46,7 +46,8 @@ namespace Etoile
 		}
 		const dReal* p = _pBody->getPosition();
 		const dReal* r = _pBody->getQuaternion();
-		_pObj->setTransform(_pObj->getScale(), Quaternionf(r[1], r[2], r[3], r[0]).normalized(), Vec3f(p[0], p[1], p[2]));
+		SceneNode* node = _pObj->getReferenceNode();
+		node->setTransform(node->getScale(), Quaternionf(r[1], r[2], r[3], r[0]).normalized(), Vec3f(p[0], p[1], p[2]));
 	}
 
 	void ODEPhysicsObject::updatePhysicsObject()
@@ -55,16 +56,17 @@ namespace Etoile
 		{
 			return;
 		}
-		Vec3f pos = _pObj->getPosition();
+		SceneNode* node = _pObj->getReferenceNode();
+		Vec3f pos = node->getPosition();
 		_pBody->setPosition(pos.x(), pos.y(), pos.z());
-		Quaternionf q = _pObj->getRotation();
+		Quaternionf q = node->getRotation();
 		dReal r[4] = {q.w(), q.x(), q.y(), q.z()};
 		_pBody->setQuaternion(r);
 		
 		if(_type == BOX_TYPE)
 		{
 			AxisAlignedBoundingBoxf* aabb = _pObj->getAABB();
-			Vec3f scale = _pObj->getScale();
+			Vec3f scale = node->getScale();
 			Vec3f l = aabb->maximum() - aabb->minimum();
 			_pMass->setBox (1, l.x() * scale.x(), l.y() * scale.y(), l.z() * scale.z());
 			_pBody->setMass(_pMass);

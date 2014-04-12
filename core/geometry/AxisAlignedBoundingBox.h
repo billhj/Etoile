@@ -16,10 +16,12 @@ namespace Etoile
 	class AxisAlignedBoundingBox
 	{
 	public: 
-		AxisAlignedBoundingBox(){}
-		AxisAlignedBoundingBox(Vec3<T> minimum, Vec3<T> maximum){setInterval(minimum, maximum);}
+		AxisAlignedBoundingBox(){_bias = 0.001;}
+		AxisAlignedBoundingBox(AxisAlignedBoundingBox* ref){_bias = 0.01; setInterval(ref->minimum(), ref->maximum()); }
+		AxisAlignedBoundingBox(Vec3<T> minimum, Vec3<T> maximum){_bias = 0.01; setInterval(minimum, maximum);}
 		AxisAlignedBoundingBox(const std::vector<Vec3<T>>& positions)
 		{
+			_bias = 0.01;
 			build(positions);
 		}
 
@@ -149,11 +151,11 @@ namespace Etoile
 		}
 		const Vec3<T> minimum()
 		{
-			return _minimum;
+			return _minimum + Vec3<T>(-_bias);
 		}
 		const Vec3<T> maximum()
 		{
-			return _maximum;
+			return _maximum + Vec3<T>(_bias);
 		}
 		const Vec3<T> center()
 		{
@@ -163,6 +165,7 @@ namespace Etoile
 	private:
 		Vec3<T> _minimum;
 		Vec3<T> _maximum;
+		float _bias;
 	};
 
 	typedef AxisAlignedBoundingBox<float> AxisAlignedBoundingBoxf;

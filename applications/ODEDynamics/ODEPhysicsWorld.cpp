@@ -107,7 +107,7 @@ namespace Etoile
 		std::map<std::string, ODEPhysicsObject*>::iterator itor = _objects.begin();
 		for(; itor != _objects.end(); ++itor)
 		{
-			itor->second->updateSceneObject();
+			itor->second->updateSceneEntity();
 		}
 	}
 

@@ -21,19 +21,19 @@
 namespace Etoile
 {
 	
-		Camera::Camera(const Vec3f& position, const Quaternionf& orientation): SceneObject(position, orientation)
+		Camera::Camera(const Vec3f& position, const Quaternionf& orientation): SceneNode(position, orientation)
 		{
 			reset();
 		}
 
-		Camera::Camera(const Vec3f& direction, const Vec3f& up, const Vec3f& position): SceneObject()
+		Camera::Camera(const Vec3f& direction, const Vec3f& up, const Vec3f& position): SceneNode()
 		{
 			reset();
 			this->setPosition(position);
 			this->setupCameraOrientation(direction, up);
 		}
 
-		Camera::Camera(): SceneObject()
+		Camera::Camera(): SceneNode()
 		{
 			reset();
 		}

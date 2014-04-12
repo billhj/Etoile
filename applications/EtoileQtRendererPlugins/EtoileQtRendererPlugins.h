@@ -8,13 +8,12 @@
 
 #pragma once
 #include "module/EPlugin.h"
-#include "EtoileMeshPlugin.h"
-#include "EtoilePlanePlugin.h"
 #include "EtoileImageToTexturePlugin.h"
-#include "EtoileGLMeshRenderPassPlugin.h"
+#include "EtoileGLSceneRenderPassPlugin.h"
 #include "EtoileGLQuadRenderPassPlugin.h"
-#include "DerivedMeshRenderPassPlugin.h"
+#include "DerivedSceneRenderPassPlugin.h"
 #include "DerivedQuadRenderPassPlugin.h"
+#include "EtoileSceneEditorPlugin.h"
 
 PLUGIN_DLL void loadDescription(Etoile::EPluginsDescription** descrip);
 
@@ -26,19 +25,19 @@ namespace Etoile
 		{
 			this->menu = "Plugins";
 			this->name = "EtoileQtRendererPlugins";
-			this->plugins_load_functions.push_back(loadEtoileMeshPlugin);
-			this->plugins_names.push_back("MeshLoader");
-			this->plugins_load_functions.push_back(loadEtoilePlanePlugin);
-			this->plugins_names.push_back("Plane");
+		
+			//this->plugins_load_functions.push_back(loadEtoilePlanePlugin);
+			//this->plugins_names.push_back("Plane");
 			this->plugins_load_functions.push_back(loadEtoileImageToTexturePlugin);
 			this->plugins_names.push_back("ImageToTexture");
-			this->plugins_load_functions.push_back(loadEtoileGLMeshRenderPassPlugin);
-			this->plugins_names.push_back("CommonMeshRenderPass");
+			this->plugins_load_functions.push_back(loadEtoileGLSceneRenderPassPlugin);
+			this->plugins_names.push_back("CommonSceneRenderPass");
 			this->plugins_load_functions.push_back(loadEtoileGLQuadRenderPassPlugin);
 			this->plugins_names.push_back("CommonQuadRenderPass");
-
-			this->plugins_load_functions.push_back(loadDrawMeshRenderPassPlugin);
-			this->plugins_names.push_back("DrawMeshPass");
+			this->plugins_load_functions.push_back(loadEtoileSceneEditorPlugin);
+			this->plugins_names.push_back("SceneEditor");
+			this->plugins_load_functions.push_back(loadDrawSceneRenderPassPlugin);
+			this->plugins_names.push_back("DrawScenePass");
 			this->plugins_load_functions.push_back(loadGammaQuadRenderPassPlugin);
 			this->plugins_names.push_back("GammaQuadPass");
 			this->plugins_load_functions.push_back(loadDeferredQuadRenderPassPlugin);

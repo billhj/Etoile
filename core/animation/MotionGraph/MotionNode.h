@@ -8,7 +8,7 @@
 
 #pragma once
 #include <vector>
-#include "../../algo/sort/Graph.h"
+#include "../../algorithm/sort/Graph.h"
 
 namespace Etoile
 {

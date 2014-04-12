@@ -13,10 +13,10 @@ namespace Etoile
 {
 	bool JacobianPseudoInverseSolver::compute(std::vector<Joint*>& _links, Vec3f target, bool enableConstraints)
 	{
-		for(unsigned int i = 0; i < _links.size(); ++i)
+		/*for(unsigned int i = 0; i < _links.size(); ++i)
 		{
 			_links[i]->reset();
-		}
+		}*/
 		int size = _links.size() - 1;
 		Vec3f rootPos, curEnd = _links[size]->getWorldPosition(), targetVector, curVector, endPos = target;
 		float distance;
@@ -53,7 +53,7 @@ namespace Etoile
 
 				Vec3f entry = -curVector.cross3(axis[i]);
 				entry.normalize();
-
+				axis[i] = _links[i]->getWorldRotation().inverse() * axis[i];
 				//VecNf v(6);
 				//for( int j = 0; j < 3; j++ )
 				//{
@@ -86,17 +86,21 @@ namespace Etoile
 				_links[i]->rotate(rotation);
 				if(enableConstraints)
 				{
-					checkDOFsRestrictions(_links[i], _links[i]->getDOFs());
+					checkDOFsRestrictions(_links[i], _links[i]->getDOFConstraints());
 				}
+				//_links[i]->update();
 			}
 
-			_links[0]->update();
+			for(unsigned int i = 0; i < _links.size(); i++ )
+			{
+				_links[i]->update();
 
+			}
 			curEnd = _links[size]->getWorldPosition();
 			difference = endPos - curEnd;
 			distance = difference.length();
 		}
-
+		
 		if (tries == _maxTries)
 		{
 			return false;

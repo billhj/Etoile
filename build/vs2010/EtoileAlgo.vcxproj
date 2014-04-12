@@ -11,7 +11,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\core\algorithm\BinaryHeap.h" />
     <ClInclude Include="..\..\core\algorithm\BreadthFirstPaths.h" />
+    <ClInclude Include="..\..\core\algorithm\Comparable.h" />
     <ClInclude Include="..\..\core\algorithm\ConnectedComponents.h" />
     <ClInclude Include="..\..\core\algorithm\DepthFirstOrder.h" />
     <ClInclude Include="..\..\core\algorithm\DepthFirstPaths.h" />
@@ -22,6 +24,7 @@
     <ClInclude Include="..\..\core\algorithm\KosarajuSharirSCC.h" />
     <ClInclude Include="..\..\core\algorithm\MST.h" />
     <ClInclude Include="..\..\core\algorithm\Paths.h" />
+    <ClInclude Include="..\..\core\algorithm\PriorityQueue.h" />
     <ClInclude Include="..\..\core\algorithm\UndirectedGraph.h" />
     <ClInclude Include="..\..\core\algorithm\UnionFind.h" />
     <ClInclude Include="..\..\core\machinelearning\nn\DataReader.h" />

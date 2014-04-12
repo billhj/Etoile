@@ -20,9 +20,9 @@
 #include "geometry/MeshLoader/OBJMeshLoader.h"
 #include "renderer/OpenGL/GLTexture2D.h"
 #include "renderer/OpenGL/UniformBufferObject.h"
-#include "renderer/OpenGL/ImmediateMeshRenderUnit.h"
+#include "renderer/OpenGL/ImmediateRenderMesh.h"
 #include "QTTextureLoader.h"
-#include "renderer/OpenGL/GLMeshRenderPass.h"
+#include "renderer/OpenGL/GLSceneRenderPass.h"
 #include "renderer/OpenGL/GLQuadRenderPass.h"
 #include "renderer/OpenGL/LightController.h"
 #include "GpuProgramInit.h"
@@ -93,7 +93,7 @@ public:
 		QTime qtime;
 		qtime.start();
 
-		Mesh * mesh= new Mesh("mesh");
+		Mesh * mesh = new ImmediateRenderMesh("simple");
 		if(Etoile::File::getFileExtension(name).compare("obj")!=0) return;
 		bool e = objloader.loadFromFile(name, mesh);
 		if(e)
@@ -113,7 +113,7 @@ public:
 				//m->setGpuProgram("drawmesh");
 			}
 
-			setBasicRenderer();
+			setBasicRenderer(mesh);
 		}
 	}
 
@@ -247,18 +247,25 @@ public:
 				delete _pMesh;
 			}
 			_pMesh = mesh;
-			setBasicRenderer();
+			setBasicRenderer(mesh);
 		}
 	}
 
 	public slots:
-		void setBasicRenderer()
+		void setBasicRenderer(Mesh* organizer)
 		{
 			if(_pMesh != NULL){
-				rp = new GLMeshRenderPass("empty");
-				ImmediateMeshRenderUnit* _organizer = new ImmediateMeshRenderUnit("simple");
-				_organizer->setMesh(_pMesh);
-				rp->addRenderUnit(_organizer);
+				rp = new GLSceneRenderPass("empty");
+
+				GLSceneRenderUnit* unit = new GLSceneRenderUnit("empty");
+				Scene* scene = new Scene();
+				SceneNode* node = new SceneNode();
+				SceneEntity* entity = new SceneEntity();
+				entity->addMesh(organizer);
+				node->attachMovableObject(entity);
+				scene->addSceneNode(node);
+				unit->setScene(scene);
+				rp->addRenderUnit(unit);
 			}
 		}
 
@@ -368,6 +375,6 @@ private:
 	GpuProgramInit _initG;
 	LightInit _initL;
 	Mesh* _pMesh;
-	GLMeshRenderPass* rp;
+	GLSceneRenderPass* rp;
 	QTTextureLoader* _textureloader;
 };

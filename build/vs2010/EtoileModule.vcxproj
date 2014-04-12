@@ -30,7 +30,7 @@
     <ClInclude Include="..\..\core\module\flowgraph\ImageSocket.h" />
     <ClInclude Include="..\..\core\module\flowgraph\MeshSocket.h" />
     <ClInclude Include="..\..\core\module\flowgraph\RgbaSocket.h" />
-    <ClInclude Include="..\..\core\module\flowgraph\SceneObjectSocket.h" />
+    <ClInclude Include="..\..\core\module\flowgraph\SceneNodeSocket.h" />
     <ClInclude Include="..\..\core\module\flowgraph\ShaderSocket.h" />
     <ClInclude Include="..\..\core\module\flowgraph\Socket.h" />
     <ClInclude Include="..\..\core\module\flowgraph\SocketConnection.h" />

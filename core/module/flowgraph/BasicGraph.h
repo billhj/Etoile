@@ -52,6 +52,7 @@ namespace Etoile
 		{
 			_type._color = NodeType::color(180, 180, 180, 255);
 		}
+		virtual ~BasicNode(){} 
 		NodeType& getType(){return _type;}
 		virtual void setType(NodeType type)
 		{
@@ -79,6 +80,7 @@ namespace Etoile
 	public:
 		BasicEdge(): _phead(NULL), _ptail(NULL), _degree(0){}
 		BasicEdge(BasicNode* head, BasicNode* tail): _phead(head), _ptail(tail), _degree(0){}
+		virtual ~BasicEdge(){}
 		void setHead(BasicNode* head){_phead = head;}
 		BasicNode* getHead(){return _phead;} 
 		void setTail(BasicNode* tail){_ptail = tail;}
@@ -222,7 +224,7 @@ namespace Etoile
 
 		void clear()
 		{
-			for(unsigned int i = 0; i < _edges.size();)
+			for(unsigned int i = 0; i < _edges.size(); ++i)
 			{
 				BasicEdge* edge = _edges[i];
 				if(edge != NULL) delete edge;

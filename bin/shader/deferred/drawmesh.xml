@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <Etoile>
-	<MeshPass name="drawmesh"  w="800" h="600">
+	<ScenePass name="drawmesh"  w="800" h="600">
 		<Output type="texture2d" name="normalIDMap" w="" h="" mipmap="0" internalFormat ="GL_RGBA16F_ARB">	</Output>
 		<Output type="texture2d" name="worldPosMap" w="" h="" mipmap="0" internalFormat ="GL_RGBA16F_ARB">	</Output>
 		<Output type="texture2d" name="diffuseMaterialMap" w="" h="" mipmap="0" internalFormat ="GL_RGBA16F_ARB">	</Output>
@@ -11,6 +11,6 @@
 			<vertex file="drawmesh.vert"/>
 			<fragment file="drawmesh.frag"/>
 		</GPU>
-	</MeshPass>
+	</ScenePass>
 		
 </Etoile>

@@ -8,7 +8,7 @@
 
 #pragma once
 #include "ode/ode.h"
-#include "geometry/SceneObject.h"
+#include "geometry/SceneEntity.h"
 #include <string>
 
 namespace Etoile
@@ -20,7 +20,7 @@ namespace Etoile
 	class ODEPhysicsObject
 	{
 	public:
-		ODEPhysicsObject(const std::string& name, SceneObject*);
+		ODEPhysicsObject(const std::string& name, SceneEntity*);
 		~ODEPhysicsObject(void);
 		void init(dWorldID worldID, dSpaceID spaceID);
 		const std::string getName(){return _name;}
@@ -36,8 +36,8 @@ namespace Etoile
 
 		void initBox();
 
-		SceneObject* getSceneObject(){return _pObj;}
-		void updateSceneObject();
+		SceneEntity* getSceneEntity(){return _pObj;}
+		void updateSceneEntity();
 		void updatePhysicsObject();
 	protected:
 		std::string _name;
@@ -48,7 +48,7 @@ namespace Etoile
 		dWorldID _worldID;
 		dSpaceID _spaceID;
 
-		SceneObject* _pObj;
+		SceneEntity* _pObj;
 		GEOMETRY_TYPE _type;
 		//Vec3f offset;
 	};

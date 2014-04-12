@@ -21,8 +21,15 @@ void GraphEditorScene::setGraph(Etoile::GraphScene *graphscene)
 {
 	_pgraphscene = graphscene;
 	loadGUI();
-
 }
+
+
+void GraphEditorScene::clearScene()
+{
+	_pgraphscene->clear();
+	loadGUI();
+}
+
 
 void GraphEditorScene::updateGUI()
 {
