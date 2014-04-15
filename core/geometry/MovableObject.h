@@ -18,7 +18,7 @@ namespace Etoile
 	public:
 		MovableObject():_visible(true){generateID();}
 		MovableObject(const MovableObject& obj){(*this) = obj;}
-		
+		virtual~MovableObject(){}
 		void setReferenceNode(SceneNode* obj){_pRef = obj;}
 		SceneNode* getReferenceNode() const {return _pRef;}
 

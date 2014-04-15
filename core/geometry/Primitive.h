@@ -21,6 +21,7 @@ namespace Etoile
 		std::vector<int> _vertices_index_face;
 	public:
 		Primitive() : MovableObject(), _pMesh(NULL){}
+		virtual~Primitive(){}
 		virtual void computerAABB() override;
 		void setMesh(Mesh* mesh);
 		Mesh* getMesh(){return _pMesh;}
