@@ -1,7 +1,12 @@
-
+/**
+* Copyright(C) 2009-2012                
+* @author Jing HUANG
+* @file IcoSphere.cpp
+* @brief 
+* @date 1/2/2011
+*/
 
 #include "icosphere.h"
-
 #include <map>
 
 //--------------------------------------------------------------------------------

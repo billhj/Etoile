@@ -1,4 +1,12 @@
+/**
+* Copyright(C) 2009-2012                
+* @author Jing HUANG
+* @file IcoSphere.h
+* @brief 
+* @date 1/2/2011
+*/
 
+#pragma once
 #ifndef _ICOSPHERE_H
 #define _ICOSPHERE_H
 
