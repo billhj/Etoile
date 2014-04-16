@@ -69,6 +69,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AWSDLApp", "..\..\applicati
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AWGlutApp", "..\..\applications\AWGlutApp\AWGlutApp.vcxproj", "{EA28FAFD-C213-4023-8EBD-E45A0E42F5BD}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EtoileGame", "EtoileGame.vcxproj", "{AB503646-A8B4-4E18-9E92-B430674372A1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -183,12 +185,16 @@ Global
 		{EA28FAFD-C213-4023-8EBD-E45A0E42F5BD}.Debug|Win32.Build.0 = Debug|Win32
 		{EA28FAFD-C213-4023-8EBD-E45A0E42F5BD}.Release|Win32.ActiveCfg = Release|Win32
 		{EA28FAFD-C213-4023-8EBD-E45A0E42F5BD}.Release|Win32.Build.0 = Release|Win32
+		{AB503646-A8B4-4E18-9E92-B430674372A1}.Debug|Win32.ActiveCfg = Debug|Win32
+		{AB503646-A8B4-4E18-9E92-B430674372A1}.Debug|Win32.Build.0 = Debug|Win32
+		{AB503646-A8B4-4E18-9E92-B430674372A1}.Release|Win32.ActiveCfg = Release|Win32
+		{AB503646-A8B4-4E18-9E92-B430674372A1}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		QtVersion = $(DefaultQtVersion)
 		Qt5Version = 4.8.5
+		QtVersion = $(DefaultQtVersion)
 	EndGlobalSection
 EndGlobal
