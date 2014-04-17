@@ -12,8 +12,12 @@
 
 #include <string>
 
+
 namespace Etoile
 {
+	/**
+	 * class GameComponent: implement basic game
+	 */
 	class GameComponent
 	{
 	public:
@@ -22,8 +26,9 @@ namespace Etoile
 		virtual void init() = 0;
 		virtual void update() = 0;
 		virtual void release() = 0;
+		
 	protected:
-
+		
 	};
 
 }
