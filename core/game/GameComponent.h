@@ -33,4 +33,4 @@ namespace Etoile
 
 }
 
-#endif GAME_COMPONENT_H
+#endif //GAME_COMPONENT_H

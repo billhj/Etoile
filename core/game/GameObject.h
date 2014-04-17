@@ -49,4 +49,4 @@ namespace Etoile
 
 }
 
-#endif GAME_OBJECT_H
+#endif //GAME_OBJECT_H
