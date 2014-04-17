@@ -78,9 +78,13 @@
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\core\game\GameComponent.h" />
+    <ClInclude Include="..\..\core\game\GameEngine.h" />
     <ClInclude Include="..\..\core\game\GameObject.h" />
+    <ClInclude Include="..\..\core\game\GameSystem.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\core\game\GameComponent.cpp" />
     <ClCompile Include="..\..\core\game\GameObject.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
