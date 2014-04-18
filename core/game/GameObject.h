@@ -16,8 +16,8 @@
 namespace Etoile
 {
 	/**
-	 * class GameObject: implement basic gameobject with simple transformation operations
-	 */
+	* class GameObject: implement basic gameobject with simple transformation operations
+	*/
 	class GameObject
 	{
 	public:
