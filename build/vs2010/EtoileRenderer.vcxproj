@@ -115,13 +115,16 @@
     <ClCompile Include="..\..\core\renderer\OpenGL\UniformBufferObject.cpp" />
     <ClCompile Include="..\..\core\renderer\OpenGL\VBO.cpp" />
     <ClCompile Include="..\..\core\renderer\OpenGL\VBORenderMesh.cpp" />
+    <ClCompile Include="..\..\core\renderer\OpenGL\VBOTemplate.cpp" />
     <ClCompile Include="..\..\core\renderer\OpenGL\VertexShader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\core\renderer\DrawFunctions.h" />
+    <ClInclude Include="..\..\core\renderer\OpenGL\GLBaseBufferObject.h" />
     <ClInclude Include="..\..\core\renderer\OpenGL\GLRenderSceneSky.h" />
     <ClInclude Include="..\..\core\renderer\OpenGL\GLRenderSkeleton.h" />
     <ClInclude Include="..\..\core\renderer\OpenGL\GLSceneRenderUnit.h" />
+    <ClInclude Include="..\..\core\renderer\OpenGL\VBOTemplate.h" />
     <ClInclude Include="..\..\core\renderer\RenderMesh.h" />
     <ClInclude Include="..\..\core\renderer\OpenGL\ComputeShader.h" />
     <ClInclude Include="..\..\core\renderer\OpenGL\FBO.h" />
