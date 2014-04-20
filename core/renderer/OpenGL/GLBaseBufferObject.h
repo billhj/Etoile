@@ -3,6 +3,9 @@
 * @author Jing HUANG
 * @file GLBaseBufferObject.h
 * @brief a base class of buffer object use glGenBuffer, glBindBuffer
+* as my understanding, no much difference than glBufferDataARB,
+* only map can directly loadData from file to DMA memory by give its memory address
+* with glBufferDataARB, you first read file, put into memory, then copy into DMA using BufferDataARB
 * @date 1/2/2011
 */
 #pragma once
