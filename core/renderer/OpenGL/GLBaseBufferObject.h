@@ -35,10 +35,16 @@ namespace Etoile
 		void bindSubData(GLint offset, GLsizei datasize, DataType* data);
 
 		//GL_READ_ONLY, GL_WRITE_ONLY, or GL_READ_WRITE
+		//return the mapped DMA memory address, 
+		//as my understanding, no much difference than glBufferDataARB,
+		//only map can directly loadData from file to DMA memory by give its memory address
+		//with glBufferDataARB, you first read file, put into memory, then copy into DMA using BufferDataARB
 		DataType* useMap(GLenum accessType);
 		DataType* useMapForRead();
 		DataType* useMapForWrite();
 		DataType* useMapForReadAndWrite();
+		//partially data map transfer
+		DataType* useMapRange(GLint offset, GLsizei datasize);
 		void unUseMap();
 
 	protected:

@@ -1,4 +1,4 @@
-/**
+﻿/**
 * Copyright(C) 2009-2012                
 * @author Jing HUANG
 * @file GLBaseBufferObject.cpp
@@ -65,6 +65,8 @@ namespace Etoile
 	void GLBaseBufferObject<DataType>::bindData(GLsizei datasize, DataType* data)
 	{
 		use();
+		//Buffer respeciﬁcation, detach the original memory,
+		glBufferDataARB(_target,  datasize * sizeof(DataType), NULL, _usage);
 		glBufferDataARB(_target,  datasize * sizeof(DataType), data, _usage);
 		unUse();
 	}
@@ -74,6 +76,8 @@ namespace Etoile
 	{
 		use();
 		int sizet = sizeof(DataType);
+		//not sure for subdata. Buffer respeciﬁcation, detach the original memory,
+		//glBufferDataARB(_target,  datasize * sizeof(DataType), NULL, _usage);
 		glBufferSubDataARB(_target, offset * sizet,  datasize * sizet, data);
 		unUse();
 	}
@@ -110,6 +114,14 @@ namespace Etoile
 	DataType* GLBaseBufferObject<DataType>::useMapForReadAndWrite()
 	{
 		return useMap(GL_READ_WRITE);
+	}
+
+	template <class DataType>
+	DataType* GLBaseBufferObject<DataType>::useMapRange(GLint offset, GLsizei datasize)
+	{
+		use();
+		int sizet = sizeof(DataType);
+		glMapBufferRange(_target, offset * sizet,  datasize * sizet, GL_MAP_WRITE_BIT | GL_MAP_INVALIDATE_BUFFER_BIT);
 	}
 }
 
