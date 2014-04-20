@@ -20,6 +20,7 @@ namespace Etoile
 	{
 	public:
 		GLBaseBufferObject();
+		virtual~GLBaseBufferObject();
 		// bindbufer
 		void use();
 		// unbindbufer
@@ -50,10 +51,18 @@ namespace Etoile
 		DataType* useMapRange(GLint offset, GLsizei datasize);
 		void unUseMap();
 
+		GLsizei dataSize();
 	protected:
 		GLenum _target;
 		GLenum _usage;
 		GLuint _id;
+		GLsizei _size;
 	};
+
+
+	//void TemporaryFunction();
+	typedef GLBaseBufferObject<unsigned int> GLBaseBufferObjectUnsignedInt;
+	typedef GLBaseBufferObject<float> GLBaseBufferObjectFloat;
 }
+#include "GLBaseBufferObject.cpp"
 #endif //GLBASE_BUFFER_OBJECT_H

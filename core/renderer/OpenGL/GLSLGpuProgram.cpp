@@ -513,11 +513,11 @@ namespace Etoile
 			{
 				//TODO : tesselation is difficult
 				glPatchParameteri(GL_PATCH_VERTICES, 3);
-				glDrawElements( GL_PATCHES, index->getSize(), GL_UNSIGNED_INT, 0 );
+				glDrawElements( GL_PATCHES, index->dataSize(), GL_UNSIGNED_INT, 0 );
 
 			}else
 			{
-				glDrawElements( primitive, index->getSize(), GL_UNSIGNED_INT, 0 );
+				glDrawElements( primitive, index->dataSize(), GL_UNSIGNED_INT, 0 );
 			}
 
 			printOpenGLError();

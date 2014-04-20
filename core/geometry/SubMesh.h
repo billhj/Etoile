@@ -141,9 +141,9 @@ namespace Etoile
 			_texcoord_index_face.push_back(texcoord_index);
 		}
 
-		std::vector<int>& getOriginalVertexIndexForFaces(){return _vertices_index_face;}
-		std::vector<int>& getOriginalNormalIndexForFaces(){return _normal_index_face;}
-		std::vector<int>&  getOriginalTextureIndexForFaces(){return _texcoord_index_face;}
+		std::vector<unsigned int>& getOriginalVertexIndexForFaces(){return _vertices_index_face;}
+		std::vector<unsigned int>& getOriginalNormalIndexForFaces(){return _normal_index_face;}
+		std::vector<unsigned int>&  getOriginalTextureIndexForFaces(){return _texcoord_index_face;}
 		std::vector<Vec3f>&  getOriginalVertices(){return _vdata;} 
 		std::vector<Vec3f>&  getOriginalNormals(){return _ndata;}
 		std::vector<Vec2f>& getOriginalTextureCoords(){return _tdata;}
@@ -164,7 +164,7 @@ namespace Etoile
 			_tdata = data;
 		}
 
-		void setOriginalVertexIndexForFaces(const std::vector<int>& data)
+		void setOriginalVertexIndexForFaces(const std::vector<unsigned int>& data)
 		{
 			_vertices_index_face = data;
 		}
@@ -207,9 +207,9 @@ namespace Etoile
 		int _nbVerticesPerFace;
 		int _numberOfFaces;
 	private:
-		std::vector<int> _vertices_index_face;
-		std::vector<int> _normal_index_face;
-		std::vector<int> _texcoord_index_face;
+		std::vector<unsigned int> _vertices_index_face;
+		std::vector<unsigned int> _normal_index_face;
+		std::vector<unsigned int> _texcoord_index_face;
 		std::vector<Vec3f> _vdata, _ndata;
 		std::vector<Vec2f> _tdata;
 		std::string _name;

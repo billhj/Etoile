@@ -7,50 +7,20 @@
 */
 
 #pragma once
-#include "assert.h"
-#include "glhead.h"
-#include "glfunctions.h"
+#ifndef INDEX_BUFFER_OBJECT_H
+#define INDEX_BUFFER_OBJECT_H
+#include "GLBaseBufferObject.h"
 
 namespace Etoile
 {
-	class IndexVBO
+	class IndexVBO : public GLBaseBufferObject<unsigned int>
 	{
 	public:
-		IndexVBO(GLsizei size, const int* data, GLenum usage);
-		~IndexVBO();
-		void use()
-		{
-			glBindBufferARB( GL_ELEMENT_ARRAY_BUFFER_ARB, getID() );
-			printOpenGLError();
-		}
-		void unUse()
-		{
-			glBindBufferARB(GL_ELEMENT_ARRAY_BUFFER_ARB, 0);
-			printOpenGLError();
-		}
-		void writeData( GLint offset, GLsizei size, const int* data );
-		void readData( GLint offset, GLsizei size, int* pDest );
-		
-		GLuint getID()
-		{
-			return _vboId;
-		}
-
-		GLenum getUsage()
-		{
-			return _usage;
-		}
-
-		GLsizei getSize(){
-			return _size;
-		}
-		void use( GLuint uiAttribLocation ) const;
-	private:
-	
-		GLuint _vboId;
-		GLenum _usage;
-		GLsizei _size;
-		size_t _unsignedIntSize;
+		IndexVBO();
+		IndexVBO(GLsizei size, unsigned int* data);
+		virtual~IndexVBO();
 	};
 
 }
+
+#endif //INDEX_BUFFER_OBJECT_H

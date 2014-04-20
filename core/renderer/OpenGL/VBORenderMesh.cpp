@@ -84,7 +84,7 @@ namespace Etoile
 			printOpenGLError();
 
 			info->_indexVBO->use();
-			glDrawElements( GL_TRIANGLES, info->_indexVBO->getSize(), GL_UNSIGNED_INT, 0 );
+			glDrawElements( GL_TRIANGLES, info->_indexVBO->dataSize(), GL_UNSIGNED_INT, 0 );
 			info->_indexVBO->unUse();
 
 			printOpenGLError();
@@ -146,7 +146,7 @@ namespace Etoile
 			info->_vertexVBO._primitive = GL_TRIANGLES;
 
 
-			IndexVBO* _indexVBO = new IndexVBO(submesh->getOriginalVertexIndexForFaces().size(), &(submesh->getOriginalVertexIndexForFaces()[0]), usage);
+			IndexVBO* _indexVBO = new IndexVBO(submesh->getOriginalVertexIndexForFaces().size(), &(submesh->getOriginalVertexIndexForFaces()[0]));
 			info->_indexVBO = _indexVBO;
 			_vboUnitList.push_back(info);
 
@@ -244,7 +244,7 @@ namespace Etoile
 				printOpenGLError();
 
 				info->_indexVBO->use();
-				glDrawElements( GL_TRIANGLES, info->_indexVBO->getSize(), GL_UNSIGNED_INT, 0 );
+				glDrawElements( GL_TRIANGLES, info->_indexVBO->dataSize(), GL_UNSIGNED_INT, 0 );
 				info->_indexVBO->unUse();
 
 				printOpenGLError();

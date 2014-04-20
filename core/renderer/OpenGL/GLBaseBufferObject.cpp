@@ -18,6 +18,13 @@ namespace Etoile
 	}
 
 	template <class DataType>
+	GLBaseBufferObject<DataType>::~GLBaseBufferObject()
+	{
+		glDeleteBuffersARB(1, &_id);
+		printOpenGLError();
+	}
+
+	template <class DataType>
 	void GLBaseBufferObject<DataType>::use()
 	{
 		glBindBufferARB(_target, _id);
@@ -62,9 +69,16 @@ namespace Etoile
 	}
 
 	template <class DataType>
+	GLsizei GLBaseBufferObject<DataType>::dataSize()
+	{
+		return _size;
+	}
+
+	template <class DataType>
 	void GLBaseBufferObject<DataType>::bindData(GLsizei datasize, DataType* data)
 	{
 		use();
+		_size = datasize;
 		//Buffer respeciﬁcation, detach the original memory,
 		glBufferDataARB(_target,  datasize * sizeof(DataType), NULL, _usage);
 		glBufferDataARB(_target,  datasize * sizeof(DataType), data, _usage);
@@ -123,5 +137,15 @@ namespace Etoile
 		int sizet = sizeof(DataType);
 		glMapBufferRange(_target, offset * sizet,  datasize * sizet, GL_MAP_WRITE_BIT | GL_MAP_INVALIDATE_BUFFER_BIT);
 	}
+
+	// No need to call this TemporaryFunction() function,
+	// it's just to avoid link error.
+	/*void TemporaryFunction ()
+	{
+		GLBaseBufferObjectUnsignedInt TempObj;
+		TempObj.unUse();
+		TempObj.use();
+		GLBaseBufferObjectFloat TempObj2;
+	}*/
 }
 

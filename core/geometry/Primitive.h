@@ -18,7 +18,7 @@ namespace Etoile
 		Mesh* _pMesh;
 		std::vector<Vec3f> _vdata, _ndata;
 		std::vector<Vec2f> _tdata;
-		std::vector<int> _vertices_index_face;
+		std::vector<unsigned int> _vertices_index_face;
 	public:
 		Primitive() : MovableObject(), _pMesh(NULL){}
 		virtual~Primitive(){}
