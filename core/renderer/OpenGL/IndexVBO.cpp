@@ -33,7 +33,7 @@ namespace Etoile
 		_size = size;
 		_target = GL_ELEMENT_ARRAY_BUFFER_ARB;
 		_usage = GL_STATIC_DRAW_ARB;
-		GLBaseBufferObject<unsigned int>::bindData(size, data);
+		bindData(size, data);
 		printOpenGLError();
 	}
 
