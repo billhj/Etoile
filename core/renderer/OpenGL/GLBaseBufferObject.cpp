@@ -77,5 +77,39 @@ namespace Etoile
 		glBufferSubDataARB(_target, offset * sizet,  datasize * sizet, data);
 		unUse();
 	}
+
+	template <class DataType>
+	DataType* GLBaseBufferObject<DataType>::useMap(GLenum accessType)
+	{
+		use();
+		DataType* ptr = (float*)glMapBufferARB(_target, accessType);
+		return ptr;
+	}
+
+	template <class DataType>
+	void GLBaseBufferObject<DataType>::unUseMap()
+	{
+		glUnmapBufferARB(_target); // unmap it after use
+		unUse();
+	}
+
+	template <class DataType>
+	DataType* GLBaseBufferObject<DataType>::useMapForRead()
+	{
+		return useMap(GL_READ_ONLY);
+	}
+
+	template <class DataType>
+	DataType* GLBaseBufferObject<DataType>::useMapForWrite()
+	{
+		return useMap(GL_WRITE_ONLY);
+	}
+
+
+	template <class DataType>
+	DataType* GLBaseBufferObject<DataType>::useMapForReadAndWrite()
+	{
+		return useMap(GL_READ_WRITE);
+	}
 }
 
