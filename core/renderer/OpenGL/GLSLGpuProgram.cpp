@@ -432,7 +432,7 @@ namespace Etoile
 	}
 
 	//TODO
-	void GLSLGpuProgram::setUniformBufferObject(const std::string& name, UniformBufferObject* bufferObject)
+	/*void GLSLGpuProgram::setUniformBufferObject(const std::string& name, UniformBufferObject* bufferObject)
 	{
 
 		printOpenGLError ();
@@ -443,10 +443,10 @@ namespace Etoile
 		GLuint blockIndex = _pShader->getUniformBlockIndex(name);
 		if(blockIndex != GL_INVALID_INDEX)
 		{
-			int blockbindingpoint = _pShader->getUniformBlockBinding(blockIndex);
+			int* param = _pShader->getUniformBlock(blockIndex);
 			// GLint blockSize = _pShader->getUniformBlockSize(blockIndex);
-
-			bufferObject->use(blockbindingpoint);
+			int blockbindingpoint = 0;
+			bufferObject->bindToBindingPoint(blockbindingpoint);
 			_pShader->uniformBlockBinding(blockIndex, blockbindingpoint);
 		}
 
@@ -455,7 +455,7 @@ namespace Etoile
 		_pShader->unbind();
 		printOpenGLError();
 
-	}
+	}*/
 
 
 	void GLSLGpuProgram::transformFeedbackVaryingsSetting(size_t count, const char **varyings, GLenum bufferMode)

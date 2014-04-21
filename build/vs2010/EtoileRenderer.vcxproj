@@ -112,7 +112,6 @@
     <ClCompile Include="..\..\core\renderer\OpenGL\GLTextureArray.cpp" />
     <ClCompile Include="..\..\core\renderer\OpenGL\GLTextureCube.cpp" />
     <ClCompile Include="..\..\core\renderer\OpenGL\TransformFeedbackBufferObject.cpp" />
-    <ClCompile Include="..\..\core\renderer\OpenGL\UniformBufferObject.cpp" />
     <ClCompile Include="..\..\core\renderer\OpenGL\VBO.cpp" />
     <ClCompile Include="..\..\core\renderer\OpenGL\VBORenderMesh.cpp" />
     <ClCompile Include="..\..\core\renderer\OpenGL\VBOTemplate.cpp" />

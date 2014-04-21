@@ -7,52 +7,25 @@
 */
 
 #pragma once
+#ifndef UNIFORM_BUFFER_OBJECT_H
+#define UNIFORM_BUFFER_OBJECT_H
 #include "assert.h"
-#include "glhead.h"
+#include "GLBaseBufferObject.h"
 
 namespace Etoile
 {
-	//template<class T>
-	class UniformBufferObject
+	template <class DataType>
+	class UniformBufferObject : public GLBaseBufferObject<DataType>
 	{
 	public:
-		UniformBufferObject(GLsizei sizeofbytes, GLenum usage, const void* data = 0);
-		~UniformBufferObject();
-
-		void writeData(GLsizei sizeofbytes, const void* data);
-		void writeSubData( GLint offsetbytes, GLsizei sizeofbytes, const void* data);
-
-		void use()
-		{
-			glBindBufferARB( GL_UNIFORM_BUFFER, getID() );
-		}
-		void unUse()
-		{
-			glBindBufferARB(GL_UNIFORM_BUFFER, 0);
-
-		}
-		GLuint getID() const
-		{
-			return _UniformBufferObjectId;
-		}
-
-		GLenum getUsage()
-		{
-			return _usage;
-		}
-
-		GLsizei getSize(){
-			return _size;
-		}
-		void use( GLuint blockbindingpoint ) const;
-	private:
-
-		GLuint _UniformBufferObjectId;
-		GLenum _usage;
-		GLsizei _size;
-
+		UniformBufferObject();
+		UniformBufferObject(GLsizei size, DataType* data);
+		virtual~UniformBufferObject();
+		void bindToBindingPoint(GLuint blockbindingpoint) const;
+		void check();
 	};
-
-
 	//typedef UniformBufferObject<float> UniformBufferObjectFloat;
 }
+
+#include "UniformBufferObject.cpp"
+#endif UNIFORM_BUFFER_OBJECT_H

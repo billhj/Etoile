@@ -34,7 +34,6 @@ namespace Etoile
 		_target = GL_ELEMENT_ARRAY_BUFFER_ARB;
 		_usage = GL_STATIC_DRAW_ARB;
 		bindData(size, data);
-		printOpenGLError();
 	}
 
 	IndexVBO::~IndexVBO()

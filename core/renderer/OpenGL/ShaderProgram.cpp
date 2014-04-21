@@ -201,12 +201,12 @@ namespace Etoile
 		return iUniformBlockSize;
 	}
 
-	GLint  ShaderProgram::getUniformBlockBinding(GLuint blockindex)
+	GLint*  ShaderProgram::getUniformBlock(GLuint blockindex)
 	{
-		GLint  iUniformBlockBindingPoint;
-		glGetActiveUniformBlockiv(_id, blockindex, GL_UNIFORM_BLOCK_BINDING, &iUniformBlockBindingPoint);
+		GLint*  params;
+		glGetActiveUniformBlockiv(_id, blockindex, GL_UNIFORM_BLOCK_BINDING, params);
 		printOpenGLError();  // Check for OpenGL errors
-		return iUniformBlockBindingPoint;
+		return params;
 	}
 
 	void ShaderProgram::uniformBlockBinding(GLuint uniformBlockIndex, GLuint uniformBlockBinding)

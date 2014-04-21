@@ -50,7 +50,7 @@ namespace Etoile
 		void setUniformVariable(const std::string& name, Vec4f* data, int size);
 		void setUniformVariable(const std::string& name, Matrix4f* data, int size);
 
-		void setUniformBufferObject(const std::string& name, UniformBufferObject* bufferObject);
+		//void setUniformBufferObject(const std::string& name, UniformBufferObject* bufferObject);
 
 		void transformFeedbackVaryingsSetting(size_t count, const char **varyings, GLenum bufferMode = GL_SEPARATE_ATTRIBS);
 

@@ -22,78 +22,44 @@
 
 namespace Etoile
 {
-
-	UniformBufferObject::UniformBufferObject(GLsizei sizeofbytes, GLenum usage, const void* data)
+	template <class DataType>
+	void UniformBufferObject<DataType>::check()
 	{
-
 #if defined(_DEBUG) || defined(DEBUG)
 		GLint UniformBufferMax = 0;
 		glGetIntegerv(GL_MAX_UNIFORM_BUFFER_BINDINGS, &UniformBufferMax);
 		std::cout<<"max UniformBuffer:"<<UniformBufferMax<<std::endl;
 #endif
-		_size = sizeofbytes;
-		_usage = usage;
-		printOpenGLError();
-		glGenBuffersARB(1, &_UniformBufferObjectId);
-		glBindBufferARB(GL_UNIFORM_BUFFER, _UniformBufferObjectId);
-		glBufferDataARB(GL_UNIFORM_BUFFER, sizeofbytes, data, usage);
-		printOpenGLError();
 	}
 
-
-	UniformBufferObject::~UniformBufferObject()
+	template <class DataType>
+	UniformBufferObject<DataType>::UniformBufferObject()
 	{
-		printOpenGLError();
-		glDeleteBuffersARB(1, &_UniformBufferObjectId);
-		printOpenGLError();
-
+		_target = GL_UNIFORM_BUFFER;
+		_usage = GL_READ_WRITE;
 	}
 
-
-	//donot use, useSubData,   wonde only for init
-	void UniformBufferObject::writeData( GLsizei sizeofbytes, const void* data )
+	template <class DataType>
+	UniformBufferObject<DataType>::UniformBufferObject(GLsizei size, DataType* data)
 	{
-		_size = sizeofbytes;
-		printOpenGLError();
-		// bind the current buffer by ID
-		glBindBufferARB( GL_UNIFORM_BUFFER, getID());
-		printOpenGLError();
-		glBufferDataARB(GL_UNIFORM_BUFFER, sizeofbytes, data, getUsage());
-		// Set the Data
-		printOpenGLError();
+		_size = size;
+		_target = GL_UNIFORM_BUFFER;
+		_usage = GL_READ_WRITE;
+		bindData(size, data);
 	}
 
-	void UniformBufferObject::writeSubData( GLint offsetbytes, GLsizei sizeofbytes, const void* data)
+	template <class DataType>
+	UniformBufferObject<DataType>::~UniformBufferObject()
+	{
+	
+	}
+
+	template <class DataType>
+	void UniformBufferObject<DataType>::bindToBindingPoint(GLuint blockbindingpoint) const
 	{
 		// bind the current buffer by ID
-		glBindBufferARB( GL_UNIFORM_BUFFER, getID());
-
-		// Update part of the buffer
-		glBufferSubDataARB( GL_UNIFORM_BUFFER, offsetbytes, sizeofbytes, data );
-		printOpenGLError();
-	}
-
-
-	//void UniformBufferObject::readData( GLint offset, GLsizei size, void* pDest )
-	//{
-	//	// Maybe an assert if the buffer cannot be read... due to usage parameter
-
-	//	// bind the current buffer by ID
-	//	glBindBufferARB( GL_ARRAY_BUFFER_ARB, getID() );
-	//	// (GLenum target, GLintptrARB offset, GLsizeiptrARB size, GLvoid* data);
-	//	glGetBufferSubDataARB( GL_ARRAY_BUFFER_ARB,  getSizeofBytes(offset,_eInternalType), getSizeofBytes(size,_eInternalType), pDest );
-
-	//	printOpenGLError();
-	//}
-
-
-
-	void UniformBufferObject::use( GLuint blockbindingpoint ) const
-	{
-		// bind the current buffer by ID
-		glBindBufferARB( GL_UNIFORM_BUFFER, getID() );
-		glBindBufferBase(GL_UNIFORM_BUFFER, blockbindingpoint, _UniformBufferObjectId);
-
+		use();
+		glBindBufferBase(_target, blockbindingpoint, _id);
 		printOpenGLError();
 	}
 }

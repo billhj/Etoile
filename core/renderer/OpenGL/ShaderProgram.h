@@ -42,7 +42,7 @@ namespace Etoile
 		*/
 		GLuint getUniformBlockIndex(const std::string& blockName);
 		GLint getUniformBlockSize(GLuint blockindex);
-		GLint getUniformBlockBinding(GLuint blockindex);
+		GLint* getUniformBlock(GLuint blockindex);
 		void uniformBlockBinding(GLuint uniformBlockIndex, GLuint uniformBlockBinding);
 
 		/**transformFeedback

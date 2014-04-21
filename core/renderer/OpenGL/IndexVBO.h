@@ -3,7 +3,7 @@
 * @author Jing HUANG
 * @file IndexVBO.h
 * @brief 
-* @date 1/2/2011
+* @date 1/2/2011siz
 */
 
 #pragma once
