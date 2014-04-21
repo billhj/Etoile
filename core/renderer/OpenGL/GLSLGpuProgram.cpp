@@ -556,12 +556,12 @@ namespace Etoile
 
 
 
-	void GLSLGpuProgram::drawVBO(VBO* vbo, GLenum primitive, int numberComponents)
+	void GLSLGpuProgram::drawVBO(VBOFloat* vbo, GLenum primitive, int numberComponents)
 	{
 		vbo->use();
 		glVertexPointer(numberComponents, GL_FLOAT, 0, 0);
 		glEnableClientState(GL_VERTEX_ARRAY);
-		glDrawArrays(primitive, 0, vbo->getSize());
+		glDrawArrays(primitive, 0, vbo->dataSize());
 		glDisableClientState(GL_VERTEX_ARRAY);
 		printOpenGLError();
 		vbo->unUse();
@@ -585,7 +585,7 @@ namespace Etoile
 				glEnableVertexAttribArray(location);
 			}
 
-			glDrawArrays(uvbo._primitive, 0, uvbo._pVBO->getSize());
+			glDrawArrays(uvbo._primitive, 0, uvbo._pVBO->dataSize());
 
 			printOpenGLError();
 			if(location != -1)
@@ -600,7 +600,7 @@ namespace Etoile
 
 	}
 
-	void GLSLGpuProgram::drawFeedBack(VBO* vbo, TransformFeedbackBufferObject* tfbo, int numberComponents)
+	void GLSLGpuProgram::drawFeedBack(VBOFloat* vbo, TransformFeedbackBufferObject* tfbo, int numberComponents)
 	{
 
 		vbo->use();
@@ -642,13 +642,13 @@ namespace Etoile
 	}
 
 
-	void GLSLGpuProgram::drawCaptureTransform(VBO* vbo, TransformFeedbackBufferObject* tfbo, GLenum primitive, int numberComponents)
+	void GLSLGpuProgram::drawCaptureTransform(VBOFloat* vbo, TransformFeedbackBufferObject* tfbo, GLenum primitive, int numberComponents)
 	{
 		tfbo->beginFeedback();
 		vbo->use();
 		glVertexPointer(numberComponents, GL_FLOAT, 0, 0);
 		glEnableClientState(GL_VERTEX_ARRAY);
-		glDrawArrays(primitive, 0, vbo->getSize());
+		glDrawArrays(primitive, 0, vbo->dataSize());
 		glDisableClientState(GL_VERTEX_ARRAY);
 		printOpenGLError();
 		vbo->unUse();
@@ -672,7 +672,7 @@ namespace Etoile
 				glEnableVertexAttribArray(location);
 			}
 
-			glDrawArrays(uvbo._primitive, 0, uvbo._pVBO->getSize());
+			glDrawArrays(uvbo._primitive, 0, uvbo._pVBO->dataSize());
 
 			printOpenGLError();
 			if(location != -1)

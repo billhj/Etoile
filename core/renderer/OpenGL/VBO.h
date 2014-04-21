@@ -7,70 +7,28 @@
 */
 
 #pragma once
-#include "assert.h"
-#include "glhead.h"
+#ifndef VERTEX_BUFFER_OBJECT_H
+#define VERTEX_BUFFER_OBJECT_H
+#include <assert.h>
 #include <vector>
+#include "GLBaseBufferObject.h"
 
 namespace Etoile
 {
-	//GLenum eInternalType = GL_FLOAT  VBO for float
-	class VBO
+	template <class DataType> 
+	class VBO : public GLBaseBufferObject<DataType>
 	{
 	public:
-		//float size
-		VBO(GLsizei size, const float* data = 0, GLenum usage = GL_STATIC_DRAW_ARB);
-		~VBO();
-		void use()
-		{
-			glBindBufferARB(GL_ARRAY_BUFFER_ARB, getID() );
-			printOpenGLError();
-		}
-		void unUse()
-		{
-			glBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);
-			printOpenGLError();
-		}
-
-		void writeData(GLint offset, GLsizei size, const float* data);
-		void readData(GLint offset, GLsizei size, const float* pDest);
-		void updateByMap(GLint offset, GLsizei size, const float* data);
-	
-		GLuint getID() const
-		{
-			return _vboId;
-		}
-
-		GLenum getUsage()
-		{
-			return _usage;
-		}
-
-		GLsizei getSize()
-		{
-			return _size;
-		}
-
-		void use(GLuint uiAttribLocation, int nbComponents) const;
-		void unUse( GLuint uiAttribLocation) const;
-		void drawVBO(GLenum primitive = GL_TRIANGLES, int numberComponents = 4);
-
-		virtual void write(unsigned int offset, float value) ;
-		virtual void write(unsigned int offset, std::vector<float>&value) ;
-		virtual void write(unsigned int offset, unsigned int nb, float* value) ;
-
-	protected:
-		void unUseMap();
-		float* useMap();
-	private:
-		GLuint _vboId;
-		GLenum _usage;
-		GLsizei _size;
-		size_t _floatSize;
+		VBO();
+		VBO(GLsizei size, DataType* data);
+		virtual~VBO();
 	};
+
+	typedef VBO<float> VBOFloat;
 
 	struct VBOUnit
 	{
-		VBO* _pVBO;
+		VBOFloat* _pVBO;
 		std::string _attributeName;
 		GLenum _primitive;
 		int _numberComponents;
@@ -89,3 +47,6 @@ namespace Etoile
 	};
 
 }
+#include "VBO.cpp"
+
+#endif //VERTEX_BUFFER_OBJECT_H

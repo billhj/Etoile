@@ -28,4 +28,4 @@ namespace Etoile
 }
 
 #include "UniformBufferObject.cpp"
-#endif UNIFORM_BUFFER_OBJECT_H
+#endif //UNIFORM_BUFFER_OBJECT_H

@@ -26,13 +26,13 @@ namespace Etoile
 		void setDiscardRasterizer(bool discardRasterizer = true);
 
 		void bindBuffer(int bindingpoint, GLuint bufferId);
-		void bindBuffer(int bindingpoint, VBO* vbo);
+		void bindBuffer(int bindingpoint, VBOFloat* vbo);
 		void beginFeedback();
 		GLuint endFeedback();
 
 		void draw();
-		void drawCaptureTransform(VBO*, GLenum primitive = GL_TRIANGLES, int numberComponents = 4);
-		void drawFeedBack(VBO*, int numberComponents = 4);
+		void drawCaptureTransform(VBOFloat*, GLenum primitive = GL_TRIANGLES, int numberComponents = 4);
+		void drawFeedBack(VBOFloat*, int numberComponents = 4);
 		void checkExtensions();
 	private:
 

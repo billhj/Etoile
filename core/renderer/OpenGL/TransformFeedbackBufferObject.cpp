@@ -71,9 +71,9 @@ namespace Etoile
 		printOpenGLError();
 	}
 
-	void TransformFeedbackBufferObject::bindBuffer(int bindingpoint, VBO* vbo)
+	void TransformFeedbackBufferObject::bindBuffer(int bindingpoint, VBOFloat* vbo)
 	{
-		glBindBufferBase( GL_TRANSFORM_FEEDBACK_BUFFER, bindingpoint, vbo->getID());
+		glBindBufferBase( GL_TRANSFORM_FEEDBACK_BUFFER, bindingpoint, vbo->id());
 		printOpenGLError();
 	}
 
@@ -118,20 +118,20 @@ namespace Etoile
 		glDrawTransformFeedback(_primitiveMode, _feedbackId);
 	}
 
-	void TransformFeedbackBufferObject::drawCaptureTransform(VBO* vbo, GLenum primitive, int numberComponents)
+	void TransformFeedbackBufferObject::drawCaptureTransform(VBOFloat* vbo, GLenum primitive, int numberComponents)
 	{
 		beginFeedback();
 		vbo->use();
 		glVertexPointer(numberComponents, GL_FLOAT, 0, 0);
 		glEnableClientState(GL_VERTEX_ARRAY);
-		glDrawArrays(primitive, 0, vbo->getSize());
+		glDrawArrays(primitive, 0, vbo->dataSize());
 		glDisableClientState(GL_VERTEX_ARRAY);
 		printOpenGLError();
 		vbo->unUse();
 		endFeedback();
 	}
 
-	void TransformFeedbackBufferObject::drawFeedBack(VBO* vbo, int numberComponents)
+	void TransformFeedbackBufferObject::drawFeedBack(VBOFloat* vbo, int numberComponents)
 	{
 
 		vbo->use();

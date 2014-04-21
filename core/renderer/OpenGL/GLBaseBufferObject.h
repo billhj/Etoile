@@ -28,6 +28,7 @@ namespace Etoile
 		//setBindingBufferTarget
 		void setTarget(GLenum target);
 		//setWayofBuffer dynamic or static
+		// GL_STREAM_DRAW, GL_STREAM_READ, GL_STREAM_COPY, GL_STATIC_DRAW, GL_STATIC_READ, GL_STATIC_COPY, GL_DYNAMIC_DRAW, GL_DYNAMIC_READ, or GL_DYNAMIC_COPY
 		void setUsage(GLenum usage);
 		//buffer id/idx
 		GLuint id();

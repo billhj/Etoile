@@ -127,19 +127,19 @@ namespace Etoile
 			size_t sizeComponent = submesh->getOriginalVertices().size();
 			size_t sizeTextureCord = submesh->getOriginalTextureCoords().size();
 	
-			VBO* normalVBO = new VBO(sizeComponent * 3, &(submesh->getSkin()._ndata[0][0]), usage);
+			VBOFloat* normalVBO = new VBOFloat(sizeComponent * 3, &(submesh->getSkin()._ndata[0][0]));
 			info->_normalVBO._pVBO = normalVBO;
 			info->_normalVBO._attributeName = "In_Normal";
 			info->_normalVBO._numberComponents = 3;
 			info->_normalVBO._primitive = GL_TRIANGLES;
 
-			VBO* texCoordVBO = new VBO(sizeTextureCord * 2, &(submesh->getSkin()._tdata[0][0]), usage);
+			VBOFloat* texCoordVBO = new VBOFloat(sizeTextureCord * 2, &(submesh->getSkin()._tdata[0][0]));
 			info->_texCoordVBO._pVBO = texCoordVBO;
 			info->_texCoordVBO._attributeName = "In_TextureCoord";
 			info->_texCoordVBO._numberComponents = 2;
 			info->_texCoordVBO._primitive = GL_TRIANGLES;
 
-			VBO* vertexVBO = new VBO(sizeComponent * 3, &(submesh->getSkin()._vdata[0][0]), usage);
+			VBOFloat* vertexVBO = new VBOFloat(sizeComponent * 3, &(submesh->getSkin()._vdata[0][0]));
 			info->_vertexVBO._pVBO = vertexVBO;
 			info->_vertexVBO._attributeName = "In_Vertex";
 			info->_vertexVBO._numberComponents = 3;
@@ -170,8 +170,8 @@ namespace Etoile
 		{
 			SubMeshVBOUnit* info = _vboUnitList[i];
 			int size = submesh->getSkin()._vdata.size() * 3;
-			info->_vertexVBO._pVBO->write(0, size, &submesh->getSkin()._vdata[0][0]);
-			info->_normalVBO._pVBO->write(0, size, &submesh->getSkin()._ndata[0][0]);
+			info->_vertexVBO._pVBO->bindData(size, &submesh->getSkin()._vdata[0][0]);
+			info->_normalVBO._pVBO->bindData(size, &submesh->getSkin()._ndata[0][0]);
 			submesh->getSkin()._updated = false;
 		}
 	}
