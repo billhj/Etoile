@@ -24,7 +24,8 @@ namespace Etoile
 	{
 	public:
 		void initVBO();
-
+		void drawElements();
+		void drawCustumElements();
 		std::vector<Vec3f> _vdata_buffer;
 		std::vector<Vec3f> _ndata_buffer;
 		std::vector<Vec2f> _tdata_buffer;
@@ -45,6 +46,8 @@ namespace Etoile
 		};
 	public:
 		void initVBO();
+		void drawElements();
+		void drawCustumElements();
 		std::vector<VertexData> _interleaveddata;
 		VBO<VertexData> _interleavedvbo;
 		std::vector<IBO> _ibos;
