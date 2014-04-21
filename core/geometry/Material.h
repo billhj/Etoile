@@ -27,6 +27,7 @@ namespace Etoile
 	class Material
 	{
 	public:
+		Material();
 		Material(const std::string& name);
 		Material(Material&);
 

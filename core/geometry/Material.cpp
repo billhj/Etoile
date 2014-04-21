@@ -21,6 +21,25 @@
 
 namespace Etoile
 {
+	Material::Material(): _name(""), _ka(1), _kd(1), _ks(1), _shininess(64)
+	{
+		_ambient = Vec4f(0.2f,0.2f,0.2f,1);
+		_diffuse = Vec4f(1,1,1,1);
+		_specular = Vec4f(0.2f,0.2f,0.2f,1);
+		_shininess = 64;
+
+		_diffuseFinal = _diffuse * _kd;
+		_specularFinal = _specular * _ks;
+		_ambientFinal = _ambient * _ka;
+
+		_transparency = 0;
+		_dissolved_opacity = 1;
+
+		_gpuProgram = NULL;
+		/*setDiffuseTexture("emptyMap");
+		setSpecularTexture("emptyMap");
+		setBumpMap("emptyMap");*/	
+	}
 
 	Material::Material(const std::string& name): _name(name), _ka(1), _kd(1), _ks(1), _shininess(64)
 	{

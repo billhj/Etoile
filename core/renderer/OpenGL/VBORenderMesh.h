@@ -9,7 +9,7 @@
 #pragma once
 #include "GLRenderMesh.h"
 #include "VBO.h"
-#include "IndexVBO.h"
+#include "IBO.h"
 
 namespace Etoile
 {
@@ -18,7 +18,7 @@ namespace Etoile
 		VBOUnit _vertexVBO;
 		VBOUnit _normalVBO;
 		VBOUnit _texCoordVBO;
-		IndexVBO* _indexVBO;
+		IBO* _indexVBO;
 		SubMeshVBOUnit()
 		{
 			_vertexVBO._pVBO = NULL;

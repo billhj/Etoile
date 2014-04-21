@@ -1,7 +1,7 @@
 /**
 * Copyright(C) 2009-2012                
 * @author Jing HUANG
-* @file IndexVBO.h
+* @file IBO.h
 * @brief 
 * @date 1/2/2011siz
 */
@@ -13,12 +13,12 @@
 
 namespace Etoile
 {
-	class IndexVBO : public GLBaseBufferObject<unsigned int>
+	class IBO : public GLBaseBufferObject<unsigned int>
 	{
 	public:
-		IndexVBO();
-		IndexVBO(GLsizei size, unsigned int* data);
-		virtual~IndexVBO();
+		IBO();
+		IBO(GLsizei size, unsigned int* data);
+		virtual~IBO();
 	};
 
 }

@@ -1,12 +1,12 @@
 /**
 * Copyright(C) 2009-2012                
 * @author Jing HUANG
-* @file IndexVBO.cpp
+* @file IBO.cpp
 * @brief 
 * @date 1/2/2011
 */
 
-#include "IndexVBO.h"
+#include "IBO.h"
 
 /**
 * @brief For tracking memory leaks under windows using the crtdbg
@@ -21,14 +21,14 @@
 
 namespace Etoile
 {
-	IndexVBO::IndexVBO() : GLBaseBufferObject<unsigned int>()
+	IBO::IBO() : GLBaseBufferObject<unsigned int>()
 	{
 		//new GLBaseBufferObject<unsigned int>();
 		_target = GL_ELEMENT_ARRAY_BUFFER_ARB;
 		_usage = GL_STATIC_DRAW_ARB;
 	}
 
-	IndexVBO::IndexVBO(GLsizei size, unsigned int* data) : GLBaseBufferObject<unsigned int>()
+	IBO::IBO(GLsizei size, unsigned int* data) : GLBaseBufferObject<unsigned int>()
 	{
 		_size = size;
 		_target = GL_ELEMENT_ARRAY_BUFFER_ARB;
@@ -36,7 +36,7 @@ namespace Etoile
 		bindData(size, data);
 	}
 
-	IndexVBO::~IndexVBO()
+	IBO::~IBO()
 	{
 	}
 
@@ -44,6 +44,6 @@ namespace Etoile
 	//// it's just to avoid link error.
 	//void TemporaryFunction ()
 	//{
-	//	IndexVBO TempObj;
+	//	IBO TempObj;
 	//}
 }

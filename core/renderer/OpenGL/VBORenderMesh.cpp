@@ -146,7 +146,7 @@ namespace Etoile
 			info->_vertexVBO._primitive = GL_TRIANGLES;
 
 
-			IndexVBO* _indexVBO = new IndexVBO(submesh->getOriginalVertexIndexForFaces().size(), &(submesh->getOriginalVertexIndexForFaces()[0]));
+			IBO* _indexVBO = new IBO(submesh->getOriginalVertexIndexForFaces().size(), &(submesh->getOriginalVertexIndexForFaces()[0]));
 			info->_indexVBO = _indexVBO;
 			_vboUnitList.push_back(info);
 
@@ -214,7 +214,7 @@ namespace Etoile
 					gpuprogram->bindTexture(bName, t);
 				}
 				SubMeshVBOUnit* info = _vboUnitList[idx];
-				gpuprogram->drawIndexVBO(GL_TRIANGLES, info->_vertexVBO, info->_normalVBO, info->_texCoordVBO, info->_indexVBO);
+				gpuprogram->drawIBO(GL_TRIANGLES, info->_vertexVBO, info->_normalVBO, info->_texCoordVBO, info->_indexVBO);
 				gpuprogram->unBindBindingTextures();
 			}
 			else
@@ -302,7 +302,7 @@ namespace Etoile
 				}
 
 				SubMeshVBOUnit* info = _vboUnitList[idx];
-				gpuprogram->drawIndexVBO(GL_TRIANGLES, info->_vertexVBO, info->_normalVBO, info->_texCoordVBO, info->_indexVBO);
+				gpuprogram->drawIBO(GL_TRIANGLES, info->_vertexVBO, info->_normalVBO, info->_texCoordVBO, info->_indexVBO);
 				printOpenGLError();
 				gpuprogram->unBindBindingTextures();
 			}else

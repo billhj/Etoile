@@ -465,7 +465,7 @@ namespace Etoile
 	}
 
 
-	void GLSLGpuProgram::drawIndexVBO(GLenum primitive, VBOUnit& pos, VBOUnit& normal, VBOUnit& texCoord, IndexVBO* index)
+	void GLSLGpuProgram::drawIBO(GLenum primitive, VBOUnit& pos, VBOUnit& normal, VBOUnit& texCoord, IBO* index)
 	{
 		printOpenGLError ();
 		if(_pShader != 0)

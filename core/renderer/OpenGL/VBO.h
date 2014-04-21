@@ -12,6 +12,7 @@
 #include <assert.h>
 #include <vector>
 #include "GLBaseBufferObject.h"
+#include "math/MathHead.h"
 
 namespace Etoile
 {
@@ -24,7 +25,10 @@ namespace Etoile
 		virtual~VBO();
 	};
 
+	
 	typedef VBO<float> VBOFloat;
+	typedef VBO<Vec3f> VBOVec3f;
+	typedef VBO<Vec2f> VBOVec2f;
 
 	struct VBOUnit
 	{

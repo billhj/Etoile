@@ -15,7 +15,7 @@
 #include "UniformBufferObject.h"
 #include "TransformFeedbackBufferObject.h"
 #include "VBO.h"
-#include "IndexVBO.h"
+#include "IBO.h"
 
 
 
@@ -60,7 +60,7 @@ namespace Etoile
 		virtual void bindTexture(std::string const, Texture*);
 		virtual void unBindBindingTextures();
 
-		void drawIndexVBO(GLenum primitive, VBOUnit& pos, VBOUnit& normal,  VBOUnit& texCoord, IndexVBO* index);
+		void drawIBO(GLenum primitive, VBOUnit& pos, VBOUnit& normal,  VBOUnit& texCoord, IBO* index);
 		void drawVBO( VBOFloat*, GLenum primitive = GL_TRIANGLES, int numberComponents = 4);
 		void drawVBO( VBOUnit&);
 		void drawComputerShader();
