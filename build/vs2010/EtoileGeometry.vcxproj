@@ -104,6 +104,7 @@
     <ClInclude Include="..\..\core\geometry\Skeleton.h" />
     <ClInclude Include="..\..\core\geometry\SubMesh.h" />
     <ClInclude Include="..\..\core\geometry\Texture.h" />
+    <ClInclude Include="..\..\core\geometry\TriMesh.h" />
     <ClInclude Include="..\..\core\geometry\VertexBoneAssignment.h" />
   </ItemGroup>
   <ItemGroup>
