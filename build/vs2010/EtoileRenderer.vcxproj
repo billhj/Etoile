@@ -98,11 +98,11 @@
     <ClCompile Include="..\..\core\renderer\OpenGL\GeometryShader.cpp" />
     <ClCompile Include="..\..\core\renderer\OpenGL\glfunctions.cpp" />
     <ClCompile Include="..\..\core\renderer\OpenGL\glInfo.cpp" />
+    <ClCompile Include="..\..\core\renderer\OpenGL\GLSceneRenderPass.cpp" />
     <ClCompile Include="..\..\core\renderer\OpenGL\GLSceneRenderUnit.cpp" />
     <ClCompile Include="..\..\core\renderer\OpenGL\GLSLGpuProgram.cpp" />
-    <ClCompile Include="..\..\core\renderer\OpenGL\GLVBOTriMesh.cpp" />
-    <ClCompile Include="..\..\core\renderer\OpenGL\ImmediateRenderMesh.cpp" />
     <ClCompile Include="..\..\core\renderer\OpenGL\IBO.cpp" />
+    <ClCompile Include="..\..\core\renderer\OpenGL\ImmediateRenderMesh.cpp" />
     <ClCompile Include="..\..\core\renderer\OpenGL\LightController.cpp" />
     <ClCompile Include="..\..\core\renderer\OpenGL\ShaderObject.cpp" />
     <ClCompile Include="..\..\core\renderer\OpenGL\ShaderProgram.cpp" />
@@ -114,17 +114,15 @@
     <ClCompile Include="..\..\core\renderer\OpenGL\GLTextureCube.cpp" />
     <ClCompile Include="..\..\core\renderer\OpenGL\TransformFeedbackBufferObject.cpp" />
     <ClCompile Include="..\..\core\renderer\OpenGL\VBORenderMesh.cpp" />
-    <ClCompile Include="..\..\core\renderer\OpenGL\VBOTemplate.cpp" />
     <ClCompile Include="..\..\core\renderer\OpenGL\VertexShader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\core\renderer\DrawFunctions.h" />
-    <ClInclude Include="..\..\core\renderer\OpenGL\GLBaseBufferObject.h" />
     <ClInclude Include="..\..\core\renderer\OpenGL\GLRenderSceneSky.h" />
     <ClInclude Include="..\..\core\renderer\OpenGL\GLRenderSkeleton.h" />
     <ClInclude Include="..\..\core\renderer\OpenGL\GLSceneRenderUnit.h" />
-    <ClInclude Include="..\..\core\renderer\OpenGL\GLVBOTriMesh.h" />
-    <ClInclude Include="..\..\core\renderer\OpenGL\VBOTemplate.h" />
+    <ClInclude Include="..\..\core\renderer\OpenGL\IBO.h" />
+    <ClInclude Include="..\..\core\renderer\OpenGL\TransformFeedbackBufferObject.h" />
     <ClInclude Include="..\..\core\renderer\RenderMesh.h" />
     <ClInclude Include="..\..\core\renderer\OpenGL\ComputeShader.h" />
     <ClInclude Include="..\..\core\renderer\OpenGL\FBO.h" />
@@ -140,7 +138,6 @@
     <ClInclude Include="..\..\core\renderer\OpenGL\GLRenderPass.h" />
     <ClInclude Include="..\..\core\renderer\OpenGL\GLSLGpuProgram.h" />
     <ClInclude Include="..\..\core\renderer\OpenGL\ImmediateRenderMesh.h" />
-    <ClInclude Include="..\..\core\renderer\OpenGL\IBO.h" />
     <ClInclude Include="..\..\core\renderer\OpenGL\LightController.h" />
     <ClInclude Include="..\..\core\renderer\OpenGL\GLQuadRenderPass.h" />
     <ClInclude Include="..\..\core\renderer\OpenGL\ShaderObject.h" />
@@ -151,8 +148,6 @@
     <ClInclude Include="..\..\core\renderer\OpenGL\GLTexture2D.h" />
     <ClInclude Include="..\..\core\renderer\OpenGL\GLTextureArray.h" />
     <ClInclude Include="..\..\core\renderer\OpenGL\GLTextureCube.h" />
-    <ClInclude Include="..\..\core\renderer\OpenGL\TransformFeedbackBufferObject.h" />
-    <ClInclude Include="..\..\core\renderer\OpenGL\UniformBufferObject.h" />
     <ClInclude Include="..\..\core\renderer\OpenGL\VBO.h" />
     <ClInclude Include="..\..\core\renderer\OpenGL\VBORenderMesh.h" />
     <ClInclude Include="..\..\core\renderer\OpenGL\VertexShader.h" />
@@ -160,7 +155,6 @@
     <ClInclude Include="..\..\core\renderer\RenderPass.h" />
     <ClInclude Include="..\..\core\renderer\RenderUnit.h" />
     <ClInclude Include="..\..\core\renderer\SceneRenderUnit.h" />
-    <ClInclude Include="resource.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

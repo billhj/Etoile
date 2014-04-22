@@ -19,7 +19,7 @@
 #include "geometry/Mesh.h"
 #include "geometry/MeshLoader/OBJMeshLoader.h"
 #include "renderer/OpenGL/GLTexture2D.h"
-#include "renderer/OpenGL/UniformBufferObject.h"
+//#include "renderer/OpenGL/UniformBufferObject.h"
 #include "renderer/OpenGL/ImmediateRenderMesh.h"
 #include "QTTextureLoader.h"
 #include "renderer/OpenGL/GLSceneRenderPass.h"
@@ -199,18 +199,18 @@ public:
 		transform[3] = transform[1];
 		transform[3].inverse();
 		transform[3].transpose();
-		_pTransform->writeData(4 * sizeof(Matrix4f), &transform[0][0]);
+		//_pTransform->writeData(4 * sizeof(Matrix4f), &transform[0][0]);
 		std::vector<GLSLGpuProgram*>& _gpuprograms = _initG.getGpuPrograms();
 		for(unsigned int i = 0; i < _gpuprograms.size(); ++i)
 		{
 			GLSLGpuProgram* gpupragram = ( GLSLGpuProgram*)_gpuprograms[i];
 			if(gpupragram != NULL)
 			{
-				gpupragram->setUniformBufferObject("In_Transform", _pTransform);
+			/*	gpupragram->setUniformBufferObject("In_Transform", _pTransform);
 				gpupragram->setUniformVariable("In_ViewMatrix", transform[1]);
 				gpupragram->setUniformVariable("In_ProjectionMatrix", transform[0]);
 				gpupragram->setUniformVariable("In_ViewProjectionMatrix", transform[2]);
-				gpupragram->setUniformVariable("In_NormalMatrix", transform[3]);
+				gpupragram->setUniformVariable("In_NormalMatrix", transform[3]);*/
 				//gpuprogamcontroller->setGpuProgramParameter("viewDirection", Vec3f (this->camera()->viewDirection()[0],this->camera()->viewDirection()[1],this->camera()->viewDirection()[2] ));
 			}
 		}
@@ -230,9 +230,9 @@ public:
 			GLSLGpuProgram* gpupragram = ( GLSLGpuProgram*)_gpuprograms[i];
 			if(gpupragram != NULL)
 			{
-				gpupragram->setUniformVariable("PatternSamples", VecConverter::convertFromDoubleToFloat(samples));	
+				/*gpupragram->setUniformVariable("PatternSamples", VecConverter::convertFromDoubleToFloat(samples));	
 				gpupragram->setUniformVariable("SamplesNumber", int(16));
-				gpupragram->setUniformVariable("PatternSize", int(4));
+				gpupragram->setUniformVariable("PatternSize", int(4));*/
 			}
 		}
 	}
@@ -369,7 +369,7 @@ public:
 		}
 
 private:
-	UniformBufferObject* _pTransform;
+	//UniformBufferObject* _pTransform;
 	std::map<std::string, GLuint> _textureMap;
 	//RendererInit _initR;
 	GpuProgramInit _initG;

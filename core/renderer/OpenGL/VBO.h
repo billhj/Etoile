@@ -24,7 +24,27 @@ namespace Etoile
 		VBO(GLsizei size, DataType* data);
 		virtual~VBO();
 	};
+	template <class DataType>
+	VBO<DataType>::VBO()
+	{
+		_target = GL_ARRAY_BUFFER_ARB;
+		_usage = GL_STATIC_DRAW_ARB;
+	}
 
+	template <class DataType>
+	VBO<DataType>::VBO(GLsizei size, DataType* data)
+	{
+		_size = size;
+		printOpenGLError();
+		_target = GL_ARRAY_BUFFER_ARB;
+		_usage = GL_STATIC_DRAW_ARB;
+		bindData(size, data);
+	}
+
+	template <class DataType>
+	VBO<DataType>::~VBO()
+	{
+	}
 	
 	typedef VBO<float> VBOFloat;
 	typedef VBO<Vec3f> VBOVec3f;
@@ -51,6 +71,6 @@ namespace Etoile
 	};
 
 }
-#include "VBO.cpp"
+//#include "VBO.cpp"
 
 #endif //VERTEX_BUFFER_OBJECT_H
