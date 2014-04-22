@@ -28,7 +28,7 @@ namespace Etoile
 		glPolygonStipple(__stippleMask[int(tranparencyValue * __screenDoorMaskRange)]);
 	}
 
-	void DynamicGLVBOTriMesh::initVBO()
+	void DynamicGLVBOSharedTriMesh::initVBO()
 	{
 		_vdata_buffer = _vdata;
 		_ndata_buffer = _ndata;
@@ -49,7 +49,7 @@ namespace Etoile
 		}
 	}
 
-	void DynamicGLVBOTriMesh::drawElements()
+	void DynamicGLVBOSharedTriMesh::drawElements()
 	{
 		_texcoord_vbo.use();
 		glTexCoordPointer(2, GL_FLOAT, 0, 0);
@@ -92,12 +92,12 @@ namespace Etoile
 	}
 
 
-	void DynamicGLVBOTriMesh::drawCustumElements()
+	void DynamicGLVBOSharedTriMesh::drawCustumElements()
 	{
-	
+
 	}
 
-	void StaticGLVBOTriMesh::initVBO()
+	void StaticGLVBOSharedTriMesh::initVBO()
 	{
 		_interleavedvbo.setUsage(GL_STATIC_DRAW);
 
@@ -117,7 +117,7 @@ namespace Etoile
 		}
 	}
 
-	void StaticGLVBOTriMesh::drawElements()
+	void StaticGLVBOSharedTriMesh::drawElements()
 	{
 		_interleavedvbo.use();
 		GLsizei stride = sizeof(VertexData);
@@ -129,7 +129,7 @@ namespace Etoile
 		glEnableClientState(GL_VERTEX_ARRAY);
 		glEnableClientState(GL_NORMAL_ARRAY);
 		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-		
+
 
 		printOpenGLError();
 
@@ -156,5 +156,153 @@ namespace Etoile
 		glDisableClientState(GL_NORMAL_ARRAY);
 		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 		_interleavedvbo.unUse();
+	}
+
+
+
+
+
+
+	void DynamicGLVBOSeparateTriMesh::initVBO()
+	{
+		_vdata_buffer = _vdata;
+		_ndata_buffer = _ndata;
+		_tdata_buffer = _tdata;
+
+		_vertex_vbo.resize(_vdata_buffer.size());
+		_normal_vbo.resize(_ndata_buffer.size());
+		_texcoord_vbo.resize(_tdata_buffer.size());
+		for(unsigned int i = 0; i < _vertex_vbo.size(); ++i){
+			_vertex_vbo[i].setUsage(GL_DYNAMIC_DRAW);
+			_normal_vbo[i].setUsage(GL_DYNAMIC_DRAW);
+			_texcoord_vbo[i].setUsage(GL_DYNAMIC_DRAW);
+			_vertex_vbo[i].bindData(_vdata_buffer[i].size(), &_vdata_buffer[i][0]);
+			_normal_vbo[i].bindData(_ndata_buffer[i].size(), &_ndata_buffer[i][0]);
+			_texcoord_vbo[i].bindData(_tdata_buffer[i].size(), &_tdata_buffer[i][0]);
+		}
+
+		_ibos.resize(_indices.size());
+		for(unsigned int i = 0; i < _indices.size(); ++i)
+		{
+			std::vector<unsigned int>& indices = _indices[i];
+			_ibos[i].bindData(indices.size(), &indices[0]);
+		}
+	}
+
+	void DynamicGLVBOSeparateTriMesh::drawElements()
+	{
+		for(unsigned int i = 0; i < _indices.size(); ++i)
+		{
+			_texcoord_vbo[i].use();
+			glTexCoordPointer(2, GL_FLOAT, 0, 0);
+			_normal_vbo[i].use();
+			glNormalPointer(GL_FLOAT, 0, 0);
+			_vertex_vbo[i].use();
+			glVertexPointer(3, GL_FLOAT, 0, 0);
+
+			glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+			glEnableClientState(GL_NORMAL_ARRAY);
+			glEnableClientState(GL_VERTEX_ARRAY);
+
+			printOpenGLError();
+
+
+			applyMaterial(&_materials[i]);
+			Texture* t = _materials[i].getDiffuseTexture();
+			if(t != NULL)
+			{
+				t->use();
+			}
+			_ibos[i].use();
+			glDrawElements( GL_TRIANGLES, _ibos[i].dataSize(), GL_UNSIGNED_INT, 0);
+			_ibos[i].unUse();
+			if(t != NULL)
+			{
+				t->unUse();
+			}
+
+
+			printOpenGLError();
+
+			glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+			glDisableClientState(GL_NORMAL_ARRAY);
+			glDisableClientState(GL_VERTEX_ARRAY);
+			_texcoord_vbo[i].unUse();
+			_normal_vbo[i].unUse();
+			_vertex_vbo[i].unUse();
+		}
+	}
+
+
+	void DynamicGLVBOSeparateTriMesh::drawCustumElements()
+	{
+
+	}
+
+	void StaticGLVBOSeparateTriMesh::initVBO()
+	{
+		_interleavedvbo.resize(_interleaveddata.size());
+		for(unsigned int i = 0; i < _interleavedvbo.size(); ++i)
+		{
+			_interleavedvbo[i].setUsage(GL_STATIC_DRAW);
+			_interleaveddata[i].resize(_vdata[i].size());
+			for(unsigned int j = 0; j < _vdata[i].size(); ++j)
+			{
+				_interleaveddata[i][j]._v = _vdata[i][j];
+				_interleaveddata[i][j]._n = _ndata[i][j];
+				_interleaveddata[i][j]._t = _tdata[i][j];
+			}
+			_interleavedvbo[i].bindData(_interleaveddata[i].size(), &_interleaveddata[i][0]);
+		}
+
+		_ibos.resize(_indices.size());
+		for(unsigned int i = 0; i < _indices.size(); ++i)
+		{
+			std::vector<unsigned int>& indices = _indices[i];
+			_ibos[i].bindData(indices.size(), &indices[0]);
+		}
+	}
+
+	void StaticGLVBOSeparateTriMesh::drawElements()
+	{
+		for(unsigned int i = 0; i < _indices.size(); ++i)
+		{
+			_interleavedvbo[i].use();
+			GLsizei stride = sizeof(VertexData);
+			assert(stride==32);
+			glVertexPointer(3, GL_FLOAT, stride, &_interleaveddata[i][0]._v[0]);
+			glNormalPointer(GL_FLOAT, stride, &_interleaveddata[i][0]._n[0]);
+			glTexCoordPointer(2, GL_FLOAT, stride, &_interleaveddata[i][0]._t[0]);
+
+			glEnableClientState(GL_VERTEX_ARRAY);
+			glEnableClientState(GL_NORMAL_ARRAY);
+			glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+
+
+			printOpenGLError();
+
+
+			applyMaterial(&_materials[i]);
+			Texture* t = _materials[i].getDiffuseTexture();
+			if(t != NULL)
+			{
+				t->use();
+			}
+			_ibos[i].use();
+			glDrawElements( GL_TRIANGLES, _ibos[i].dataSize(), GL_UNSIGNED_INT, 0);
+			_ibos[i].unUse();
+			if(t != NULL)
+			{
+				t->unUse();
+			}
+
+
+			printOpenGLError();
+
+			glDisableClientState(GL_VERTEX_ARRAY);
+			glDisableClientState(GL_NORMAL_ARRAY);
+			glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+			_interleavedvbo[i].unUse();
+		}
 	}
 }

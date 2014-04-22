@@ -14,12 +14,22 @@
 
 namespace Etoile
 {
-	struct TriMesh
+	struct SharedTriMesh
 	{
 	public:
 		std::vector<Vec3f> _vdata;
 		std::vector<Vec3f> _ndata;
 		std::vector<Vec2f> _tdata;
+		std::vector<std::vector<unsigned int>> _indices;
+		std::vector<Material> _materials;
+	};
+
+	struct SeparateTriMesh
+	{
+	public:
+		std::vector<std::vector<Vec3f>> _vdata;
+		std::vector<std::vector<Vec3f>> _ndata;
+		std::vector<std::vector<Vec2f>> _tdata;
 		std::vector<std::vector<unsigned int>> _indices;
 		std::vector<Material> _materials;
 	};
