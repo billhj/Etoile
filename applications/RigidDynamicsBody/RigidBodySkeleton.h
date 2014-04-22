@@ -76,10 +76,10 @@ namespace Etoile
 			//std::cout<<"vel: " <<jointVelocitys <<std::endl;
 			jointRotations += (jointVelocitys * dt);
 
-			bool b = true;
-			while(b)
+			//bool b = true;
+			//while(b)
 			{
-				b = computeTorque(jointRotations,jointVelocitys, jointAccelarations, torque);
+				bool b = computeTorque(jointRotations,jointVelocitys, jointAccelarations, torque);
 				//std::cout<< torque <<std::endl;
 				ForwardDynamics(*_pmodel, jointRotations, jointVelocitys, torque, jointAccelarations, NULL);
 				jointVelocitys += (jointAccelarations * dt);
@@ -103,14 +103,25 @@ namespace Etoile
 			RigidBodyDynamics::Math::VectorNd& torque)
 		{
 			bool b = false;
-			for(unsigned int i = 1; i < rotations.size() - 1; ++i)
+			for(unsigned int i = 0; i < rotations.size() - 1; ++i)
 			{
-				torque[i] = 0;
-				double r = rotations[i] * 100;
-				torque[i] = -r;
+				//torque[i] = 0;
+				double r = rotations[i];// * 100;
+				double tor = pd(0, r, jointVelocitys[i]);
+				//rotations[i] = rotations[i] + tor;
+				torque[i] = 10 * tor;
 			}
 			return b;
 		}
+
+		double pd(double desire, double current, double speed)
+		{
+			std::cout<< desire <<current <<speed <<std::endl;
+			double kp = 0.5;
+			double kd = 0.001; 
+			return (desire - current) * kp - speed * kd;
+		}
+
 		void addTorque(int i, float t)
 		{
 			torque[i] += t * 100;
