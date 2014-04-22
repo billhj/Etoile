@@ -1,5 +1,5 @@
 ECHO ON
-
+mkdir ".\plugins\"
 copy "..\lib\*d.dll" ".\plugins\"
 
 mkdir "..\Etoile-release\"

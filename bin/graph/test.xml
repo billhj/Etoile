@@ -1,0 +1,16 @@
+<Etoile>
+    <Node name="QglviewerRenderer" x="-61" y="2" />
+    <Node name="GammaQuadPass" x="-282" y="103" />
+    <Node name="DrawScenePass" x="-362" y="-82" />
+    <Node name="OpenFile" x="-468" y="-125" />
+    <Node name="ImageToTexture" x="-437" y="67" />
+    <Node name="OpenDynamics" x="-37" y="-153" />
+    <Node name="SceneEditor" x="-186" y="-126" />
+    <Node name="RigidDynamicsBody" x="-141" y="67" />
+    <Connection fromNode="2" toNode="0" fromSocket="2" toSocket="0" />
+    <Connection fromNode="0" toNode="2" fromSocket="2" toSocket="2" />
+    <Connection fromNode="0" toNode="2" fromSocket="1" toSocket="1" />
+    <Connection fromNode="0" toNode="2" fromSocket="0" toSocket="0" />
+    <Connection fromNode="6" toNode="7" fromSocket="0" toSocket="0" />
+    <Connection fromNode="6" toNode="2" fromSocket="0" toSocket="3" />
+</Etoile>
