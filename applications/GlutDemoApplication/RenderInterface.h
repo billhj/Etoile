@@ -3,8 +3,7 @@
 
 #include <vector>
 #include "Light.h"
-#include "Camera.h"
-
+#include <eigen/eigen>
 
 enum DecoBufferType {
 	BT_Front,
@@ -69,10 +68,9 @@ public:
 	virtual void saveToImage(const char *_filename, DecoBufferType _buffType = BT_Back);
 	virtual void readFrameBuffer(DecoBufferType _buffType, DecoColorChannel _ch, void *_pixels);
 
-	virtual Camera* getCamera();
 
 protected:
-	Camera* mCamera;
+
 	std::vector<Light*> mLightList;
 };
 
