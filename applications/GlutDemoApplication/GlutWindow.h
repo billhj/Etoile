@@ -1,7 +1,7 @@
 #ifndef GLUTWINDOW_H
 #define GLUTWINDOW_H
 
-#include <gl/glut.h>
+#include "glhead.h"
 #include "RenderInterface.h"
 #include <vector>
 
