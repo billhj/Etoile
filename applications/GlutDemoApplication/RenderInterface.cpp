@@ -115,7 +115,3 @@ void RenderInterface::readFrameBuffer(DecoBufferType _buffType, DecoColorChannel
 {
 
 }
-
-Camera*  RenderInterface::getCamera(){
-	return mCamera;
-}
