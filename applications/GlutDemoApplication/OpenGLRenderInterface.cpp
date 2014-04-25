@@ -1,4 +1,4 @@
-
+﻿
 #include "OpenGLRenderInterface.h"
 #include <gl/glut.h>
 #include <iostream>
@@ -12,9 +12,12 @@ void OpenGLRenderInterface::initialize() {
 	glLoadIdentity();
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	glCullFace(GL_FRONT);
+	glEnable(GL_CULL_FACE);
+	glCullFace(GL_BACK);
 	glDisable(GL_LIGHTING);
 	glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_LEQUAL);
+	glDepthRange(0.0f, 1.0f);
 	//glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);
 	glShadeModel(GL_SMOOTH);
 	clear(Vector3d(1.0, 1.0, 1.0));
@@ -41,7 +44,7 @@ void OpenGLRenderInterface::getViewport(int& _x, int& _y, int& _width, int& _hei
 
 void OpenGLRenderInterface::clear(const Vector3d& _color) {
 	glClearColor((GLfloat)_color[0], (GLfloat)_color[1], (GLfloat)_color[2], 1.0);
-	glClear(GL_COLOR_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
 void OpenGLRenderInterface::setDefaultLight() {
