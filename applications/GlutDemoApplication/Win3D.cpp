@@ -102,14 +102,14 @@ void Win3D::resize(int w, int h)
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glViewport(0, 0, mWinWidth, mWinHeight);
-	gluPerspective(mPersp, (double)mWinWidth/(double)mWinHeight, 0.1,10.0);
+	gluPerspective(mPersp, (double)mWinWidth/(double)mWinHeight, 0.1,100.0);
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	int small = w<h?w:h;
+	int smaller = w<h?w:h;
 	mTrackBall.setCenter(Vector2d(w*0.5,h*0.5));
-	mTrackBall.setRadius(small/2.5);
+	mTrackBall.setRadius(smaller/2.5);
 
 	glutPostRedisplay();
 }
@@ -151,7 +151,11 @@ void Win3D::click(int button, int state, int x, int y)
 			}
 		}else if(button == GLUT_RIGHT_BUTTON)
 			mTranslate = true;
-	
+		else if(button == GLUT_MIDDLE_BUTTON)
+		{
+			mZooming = true;
+		}
+
 		mMouseX = x;
 		mMouseY = y;
 	}else{
@@ -188,6 +192,8 @@ void Win3D::drag(int x, int y)
 	}
 	if(mZooming){
 		mZoom += deltaY*0.01;
+		if(mZoom < 0.01) mZoom = 0.01;
+		if(mZoom > 20) mZoom = 20;
 	}
 	glutPostRedisplay();
 }
@@ -203,31 +209,34 @@ void Win3D::render()
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	gluPerspective(mPersp, (double)mWinWidth/(double)mWinHeight,0.1,10.0);
-	gluLookAt(mEye[0],mEye[1],mEye[2],0.0,0.0,-1.0, 0.0,1.0,0.0);
-
+	gluPerspective(mPersp , (double)mWinWidth/(double)mWinHeight,0.1,100.0);
+	
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	initGL();
-
+	
+	gluLookAt(mEye[0],mEye[1],mEye[2] + mZoom,0.0,0.0,0, 0.0,1.0,0.0);
 	mTrackBall.applyGLRotation();
-
+	
 	glEnable( GL_DEPTH_TEST );
 	glDisable( GL_TEXTURE_2D );
 	glDisable( GL_LIGHTING );
 	glLineWidth(2.0);
-	if(mRotate || mTranslate || mZooming){
-		drawAxis(0.2);
-	}
-	glScalef(mZoom,mZoom,mZoom);
+	
+	//do not use scaling for eviromememt matrix
+	//glScalef(mZoom,mZoom,mZoom); 
 	glTranslatef(mTrans[0]*0.001, mTrans[1]*0.001, mTrans[2]*0.001);
-
+	
+	//initLights();
 	initLights();
 	draw();
 
+	
+	if(mRotate || mTranslate || mZooming){
+		drawAxis(0.2);
+	}
 	/*if(mRotate)
 		mTrackBall.draw(mWinWidth,mWinHeight);*/
-
 	glutSwapBuffers();
 }
 
@@ -235,12 +244,13 @@ void Win3D::initGL()
 {
 	glClearColor(mBackground[0],mBackground[1],mBackground[2],mBackground[3]);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
+	/*glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);*/
 	glHint(GL_POLYGON_SMOOTH_HINT, GL_NICEST);
 	glEnable(GL_POLYGON_SMOOTH);
 	glShadeModel(GL_SMOOTH);
 	glPolygonMode(GL_FRONT, GL_FILL);
+
 }
 
 void Win3D::initLights()
@@ -253,30 +263,33 @@ void Win3D::initLights()
 	static float lmodel_ambient[]      = {0.2, 0.2,  0.2,  1.0};
 	static float lmodel_twoside[]      = {GL_FALSE};
 
-	GLfloat position[] = {1.0,0.0,0.0,0.0};
-	GLfloat position1[] = {-1.0,0.0,0.0,0.0};
-
+	Eigen::Vector4f position(5.0,20,5,0.0);
+	Eigen::Vector4f position1(-5.0,20,-5,0.0);
+	Eigen::Matrix4f matrix;
+	glGetFloatv(GL_MODELVIEW_MATRIX , matrix.data());
+	position = matrix.transpose() * position;
+	position1 = matrix * position;
 	glEnable(GL_LIGHT0);
 	glLightfv(GL_LIGHT0, GL_AMBIENT,  ambient);
 	glLightfv(GL_LIGHT0, GL_DIFFUSE,  diffuse);
-	glLightfv(GL_LIGHT0, GL_POSITION, position);
+	glLightfv(GL_LIGHT0, GL_POSITION, &position[0]);
 
-	glLightModelfv(GL_LIGHT_MODEL_AMBIENT,  lmodel_ambient);
-	glLightModelfv(GL_LIGHT_MODEL_TWO_SIDE, lmodel_twoside);
+	//glLightModelfv(GL_LIGHT_MODEL_AMBIENT,  lmodel_ambient);
+	//glLightModelfv(GL_LIGHT_MODEL_TWO_SIDE, lmodel_twoside);
 
 	glEnable( GL_LIGHT1);
 	glLightfv(GL_LIGHT1,GL_DIFFUSE, diffuse);
-	glLightfv(GL_LIGHT1,GL_POSITION, position1);
+	glLightfv(GL_LIGHT1,GL_POSITION, &position1[0]);
 	glEnable(GL_LIGHTING);
-	glEnable(GL_COLOR_MATERIAL);
+	//glEnable(GL_COLOR_MATERIAL);
 
-	glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, front_mat_shininess);
-	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR,  front_mat_specular);
-	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE,   front_mat_diffuse);
+	//glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, front_mat_shininess);
+	//glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR,  front_mat_specular);
+	//glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE,   front_mat_diffuse);
 
-	glEnable(GL_DEPTH_TEST);
+	/*glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LEQUAL);
-	glDisable(GL_CULL_FACE);
+	glDisable(GL_CULL_FACE);*/
 	glEnable(GL_NORMALIZE);
 
 }

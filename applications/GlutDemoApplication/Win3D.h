@@ -7,6 +7,7 @@
 
 class Win3D : public GlutWindow {
 public:
+	EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 	Win3D();
 
 	virtual void initWindow(int w, int h, const char* name);
