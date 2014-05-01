@@ -145,6 +145,20 @@ namespace Etoile
 			info->_vertexVBO._numberComponents = 3;
 			info->_vertexVBO._primitive = GL_TRIANGLES;
 
+			if(submesh->isSkeletonSkinActived())
+			{
+				VBO<Vec4f>* weightVBO = new VBO<Vec4f>(submesh->getBonesWeights().size(), &(submesh->getBonesWeights()[0]));
+				info->_bonesWeightsVBO._pVBO = weightVBO;
+				info->_bonesWeightsVBO._attributeName = "BonesWeights";
+				info->_bonesWeightsVBO._numberComponents = 4;
+				info->_bonesWeightsVBO._primitive = GL_TRIANGLES;
+
+				VBO<Vec4i>* indicesVBO = new VBO<Vec4i>(submesh->getBonesIndices().size(), &(submesh->getBonesIndices()[0]));
+				info->_bonesIndicesVBO._pVBO = indicesVBO;
+				info->_bonesIndicesVBO._attributeName = "BonesIndices";
+				info->_bonesIndicesVBO._numberComponents = 4;
+				info->_bonesIndicesVBO._primitive = GL_TRIANGLES;
+			}
 
 			IBO* _indexVBO = new IBO(submesh->getVertexIndexForFaces().size(), &(submesh->getVertexIndexForFaces()[0]));
 			info->_indexVBO = _indexVBO;
@@ -251,6 +265,28 @@ namespace Etoile
 					glEnableVertexAttribArray(locationVertex);
 				}
 
+				
+				GLint locationBoneWeights = gpuprogram->getAttributLocation(info->_bonesWeightsVBO._attributeName);
+				GLint locationBoneIndices = gpuprogram->getAttributLocation(info->_bonesIndicesVBO._attributeName);
+				if(submesh->isSkeletonSkinActived())
+				{
+					if(locationBoneWeights != -1)
+					{
+						info->_bonesWeightsVBO._pVBO->use();
+						glVertexAttribPointer(locationBoneWeights, info->_bonesWeightsVBO._numberComponents, GL_FLOAT, GL_FALSE, 0, 0);
+						printOpenGLError();
+						glEnableVertexAttribArray(locationBoneWeights);
+					}
+
+					if(locationBoneIndices != -1)
+					{
+						info->_bonesIndicesVBO._pVBO->use();
+						glVertexAttribPointer(locationBoneIndices, info->_bonesIndicesVBO._numberComponents, GL_INT, GL_FALSE, 0, 0);
+						printOpenGLError();
+						glEnableVertexAttribArray(locationBoneIndices);
+					}
+				}
+
 				printOpenGLError();
 
 				info->_indexVBO->use();
@@ -292,6 +328,23 @@ namespace Etoile
 					printOpenGLError();
 					info->_vertexVBO._pVBO->unUse();
 					printOpenGLError();
+				}
+				if(submesh->isSkeletonSkinActived())
+				{
+					if(locationBoneWeights != -1)
+					{
+						glDisableVertexAttribArray(locationBoneWeights);
+						printOpenGLError();
+						info->_bonesWeightsVBO._pVBO->unUse();
+						printOpenGLError();
+					}
+					if(locationBoneIndices != -1)
+					{
+						glDisableVertexAttribArray(locationBoneIndices);
+						printOpenGLError();
+						info->_bonesIndicesVBO._pVBO->unUse();
+						printOpenGLError();
+					}
 				}
 				gpuprogram->unUse();
 
@@ -422,6 +475,28 @@ namespace Etoile
 
 				printOpenGLError();
 
+				GLint locationBoneWeights = gpuprogram->getAttributLocation(info->_bonesWeightsVBO._attributeName);
+				GLint locationBoneIndices = gpuprogram->getAttributLocation(info->_bonesIndicesVBO._attributeName);
+				if(submesh->isSkeletonSkinActived())
+				{
+					
+					if(locationBoneWeights != -1)
+					{
+						info->_bonesWeightsVBO._pVBO->use();
+						glVertexAttribPointer(locationBoneWeights, info->_bonesWeightsVBO._numberComponents, GL_FLOAT, GL_FALSE, 0, 0);
+						printOpenGLError();
+						glEnableVertexAttribArray(locationBoneWeights);
+					}
+					
+					if(locationBoneIndices != -1)
+					{
+						info->_bonesIndicesVBO._pVBO->use();
+						glVertexAttribPointer(locationBoneIndices, info->_bonesIndicesVBO._numberComponents, GL_INT, GL_FALSE, 0, 0);
+						printOpenGLError();
+						glEnableVertexAttribArray(locationBoneIndices);
+					}
+				}
+
 				info->_indexVBO->use();
 				if(gpuprogram->isTessellationGpuProgram())
 				{
@@ -461,6 +536,23 @@ namespace Etoile
 					printOpenGLError();
 					info->_vertexVBO._pVBO->unUse();
 					printOpenGLError();
+				}
+				if(submesh->isSkeletonSkinActived())
+				{
+					if(locationBoneWeights != -1)
+					{
+						glDisableVertexAttribArray(locationBoneWeights);
+						printOpenGLError();
+						info->_bonesWeightsVBO._pVBO->unUse();
+						printOpenGLError();
+					}
+					if(locationBoneIndices != -1)
+					{
+						glDisableVertexAttribArray(locationBoneIndices);
+						printOpenGLError();
+						info->_bonesIndicesVBO._pVBO->unUse();
+						printOpenGLError();
+					}
 				}
 				gpuprogram->unUse();
 				printOpenGLError();
