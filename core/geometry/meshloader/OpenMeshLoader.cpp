@@ -162,13 +162,13 @@ namespace Etoile
 				const OMesh::Normal & nn = smoothNormal/smoothNormal.norm();
 				const OMesh::TexCoord2D & tt = _omesh->texcoord2D(vh);
 
-				submesh->getOriginalNormals().push_back(Vec3f(nn.data()[0], nn.data()[1], nn.data()[2]));
+				submesh->getNormals().push_back(Vec3f(nn.data()[0], nn.data()[1], nn.data()[2]));
 
-				submesh->getOriginalTextureCoords().push_back(Vec2f(tt.data()[0], tt.data()[1]));
+				submesh->getTextureCoords().push_back(Vec2f(tt.data()[0], tt.data()[1]));
 
-				submesh->getOriginalVertices().push_back(Vec3f(pp.data()[0], pp.data()[1], pp.data()[2]));
+				submesh->getVertices().push_back(Vec3f(pp.data()[0], pp.data()[1], pp.data()[2]));
 
-				submesh->getOriginalVertexIndexForFaces().push_back(submesh->getOriginalVertices().size() - 1);
+				submesh->getVertexIndexForFaces().push_back(submesh->getVertices().size() - 1);
 
 			}
 

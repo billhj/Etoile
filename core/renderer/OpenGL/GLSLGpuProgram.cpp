@@ -465,94 +465,94 @@ namespace Etoile
 	}
 
 
-	void GLSLGpuProgram::drawIBO(GLenum primitive, VBOUnit& pos, VBOUnit& normal, VBOUnit& texCoord, IBO* index)
-	{
-		printOpenGLError ();
-		if(_pShader != 0)
-		{
-			_pShader->bind();
-			printOpenGLError();
-			size_t nComponentPerVertex = 3;
-			size_t nTextureCoordComponentPerVertex = 2;
+	//void GLSLGpuProgram::drawIBO(GLenum primitive, VBOUnit& pos, VBOUnit& normal, VBOUnit& texCoord, IBO* index)
+	//{
+	//	printOpenGLError ();
+	//	if(_pShader != 0)
+	//	{
+	//		_pShader->bind();
+	//		printOpenGLError();
+	//		size_t nComponentPerVertex = 3;
+	//		size_t nTextureCoordComponentPerVertex = 2;
 
-			GLint locationTex = getAttributLocation(texCoord._attributeName);
-			if(locationTex != -1)
-			{
-				texCoord._pVBO->use();
-				glVertexAttribPointer( locationTex, texCoord._numberComponents, GL_FLOAT, GL_FALSE, 0, 0);
-				printOpenGLError();
-				glEnableVertexAttribArray(locationTex);
-			}
+	//		GLint locationTex = getAttributLocation(texCoord._attributeName);
+	//		if(locationTex != -1)
+	//		{
+	//			texCoord._pVBO->use();
+	//			glVertexAttribPointer( locationTex, texCoord._numberComponents, GL_FLOAT, GL_FALSE, 0, 0);
+	//			printOpenGLError();
+	//			glEnableVertexAttribArray(locationTex);
+	//		}
 
-			printOpenGLError();
+	//		printOpenGLError();
 
-			GLint locationNormal = getAttributLocation(normal._attributeName);
-			if(locationNormal != -1)
-			{
-				normal._pVBO->use();
-				glVertexAttribPointer(locationNormal, normal._numberComponents, GL_FLOAT, GL_FALSE, 0, 0);
-				printOpenGLError();
-				glEnableVertexAttribArray(locationNormal);
-			}
+	//		GLint locationNormal = getAttributLocation(normal._attributeName);
+	//		if(locationNormal != -1)
+	//		{
+	//			normal._pVBO->use();
+	//			glVertexAttribPointer(locationNormal, normal._numberComponents, GL_FLOAT, GL_FALSE, 0, 0);
+	//			printOpenGLError();
+	//			glEnableVertexAttribArray(locationNormal);
+	//		}
 
-			printOpenGLError();
+	//		printOpenGLError();
 
-			GLint locationVertex = getAttributLocation(pos._attributeName);
-			if(locationVertex != -1)
-			{
-				pos._pVBO->use();
-				glVertexAttribPointer(locationVertex, pos._numberComponents, GL_FLOAT, GL_FALSE, 0, 0);
-				printOpenGLError();
-				glEnableVertexAttribArray(locationVertex);
-			}
+	//		GLint locationVertex = getAttributLocation(pos._attributeName);
+	//		if(locationVertex != -1)
+	//		{
+	//			pos._pVBO->use();
+	//			glVertexAttribPointer(locationVertex, pos._numberComponents, GL_FLOAT, GL_FALSE, 0, 0);
+	//			printOpenGLError();
+	//			glEnableVertexAttribArray(locationVertex);
+	//		}
 
-			printOpenGLError();
+	//		printOpenGLError();
 
-			index->use();
-			if(isTessellationGpuProgram())
-			{
-				//TODO : tesselation is difficult
-				glPatchParameteri(GL_PATCH_VERTICES, 3);
-				glDrawElements( GL_PATCHES, index->dataSize(), GL_UNSIGNED_INT, 0 );
+	//		index->use();
+	//		if(isTessellationGpuProgram())
+	//		{
+	//			//TODO : tesselation is difficult
+	//			glPatchParameteri(GL_PATCH_VERTICES, 3);
+	//			glDrawElements( GL_PATCHES, index->dataSize(), GL_UNSIGNED_INT, 0 );
 
-			}else
-			{
-				glDrawElements( primitive, index->dataSize(), GL_UNSIGNED_INT, 0 );
-			}
+	//		}else
+	//		{
+	//			glDrawElements( primitive, index->dataSize(), GL_UNSIGNED_INT, 0 );
+	//		}
 
-			printOpenGLError();
+	//		printOpenGLError();
 
-			index->unUse();
-			printOpenGLError();
+	//		index->unUse();
+	//		printOpenGLError();
 
 
 
-			if(locationTex != -1)
-			{
-				glDisableVertexAttribArray(locationTex);
-				printOpenGLError();
-				texCoord._pVBO->unUse();
-				printOpenGLError();
-			}
-			if(locationNormal != -1)
-			{
-				glDisableVertexAttribArray(locationNormal);
-				printOpenGLError();
-				normal._pVBO->unUse();
-				printOpenGLError();
-			}
-			if(locationVertex != -1)
-			{
-				glDisableVertexAttribArray(locationVertex);
-				printOpenGLError();
-				pos._pVBO->unUse();
-				printOpenGLError();
-			}
-			_pShader->unbind();
-		}
+	//		if(locationTex != -1)
+	//		{
+	//			glDisableVertexAttribArray(locationTex);
+	//			printOpenGLError();
+	//			texCoord._pVBO->unUse();
+	//			printOpenGLError();
+	//		}
+	//		if(locationNormal != -1)
+	//		{
+	//			glDisableVertexAttribArray(locationNormal);
+	//			printOpenGLError();
+	//			normal._pVBO->unUse();
+	//			printOpenGLError();
+	//		}
+	//		if(locationVertex != -1)
+	//		{
+	//			glDisableVertexAttribArray(locationVertex);
+	//			printOpenGLError();
+	//			pos._pVBO->unUse();
+	//			printOpenGLError();
+	//		}
+	//		_pShader->unbind();
+	//	}
 
-		printOpenGLError();
-	}
+	//	printOpenGLError();
+	//}
 
 
 
@@ -568,7 +568,7 @@ namespace Etoile
 
 	}
 
-	void GLSLGpuProgram::drawVBO(VBOUnit& uvbo)
+	/*void GLSLGpuProgram::drawVBO(VBOUnit& uvbo)
 	{
 
 		printOpenGLError ();
@@ -598,7 +598,7 @@ namespace Etoile
 			_pShader->unbind();
 		}
 
-	}
+	}*/
 
 	void GLSLGpuProgram::drawFeedBack(VBOFloat* vbo, TransformFeedbackBufferObject* tfbo, int numberComponents)
 	{
@@ -612,7 +612,7 @@ namespace Etoile
 		vbo->unUse();
 	}
 
-	void GLSLGpuProgram::drawFeedBack(VBOUnit& uvbo, TransformFeedbackBufferObject* tfbo)
+	/*void GLSLGpuProgram::drawFeedBack(VBOUnit& uvbo, TransformFeedbackBufferObject* tfbo)
 	{
 		printOpenGLError ();
 		if(_pShader != 0){
@@ -639,7 +639,7 @@ namespace Etoile
 			}
 			_pShader->unbind();
 		}
-	}
+	}*/
 
 
 	void GLSLGpuProgram::drawCaptureTransform(VBOFloat* vbo, TransformFeedbackBufferObject* tfbo, GLenum primitive, int numberComponents)
@@ -655,7 +655,7 @@ namespace Etoile
 		tfbo->endFeedback();
 	}
 
-	void GLSLGpuProgram::drawCaptureTransform(VBOUnit& uvbo, TransformFeedbackBufferObject* tfbo)
+	/*void GLSLGpuProgram::drawCaptureTransform(VBOUnit& uvbo, TransformFeedbackBufferObject* tfbo)
 	{
 		tfbo->beginFeedback();
 		printOpenGLError ();
@@ -685,7 +685,7 @@ namespace Etoile
 			tfbo->endFeedback();
 			_pShader->unbind();
 		}
-	}
+	}*/
 
 	void GLSLGpuProgram::drawComputerShader()
 	{

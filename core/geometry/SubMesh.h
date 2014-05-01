@@ -10,10 +10,10 @@
 #include <string>
 #include <vector>
 #include "math/MathHead.h"
-#include "VertexBoneAssignment.h"
 #include "Material.h"
 #include "Skeleton.h"
 #include "AxisAlignedBoundingBox.h"
+#include "BonesAssignment.h"
 
 #ifdef USING_BOOST
 #include <boost/serialization/map.hpp>
@@ -21,66 +21,6 @@
 
 namespace Etoile
 {
-
-	struct Skin
-	{
-		bool _updated;
-		std::vector<Vec3f> _vdata, _ndata;
-		std::vector<Vec2f> _tdata;
-		std::vector<VertexBoneAssignment> _vertexBoneAssignmentData;
-		Skeleton *_pskeleton;
-		Skin()
-		{
-			_pskeleton = NULL;
-			_updated = false;
-		}
-		void bindSkeleton(Skeleton* skeleton){ _pskeleton = skeleton;}
-
-		bool isUpdated(){return _updated;}
-		void updateSkeleton(std::map<std::string, Quaternionf> rotations)
-		{
-			if(_pskeleton == NULL) return;
-			std::map<std::string, Quaternionf>::iterator itor = rotations.begin();
-			for(; itor != rotations.end(); ++itor)
-			{
-				Joint* joint = _pskeleton->getJoint(itor->first);
-				joint->setLocalRotation(itor->second);
-			}
-			_pskeleton->update();
-			computeSkinBySkeleton();
-		}
-
-		void computeSkinBySkeleton()
-		{
-			for(unsigned int i = 0; i < _vertexBoneAssignmentData.size(); ++i)
-			{
-				VertexBoneAssignment& dt = _vertexBoneAssignmentData[i];
-				int vertex = dt.getIdx();
-				Vec3f posO = dt.getOriginalPosition();
-				Vec3f normalO = dt.getOriginalNormal();
-				Vec3f newPos, newNormal;
-				std::vector<BoneAssignment>& boneAssignment = dt.getBoneAssignments();
-				for(unsigned int j = 0; j < boneAssignment.size(); ++j)
-				{
-					BoneAssignment& b = boneAssignment[j];
-					int id = b._boneIdx;
-					float weight = b._boneweight;
-					Joint* joint = _pskeleton->getJoint(j);
-					//Vec3f p = joint->->transformFromOriginalGlobalToGlobalPosition(posO);
-					//Vec3f n = joint->transformFromLocalToGlobalOrienation(normalO);
-					//newPos = newPos + p;
-					//newNormal = newNormal + n;
-				}
-				newPos = newPos / boneAssignment.size();
-				newNormal = newNormal / boneAssignment.size();
-				newNormal.normalize();
-				_vdata[vertex] = newPos;
-				_ndata[vertex] = newNormal;
-			}
-			_updated = true;
-		}
-
-	};
 
 	class SubMesh
 	{
@@ -101,6 +41,9 @@ namespace Etoile
 			_vdata = sub._vdata;
 			_ndata = sub._ndata;
 			_tdata = sub._tdata;
+			_bonesassignments = sub._bonesassignments;
+			_vBonesIndices = sub._vBonesIndices;
+			_vBonesWeights = sub._vBonesWeights;
 		}
 
 		virtual void release()
@@ -111,6 +54,9 @@ namespace Etoile
 			_vdata.clear();
 			_ndata.clear();
 			_tdata.clear();
+			_bonesassignments.clear();
+			_vBonesIndices.clear();
+			_vBonesWeights.clear();
 		}
 
 		const std::string getName(){return _name;}
@@ -141,45 +87,42 @@ namespace Etoile
 			_texcoord_index_face.push_back(texcoord_index);
 		}
 
-		std::vector<unsigned int>& getOriginalVertexIndexForFaces(){return _vertices_index_face;}
-		std::vector<unsigned int>& getOriginalNormalIndexForFaces(){return _normal_index_face;}
-		std::vector<unsigned int>&  getOriginalTextureIndexForFaces(){return _texcoord_index_face;}
-		std::vector<Vec3f>&  getOriginalVertices(){return _vdata;} 
-		std::vector<Vec3f>&  getOriginalNormals(){return _ndata;}
-		std::vector<Vec2f>& getOriginalTextureCoords(){return _tdata;}
+		std::vector<unsigned int>& getVertexIndexForFaces(){return _vertices_index_face;}
+		std::vector<unsigned int>& getNormalIndexForFaces(){return _normal_index_face;}
+		std::vector<unsigned int>&  getTextureIndexForFaces(){return _texcoord_index_face;}
+		std::vector<Vec3f>&  getVertices(){return _vdata;} 
+		std::vector<Vec3f>&  getNormals(){return _ndata;}
+		std::vector<Vec2f>& getTextureCoords(){return _tdata;}
+		std::vector<Vec4f>&  getBonesWeights(){return _vBonesWeights;} 
+		std::vector<Vec4i>&  getBonesIndices(){return _vBonesIndices;} 
+		std::vector<BonesAssignment>& getBonesAssignment(){return _bonesassignments;}
+		void setActiveSkeletonSkin(bool t){ _activeSkinning = t;}
+		bool isSkeletonSkinActived(){return _activeSkinning;}
 
-		void setOriginalVertice(const std::vector<Vec3f>& data)
+		void setVertice(const std::vector<Vec3f>& data)
 		{
 			_vdata = data;
 		}
 
-		void setOriginalNormal(const std::vector<Vec3f>& data)
+		void setNormal(const std::vector<Vec3f>& data)
 		{
 			_ndata = data;
 		}
 
 		
-		void setOriginalTextureCoords(const std::vector<Vec2f>& data)
+		void setTextureCoords(const std::vector<Vec2f>& data)
 		{
 			_tdata = data;
 		}
 
-		void setOriginalVertexIndexForFaces(const std::vector<unsigned int>& data)
+		void setVertexIndexForFaces(const std::vector<unsigned int>& data)
 		{
 			_vertices_index_face = data;
 		}
 
-		void initResource()
-		{
-			_skin._ndata = _ndata;
-			_skin._vdata = _vdata;
-			_skin._tdata = _tdata;
-			_skin._updated = true;
-		}
-		Skin& getSkin(){return _skin;}
 		void computeAABB()
 		{
-			_aabb.build(_skin._vdata);
+			_aabb.build(_vdata);
 		}
 
 		AxisAlignedBoundingBoxf* getAABB(){return &_aabb;}
@@ -210,9 +153,12 @@ namespace Etoile
 		std::vector<unsigned int> _vertices_index_face;
 		std::vector<unsigned int> _normal_index_face;
 		std::vector<unsigned int> _texcoord_index_face;
+		std::vector<BonesAssignment> _bonesassignments;
+		bool _activeSkinning;
 		std::vector<Vec3f> _vdata, _ndata;
+		std::vector<Vec4i> _vBonesIndices;
+		std::vector<Vec4f> _vBonesWeights;
 		std::vector<Vec2f> _tdata;
 		std::string _name;
-		Skin _skin;
 	};
 }

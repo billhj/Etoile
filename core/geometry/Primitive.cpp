@@ -36,10 +36,10 @@ namespace Etoile
 		submesh->getMaterial()->setDiffuse(Vec4f(1,1,1,1));
 		mesh->addSubMesh(submesh);
 		
-		submesh->setOriginalVertice(_vdata);
-		submesh->setOriginalNormal(_ndata);
-		submesh->setOriginalTextureCoords(_tdata);
-		submesh->setOriginalVertexIndexForFaces(_vertices_index_face);
+		submesh->setVertice(_vdata);
+		submesh->setNormal(_ndata);
+		submesh->setTextureCoords(_tdata);
+		submesh->setVertexIndexForFaces(_vertices_index_face);
 		_pMesh->initResource();
 	}
 

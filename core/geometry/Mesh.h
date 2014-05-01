@@ -74,7 +74,7 @@ namespace Etoile
 			for(itor = newlist.begin(); itor != newlist.end(); ++itor)
 			{
 				SubMesh* submesh = (*itor);
-				if(submesh->getOriginalVertexIndexForFaces().empty())
+				if(submesh->getVertexIndexForFaces().empty())
 				{
 					delete submesh;
 				}else
@@ -106,10 +106,6 @@ namespace Etoile
 
 		virtual void initResource()
 		{
-			for(unsigned int i = 0; i < _subMeshList.size(); ++i)
-			{
-				_subMeshList[i]->initResource();
-			}
 			computeAABB();
 		}
 

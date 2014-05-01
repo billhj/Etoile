@@ -13,10 +13,10 @@ namespace Etoile
 {
 	VBORenderMesh::VBORenderMesh(const std::string& name) : GLRenderMesh(name)
 	{
-		
+
 	}
 
-	
+
 	void VBORenderMesh::initResource()
 	{
 		GLRenderMesh::initResource();
@@ -41,10 +41,10 @@ namespace Etoile
 		for(unsigned int i = 0; i < submeshlist.size(); ++i)
 		{
 			SubMesh* submesh = submeshlist[i];
-			if(submesh->getSkin()._updated)
+			/*if(submesh->getSkin()._updated)
 			{
-				updateVBO(submesh, i);
-			}
+			updateVBO(submesh, i);
+			}*/
 			drawSubMesh(submesh, i, gltransformation);
 		}
 		drawAABB(gltransformation);
@@ -123,30 +123,30 @@ namespace Etoile
 			SubMesh* submesh = submeshlist[i];
 
 			SubMeshVBOUnit* info = new SubMeshVBOUnit();
-			submesh->getSkin()._updated = false;
-			size_t sizeComponent = submesh->getOriginalVertices().size();
-			size_t sizeTextureCord = submesh->getOriginalTextureCoords().size();
-	
-			VBOFloat* normalVBO = new VBOFloat(sizeComponent * 3, &(submesh->getSkin()._ndata[0][0]));
+			//submesh->getSkin()._updated = false;
+			size_t sizeComponent = submesh->getVertices().size();
+			size_t sizeTextureCord = submesh->getTextureCoords().size();
+
+			VBO<Vec3f>* normalVBO = new VBO<Vec3f>(sizeComponent, &(submesh->getNormals()[0]));
 			info->_normalVBO._pVBO = normalVBO;
 			info->_normalVBO._attributeName = "In_Normal";
 			info->_normalVBO._numberComponents = 3;
 			info->_normalVBO._primitive = GL_TRIANGLES;
 
-			VBOFloat* texCoordVBO = new VBOFloat(sizeTextureCord * 2, &(submesh->getSkin()._tdata[0][0]));
+			VBO<Vec2f>* texCoordVBO = new VBO<Vec2f>(sizeTextureCord, &(submesh->getTextureCoords()[0]));
 			info->_texCoordVBO._pVBO = texCoordVBO;
 			info->_texCoordVBO._attributeName = "In_TextureCoord";
 			info->_texCoordVBO._numberComponents = 2;
 			info->_texCoordVBO._primitive = GL_TRIANGLES;
 
-			VBOFloat* vertexVBO = new VBOFloat(sizeComponent * 3, &(submesh->getSkin()._vdata[0][0]));
+			VBO<Vec3f>* vertexVBO = new VBO<Vec3f>(sizeComponent, &(submesh->getVertices()[0]));
 			info->_vertexVBO._pVBO = vertexVBO;
 			info->_vertexVBO._attributeName = "In_Vertex";
 			info->_vertexVBO._numberComponents = 3;
 			info->_vertexVBO._primitive = GL_TRIANGLES;
 
 
-			IBO* _indexVBO = new IBO(submesh->getOriginalVertexIndexForFaces().size(), &(submesh->getOriginalVertexIndexForFaces()[0]));
+			IBO* _indexVBO = new IBO(submesh->getVertexIndexForFaces().size(), &(submesh->getVertexIndexForFaces()[0]));
 			info->_indexVBO = _indexVBO;
 			_vboUnitList.push_back(info);
 
@@ -160,20 +160,20 @@ namespace Etoile
 		for(unsigned int i = 0; i < submeshlist.size(); ++i)
 		{
 			SubMesh* submesh = submeshlist[i];
-			updateVBO(submesh, i);
+			//updateVBO(submesh, i);
 		}
 	}
 
 	void VBORenderMesh::updateVBO(SubMesh* submesh, int i)
 	{
-		if(submesh->getSkin()._updated)
+		/*if(submesh->getSkin()._updated)
 		{
-			SubMeshVBOUnit* info = _vboUnitList[i];
-			int size = submesh->getSkin()._vdata.size() * 3;
-			info->_vertexVBO._pVBO->bindData(size, &submesh->getSkin()._vdata[0][0]);
-			info->_normalVBO._pVBO->bindData(size, &submesh->getSkin()._ndata[0][0]);
-			submesh->getSkin()._updated = false;
-		}
+		SubMeshVBOUnit* info = _vboUnitList[i];
+		int size = submeshgetVertices().size() * 3;
+		info->_vertexVBO._pVBO->bindData(size, &submeshgetVertices()[0][0]);
+		info->_normalVBO._pVBO->bindData(size, &submesh->getNormals()[0][0]);
+		submesh->getSkin()._updated = false;
+		}*/
 	}
 
 	int VBORenderMesh::getVBOUnitIndexByName(const std::string& name)
@@ -214,7 +214,88 @@ namespace Etoile
 					gpuprogram->bindTexture(bName, t);
 				}
 				SubMeshVBOUnit* info = _vboUnitList[idx];
-				gpuprogram->drawIBO(GL_TRIANGLES, info->_vertexVBO, info->_normalVBO, info->_texCoordVBO, info->_indexVBO);
+				//gpuprogram->drawIBO(GL_TRIANGLES, info->_vertexVBO, info->_normalVBO, info->_texCoordVBO, info->_indexVBO);
+				gpuprogram->use();
+				printOpenGLError();
+				size_t nComponentPerVertex = 3;
+				size_t nTextureCoordComponentPerVertex = 2;
+
+				GLint locationTex = gpuprogram->getAttributLocation(info->_texCoordVBO._attributeName);
+				if(locationTex != -1)
+				{
+					info->_texCoordVBO._pVBO->use();
+					glVertexAttribPointer( locationTex, info->_texCoordVBO._numberComponents, GL_FLOAT, GL_FALSE, 0, 0);
+					printOpenGLError();
+					glEnableVertexAttribArray(locationTex);
+				}
+
+				printOpenGLError();
+
+				GLint locationNormal = gpuprogram->getAttributLocation(info->_normalVBO._attributeName);
+				if(locationNormal != -1)
+				{
+					info->_normalVBO._pVBO->use();
+					glVertexAttribPointer(locationNormal, info->_normalVBO._numberComponents, GL_FLOAT, GL_FALSE, 0, 0);
+					printOpenGLError();
+					glEnableVertexAttribArray(locationNormal);
+				}
+
+				printOpenGLError();
+
+				GLint locationVertex = gpuprogram->getAttributLocation(info->_vertexVBO._attributeName);
+				if(locationVertex != -1)
+				{
+					info->_vertexVBO._pVBO->use();
+					glVertexAttribPointer(locationVertex, info->_vertexVBO._numberComponents, GL_FLOAT, GL_FALSE, 0, 0);
+					printOpenGLError();
+					glEnableVertexAttribArray(locationVertex);
+				}
+
+				printOpenGLError();
+
+				info->_indexVBO->use();
+				if(gpuprogram->isTessellationGpuProgram())
+				{
+					//TODO : tesselation is difficult
+					glPatchParameteri(GL_PATCH_VERTICES, 3);
+					glDrawElements( GL_PATCHES, info->_indexVBO->dataSize(), GL_UNSIGNED_INT, 0 );
+
+				}else
+				{
+					glDrawElements(GL_TRIANGLES, info->_indexVBO->dataSize(), GL_UNSIGNED_INT, 0 );
+				}
+
+				printOpenGLError();
+
+				info->_indexVBO->unUse();
+				printOpenGLError();
+
+
+
+				if(locationTex != -1)
+				{
+					glDisableVertexAttribArray(locationTex);
+					printOpenGLError();
+					info->_texCoordVBO._pVBO->unUse();
+					printOpenGLError();
+				}
+				if(locationNormal != -1)
+				{
+					glDisableVertexAttribArray(locationNormal);
+					printOpenGLError();
+					info->_normalVBO._pVBO->unUse();
+					printOpenGLError();
+				}
+				if(locationVertex != -1)
+				{
+					glDisableVertexAttribArray(locationVertex);
+					printOpenGLError();
+					info->_vertexVBO._pVBO->unUse();
+					printOpenGLError();
+				}
+				gpuprogram->unUse();
+
+
 				gpuprogram->unBindBindingTextures();
 			}
 			else
@@ -302,7 +383,86 @@ namespace Etoile
 				}
 
 				SubMeshVBOUnit* info = _vboUnitList[idx];
-				gpuprogram->drawIBO(GL_TRIANGLES, info->_vertexVBO, info->_normalVBO, info->_texCoordVBO, info->_indexVBO);
+				//gpuprogram->drawIBO(GL_TRIANGLES, info->_vertexVBO, info->_normalVBO, info->_texCoordVBO, info->_indexVBO);
+				gpuprogram->use();
+				printOpenGLError();
+				size_t nComponentPerVertex = 3;
+				size_t nTextureCoordComponentPerVertex = 2;
+
+				GLint locationTex = gpuprogram->getAttributLocation(info->_texCoordVBO._attributeName);
+				if(locationTex != -1)
+				{
+					info->_texCoordVBO._pVBO->use();
+					glVertexAttribPointer( locationTex, info->_texCoordVBO._numberComponents, GL_FLOAT, GL_FALSE, 0, 0);
+					printOpenGLError();
+					glEnableVertexAttribArray(locationTex);
+				}
+
+				printOpenGLError();
+
+				GLint locationNormal = gpuprogram->getAttributLocation(info->_normalVBO._attributeName);
+				if(locationNormal != -1)
+				{
+					info->_normalVBO._pVBO->use();
+					glVertexAttribPointer(locationNormal, info->_normalVBO._numberComponents, GL_FLOAT, GL_FALSE, 0, 0);
+					printOpenGLError();
+					glEnableVertexAttribArray(locationNormal);
+				}
+
+				printOpenGLError();
+
+				GLint locationVertex = gpuprogram->getAttributLocation(info->_vertexVBO._attributeName);
+				if(locationVertex != -1)
+				{
+					info->_vertexVBO._pVBO->use();
+					glVertexAttribPointer(locationVertex, info->_vertexVBO._numberComponents, GL_FLOAT, GL_FALSE, 0, 0);
+					printOpenGLError();
+					glEnableVertexAttribArray(locationVertex);
+				}
+
+				printOpenGLError();
+
+				info->_indexVBO->use();
+				if(gpuprogram->isTessellationGpuProgram())
+				{
+					//TODO : tesselation is difficult
+					glPatchParameteri(GL_PATCH_VERTICES, 3);
+					glDrawElements( GL_PATCHES, info->_indexVBO->dataSize(), GL_UNSIGNED_INT, 0 );
+
+				}else
+				{
+					glDrawElements(GL_TRIANGLES, info->_indexVBO->dataSize(), GL_UNSIGNED_INT, 0 );
+				}
+
+				printOpenGLError();
+
+				info->_indexVBO->unUse();
+				printOpenGLError();
+
+
+
+				if(locationTex != -1)
+				{
+					glDisableVertexAttribArray(locationTex);
+					printOpenGLError();
+					info->_texCoordVBO._pVBO->unUse();
+					printOpenGLError();
+				}
+				if(locationNormal != -1)
+				{
+					glDisableVertexAttribArray(locationNormal);
+					printOpenGLError();
+					info->_normalVBO._pVBO->unUse();
+					printOpenGLError();
+				}
+				if(locationVertex != -1)
+				{
+					glDisableVertexAttribArray(locationVertex);
+					printOpenGLError();
+					info->_vertexVBO._pVBO->unUse();
+					printOpenGLError();
+				}
+				gpuprogram->unUse();
 				printOpenGLError();
 				gpuprogram->unBindBindingTextures();
 			}else

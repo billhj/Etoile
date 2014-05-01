@@ -15,9 +15,11 @@ namespace Etoile
 {
 	struct SubMeshVBOUnit
 	{
-		VBOUnit _vertexVBO;
-		VBOUnit _normalVBO;
-		VBOUnit _texCoordVBO;
+		VBOUnit<Vec3f> _vertexVBO;
+		VBOUnit<Vec3f> _normalVBO;
+		VBOUnit<Vec2f> _texCoordVBO;
+		VBOUnit<Vec4i> _bonesIndicesVBO;
+		VBOUnit<Vec4f> _bonesWeightsVBO;
 		IBO* _indexVBO;
 		SubMeshVBOUnit()
 		{

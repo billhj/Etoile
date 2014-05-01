@@ -50,9 +50,10 @@ namespace Etoile
 	typedef VBO<Vec3f> VBOVec3f;
 	typedef VBO<Vec2f> VBOVec2f;
 
+	template <class T>
 	struct VBOUnit
 	{
-		VBOFloat* _pVBO;
+		VBO<T>* _pVBO;
 		std::string _attributeName;
 		GLenum _primitive;
 		int _numberComponents;

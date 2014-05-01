@@ -60,16 +60,16 @@ namespace Etoile
 		virtual void bindTexture(std::string const, Texture*);
 		virtual void unBindBindingTextures();
 
-		void drawIBO(GLenum primitive, VBOUnit& pos, VBOUnit& normal,  VBOUnit& texCoord, IBO* index);
+		//void drawIBO(GLenum primitive, VBOUnit& pos, VBOUnit& normal,  VBOUnit& texCoord, IBO* index);
 		void drawVBO( VBOFloat*, GLenum primitive = GL_TRIANGLES, int numberComponents = 4);
-		void drawVBO( VBOUnit&);
+		//void drawVBO( VBOUnit&);
 		void drawComputerShader();
 
 		void drawFeedBack(VBOFloat*, TransformFeedbackBufferObject* tfbo, int numberComponents = 4);
-		void drawFeedBack(VBOUnit&, TransformFeedbackBufferObject* tfbo);
+		//void drawFeedBack(VBOUnit&, TransformFeedbackBufferObject* tfbo);
 
 		void drawCaptureTransform(VBOFloat*, TransformFeedbackBufferObject* tfbo, GLenum primitive = GL_TRIANGLES, int numberComponents = 4);
-		void drawCaptureTransform(VBOUnit&, TransformFeedbackBufferObject* tfbo);
+		//void drawCaptureTransform(VBOUnit&, TransformFeedbackBufferObject* tfbo);
 
 
 		ShaderProgram* getShader(){return _pShader;}
