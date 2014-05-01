@@ -27,6 +27,7 @@ namespace Etoile
 	public:
 		SubMesh(const std::string& name): _name(name), _nbVerticesPerFace(3)
 		{
+			_activeSkinning = false;
 		}
 
 		SubMesh(SubMesh& sub): _nbVerticesPerFace(3)
@@ -44,6 +45,7 @@ namespace Etoile
 			_bonesassignments = sub._bonesassignments;
 			_vBonesIndices = sub._vBonesIndices;
 			_vBonesWeights = sub._vBonesWeights;
+			_activeSkinning = sub._activeSkinning;
 		}
 
 		virtual void release()
