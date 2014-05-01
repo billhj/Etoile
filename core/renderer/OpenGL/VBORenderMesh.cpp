@@ -149,13 +149,13 @@ namespace Etoile
 			{
 				VBO<Vec4f>* weightVBO = new VBO<Vec4f>(submesh->getBonesWeights().size(), &(submesh->getBonesWeights()[0]));
 				info->_bonesWeightsVBO._pVBO = weightVBO;
-				info->_bonesWeightsVBO._attributeName = "BonesWeights";
+				info->_bonesWeightsVBO._attributeName = "In_BonesWeights";
 				info->_bonesWeightsVBO._numberComponents = 4;
 				info->_bonesWeightsVBO._primitive = GL_TRIANGLES;
 
 				VBO<Vec4i>* indicesVBO = new VBO<Vec4i>(submesh->getBonesIndices().size(), &(submesh->getBonesIndices()[0]));
 				info->_bonesIndicesVBO._pVBO = indicesVBO;
-				info->_bonesIndicesVBO._attributeName = "BonesIndices";
+				info->_bonesIndicesVBO._attributeName = "In_BonesIndices";
 				info->_bonesIndicesVBO._numberComponents = 4;
 				info->_bonesIndicesVBO._primitive = GL_TRIANGLES;
 			}
@@ -218,6 +218,10 @@ namespace Etoile
 			if(gpuprogram != NULL)
 			{
 				gpuprogram->setUniformVariable("In_WorldMatrix",  gltransformation);
+				if(submesh->isSkeletonSkinActived())
+				{
+					gpuprogram->setUniformVariable("In_BonesTransforms", &submesh->getBonesTransforms()[0], submesh->getBonesTransforms().size());
+				}
 				std::map<std::string, Texture*>& idxs = material->getTextures();
 				std::map<std::string, Texture*>::iterator itor;
 
@@ -425,6 +429,10 @@ namespace Etoile
 			if(gpuprogram != NULL)
 			{
 				gpuprogram->setUniformVariable("In_WorldMatrix", gltransformation);
+				if(submesh->isSkeletonSkinActived())
+				{
+					gpuprogram->setUniformVariable("In_BonesTransforms", &submesh->getBonesTransforms()[0], submesh->getBonesTransforms().size());
+				}
 				std::map<std::string, Texture*>& idxs = material->getTextures();
 				std::map<std::string, Texture*>::iterator itor;
 

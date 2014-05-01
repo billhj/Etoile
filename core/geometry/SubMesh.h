@@ -97,6 +97,7 @@ namespace Etoile
 		std::vector<Vec2f>& getTextureCoords(){return _tdata;}
 		std::vector<Vec4f>&  getBonesWeights(){return _vBonesWeights;} 
 		std::vector<Vec4i>&  getBonesIndices(){return _vBonesIndices;} 
+		std::vector<Matrix4f>&  getBonesTransforms(){return _bonesTransforms;} 
 		std::vector<BonesAssignment>& getBonesAssignment(){return _bonesassignments;}
 		void setActiveSkeletonSkin(bool t){ _activeSkinning = t;}
 		bool isSkeletonSkinActived(){return _activeSkinning;}
@@ -160,7 +161,8 @@ namespace Etoile
 		std::vector<Vec3f> _vdata, _ndata;
 		std::vector<Vec4i> _vBonesIndices;
 		std::vector<Vec4f> _vBonesWeights;
-		std::vector<Vec2f> _tdata;
+		std::vector<Matrix4f> _bonesTransforms;
+ 		std::vector<Vec2f> _tdata;
 		std::string _name;
 	};
 }
