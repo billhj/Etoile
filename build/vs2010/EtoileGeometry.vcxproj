@@ -82,6 +82,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\core\geometry\AxisAlignedBoundingBox.h" />
+    <ClInclude Include="..\..\core\geometry\BonesAssignment.h" />
     <ClInclude Include="..\..\core\geometry\Camera.h" />
     <ClInclude Include="..\..\core\geometry\ContainmentTests.h" />
     <ClInclude Include="..\..\core\geometry\DOFConstraint.h" />

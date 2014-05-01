@@ -82,6 +82,7 @@
     <ClInclude Include="..\..\core\game\GameEngine.h" />
     <ClInclude Include="..\..\core\game\GameObject.h" />
     <ClInclude Include="..\..\core\game\GameSystem.h" />
+    <ClInclude Include="..\..\core\game\ResourceManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\core\game\GameComponent.cpp" />

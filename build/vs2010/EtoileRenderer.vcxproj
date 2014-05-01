@@ -98,7 +98,6 @@
     <ClCompile Include="..\..\core\renderer\OpenGL\GeometryShader.cpp" />
     <ClCompile Include="..\..\core\renderer\OpenGL\glfunctions.cpp" />
     <ClCompile Include="..\..\core\renderer\OpenGL\glInfo.cpp" />
-    <ClCompile Include="..\..\core\renderer\OpenGL\GLSceneRenderPass.cpp" />
     <ClCompile Include="..\..\core\renderer\OpenGL\GLSceneRenderUnit.cpp" />
     <ClCompile Include="..\..\core\renderer\OpenGL\GLSLGpuProgram.cpp" />
     <ClCompile Include="..\..\core\renderer\OpenGL\IBO.cpp" />

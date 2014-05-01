@@ -47,8 +47,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EtoileGraphEditor", "Etoile
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EtoileModule", "EtoileModule.vcxproj", "{F282EFCD-4A8F-4610-BD77-D90FBF15505C}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EtoileModuleApp", "..\..\applications\EtoileModuleApp\EtoileModuleApp.vcxproj", "{7C6FC805-77DF-47F0-AC1E-7649923ABB2A}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EtoileMocapViewer", "..\..\applications\EtoileMocapViewer\EtoileMocapViewer.vcxproj", "{28D3A8EC-9132-446C-8B57-16A0A060371E}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EtoileQglviewerRenderer", "..\..\applications\EtoileQglviewerRenderer\EtoileQglviewerRenderer.vcxproj", "{6E374E7F-9683-4EB4-904D-CFE3A6B2184C}"
@@ -66,6 +64,8 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RigidDynamicsBody", "..\..\applications\RigidDynamicsBody\RigidDynamicsBody.vcxproj", "{4F84DFF7-8928-4B92-A8AD-678721CB8172}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EtoileGame", "EtoileGame.vcxproj", "{AB503646-A8B4-4E18-9E92-B430674372A1}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EtoileModuleApp", "..\..\applications\EtoileModuleApp\EtoileModuleApp.vcxproj", "{7C6FC805-77DF-47F0-AC1E-7649923ABB2A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -137,10 +137,6 @@ Global
 		{F282EFCD-4A8F-4610-BD77-D90FBF15505C}.Debug|Win32.Build.0 = Debug|Win32
 		{F282EFCD-4A8F-4610-BD77-D90FBF15505C}.Release|Win32.ActiveCfg = Release|Win32
 		{F282EFCD-4A8F-4610-BD77-D90FBF15505C}.Release|Win32.Build.0 = Release|Win32
-		{7C6FC805-77DF-47F0-AC1E-7649923ABB2A}.Debug|Win32.ActiveCfg = Debug|Win32
-		{7C6FC805-77DF-47F0-AC1E-7649923ABB2A}.Debug|Win32.Build.0 = Debug|Win32
-		{7C6FC805-77DF-47F0-AC1E-7649923ABB2A}.Release|Win32.ActiveCfg = Release|Win32
-		{7C6FC805-77DF-47F0-AC1E-7649923ABB2A}.Release|Win32.Build.0 = Release|Win32
 		{28D3A8EC-9132-446C-8B57-16A0A060371E}.Debug|Win32.ActiveCfg = Debug|Win32
 		{28D3A8EC-9132-446C-8B57-16A0A060371E}.Debug|Win32.Build.0 = Debug|Win32
 		{28D3A8EC-9132-446C-8B57-16A0A060371E}.Release|Win32.ActiveCfg = Release|Win32
@@ -177,12 +173,16 @@ Global
 		{AB503646-A8B4-4E18-9E92-B430674372A1}.Debug|Win32.Build.0 = Debug|Win32
 		{AB503646-A8B4-4E18-9E92-B430674372A1}.Release|Win32.ActiveCfg = Release|Win32
 		{AB503646-A8B4-4E18-9E92-B430674372A1}.Release|Win32.Build.0 = Release|Win32
+		{7C6FC805-77DF-47F0-AC1E-7649923ABB2A}.Debug|Win32.ActiveCfg = Debug|Win32
+		{7C6FC805-77DF-47F0-AC1E-7649923ABB2A}.Debug|Win32.Build.0 = Debug|Win32
+		{7C6FC805-77DF-47F0-AC1E-7649923ABB2A}.Release|Win32.ActiveCfg = Release|Win32
+		{7C6FC805-77DF-47F0-AC1E-7649923ABB2A}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		QtVersion = $(DefaultQtVersion)
 		Qt5Version = 4.8.5
+		QtVersion = $(DefaultQtVersion)
 	EndGlobalSection
 EndGlobal
