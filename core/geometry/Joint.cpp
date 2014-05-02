@@ -28,7 +28,7 @@ namespace Etoile
 		: _name(name), _id(id),
 		_parent(parentId),_pSkeleton(skeleton)//, _scale(1,1,1)
 	{
-		for(unsigned int i = 0; i < 6; ++i)
+		for(unsigned int i = 0; i < 3; ++i)
 		{
 			_dofs.push_back(DOFConstraint(-3.14159266, 3.14159266));
 		}
