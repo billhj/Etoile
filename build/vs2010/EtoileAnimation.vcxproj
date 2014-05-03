@@ -100,6 +100,7 @@
     <ClCompile Include="..\..\core\animation\MotionGraph\MotionGraph.cpp" />
     <ClCompile Include="..\..\core\animation\MotionGraph\MotionNode.cpp" />
     <ClCompile Include="..\..\core\animation\Pose.cpp" />
+    <ClCompile Include="..\..\core\geometry\BipedSkeleton.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\core\animation\BVHFrame.h" />
@@ -135,6 +136,7 @@
     <ClInclude Include="..\..\core\animation\MotionGraph\MotionNode.h" />
     <ClInclude Include="..\..\core\animation\Pose.h" />
     <ClInclude Include="..\..\core\animation\SkeletonAnimation.h" />
+    <ClInclude Include="..\..\core\geometry\BipedSkeleton.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

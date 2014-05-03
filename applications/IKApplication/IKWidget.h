@@ -29,6 +29,7 @@
 #include "animation/Frame.h"
 #include "animation/dynamics/DRigidBody.h"
 #include <QTime>
+#include "geometry/BipedSkeleton.h"
 
 #ifndef GL_MULTISAMPLE
 #define GL_MULTISAMPLE  0x809D
@@ -51,137 +52,139 @@ public:
 	~IKWidget(){}
 	void initSkeleton()
 	{
-		_skeleton.clear();
+		_skeleton = new Etoile::Skeleton();
+		_skeleton->clear();
 		Etoile::Joint* j = new Etoile::Joint("0");
 		j->setLocalPosition(Etoile::Vec3f(0,0,0));
-		_skeleton.addJoint(j, _skeleton.getJoints().size() - 1);
+		_skeleton->addJoint(j, _skeleton->getJoints().size() - 1);
 		j = new Etoile::Joint("1");
 		j->setLocalPosition(Etoile::Vec3f(0,5,0));
-		_skeleton.addJoint(j, _skeleton.getJoints().size() - 1);
+		_skeleton->addJoint(j, _skeleton->getJoints().size() - 1);
 		j = new Etoile::Joint("2");
 		j->setLocalPosition(Etoile::Vec3f(0,5,0));
-		_skeleton.addJoint(j, _skeleton.getJoints().size() - 1);
+		_skeleton->addJoint(j, _skeleton->getJoints().size() - 1);
 		j = new Etoile::Joint("3");
 		j->setLocalPosition(Etoile::Vec3f(0,5,0));
-		_skeleton.addJoint(j, _skeleton.getJoints().size() - 1);
+		_skeleton->addJoint(j, _skeleton->getJoints().size() - 1);
 		j = new Etoile::Joint("4");
 		j->setLocalPosition(Etoile::Vec3f(0,5,0));
-		_skeleton.addJoint(j, _skeleton.getJoints().size() - 1);
+		_skeleton->addJoint(j, _skeleton->getJoints().size() - 1);
 		j = new Etoile::Joint("5");
 		j->setLocalPosition(Etoile::Vec3f(0,5,0));
-		_skeleton.addJoint(j, _skeleton.getJoints().size() - 1);
+		_skeleton->addJoint(j, _skeleton->getJoints().size() - 1);
 		j = new Etoile::Joint("6");
 		j->setLocalPosition(Etoile::Vec3f(0,5,0));
-		_skeleton.addJoint(j, _skeleton.getJoints().size() - 1);
-		_skeleton.update();
+		_skeleton->addJoint(j, _skeleton->getJoints().size() - 1);
+		_skeleton->update();
+		number_bones = 3;
 		//initBody();
-		initBox();
+		//initBox();
 	}
 
-	Etoile::DRigidBody* body;
-	void initBox()
-	{
-		body = new Etoile::DRigidBody("box");
-		Etoile::DMass mass;
-		std::vector<Etoile::Particle>& points = mass._particles;;
-		{
-			Etoile::Particle p0;
-			p0.init(Eigen::Vector3f(5,15,5), 1);
-			points.push_back(p0);
-			Etoile::Particle p1;
-			p1.init(Eigen::Vector3f(5,15,-5), 1);
-			points.push_back(p1);
-			Etoile::Particle p2;
-			p2.init(Eigen::Vector3f(5,1,5), 1);
-			points.push_back(p2);
-			Etoile::Particle p3;
-			p3.init(Eigen::Vector3f(5,1,-5), 1);
-			points.push_back(p3);
-		}
-		{
-			Etoile::Particle p0;
-			p0.init(Eigen::Vector3f(-5,15,5), 1);
-			points.push_back(p0);
-			Etoile::Particle p1;
-			p1.init(Eigen::Vector3f(-5,15,-5), 1);
-			points.push_back(p1);
-			Etoile::Particle p2;
-			p2.init(Eigen::Vector3f(-5,1,5), 1);
-			points.push_back(p2);
-			Etoile::Particle p3;
-			p3.init(Eigen::Vector3f(-5,1,-5), 1);
-			points.push_back(p3);
-		}
-		body->setMass(mass); 
-		Eigen::Matrix3f a = Eigen::Matrix3f::Identity();
-		body->setPosition(Eigen::Vector3f(0,7,0));
-		//body->initialize(Eigen::Vector3f(0,7,0), Eigen::Vector3f(0,0,0), a, Eigen::Vector3f());
+	//Etoile::DRigidBody* body;
+	//void initBox()
+	//{
+	//	body = new Etoile::DRigidBody("box");
+	//	Etoile::DMass mass;
+	//	std::vector<Etoile::Particle>& points = mass._particles;;
+	//	{
+	//		Etoile::Particle p0;
+	//		p0.init(Eigen::Vector3f(5,15,5), 1);
+	//		points.push_back(p0);
+	//		Etoile::Particle p1;
+	//		p1.init(Eigen::Vector3f(5,15,-5), 1);
+	//		points.push_back(p1);
+	//		Etoile::Particle p2;
+	//		p2.init(Eigen::Vector3f(5,1,5), 1);
+	//		points.push_back(p2);
+	//		Etoile::Particle p3;
+	//		p3.init(Eigen::Vector3f(5,1,-5), 1);
+	//		points.push_back(p3);
+	//	}
+	//	{
+	//		Etoile::Particle p0;
+	//		p0.init(Eigen::Vector3f(-5,15,5), 1);
+	//		points.push_back(p0);
+	//		Etoile::Particle p1;
+	//		p1.init(Eigen::Vector3f(-5,15,-5), 1);
+	//		points.push_back(p1);
+	//		Etoile::Particle p2;
+	//		p2.init(Eigen::Vector3f(-5,1,5), 1);
+	//		points.push_back(p2);
+	//		Etoile::Particle p3;
+	//		p3.init(Eigen::Vector3f(-5,1,-5), 1);
+	//		points.push_back(p3);
+	//	}
+	//	body->setMass(mass); 
+	//	Eigen::Matrix3f a = Eigen::Matrix3f::Identity();
+	//	body->setPosition(Eigen::Vector3f(0,7,0));
+	//	//body->initialize(Eigen::Vector3f(0,7,0), Eigen::Vector3f(0,0,0), a, Eigen::Vector3f());
 
-		/*Eigen::Vector3f a0 = Eigen::Vector3f(3,5,8);
-		Eigen::Matrix3f a1 = Etoile::getSkewMatrix(a0);
-		Eigen::Vector3f b = Eigen::Vector3f(1,8,2);
+	//	/*Eigen::Vector3f a0 = Eigen::Vector3f(3,5,8);
+	//	Eigen::Matrix3f a1 = Etoile::getSkewMatrix(a0);
+	//	Eigen::Vector3f b = Eigen::Vector3f(1,8,2);
 
-		Eigen::Vector3f r1 = a1 * a1 * b;
-		Eigen::Vector3f r2 = a0.cross(a0.cross(b));
+	//	Eigen::Vector3f r1 = a1 * a1 * b;
+	//	Eigen::Vector3f r2 = a0.cross(a0.cross(b));
 
-		Eigen::Vector3f r3 = a0 * (a0.dot(b)) - b * (a0.dot(a0));*/
+	//	Eigen::Vector3f r3 = a0 * (a0.dot(b)) - b * (a0.dot(a0));*/
 
 
-	}
+	//}
 
-	void drawBox()
-	{
-		glColor3f(1,0.1,0.4);
-		glPointSize(10);
-		glBegin(GL_POINTS);
-		std::vector<Etoile::Particle>& points = body->getMass()._particles;
-		for(unsigned int i =0; i < points.size(); ++i)
-		{
-			Etoile::Particle point = points[i];
-			glVertex3d(point._position.x(), point._position.y(), point._position.z());
-		}	
-		glEnd();
-	}
+	//void drawBox()
+	//{
+	//	glColor3f(1,0.1,0.4);
+	//	glPointSize(10);
+	//	glBegin(GL_POINTS);
+	//	std::vector<Etoile::Particle>& points = body->getMass()._particles;
+	//	for(unsigned int i =0; i < points.size(); ++i)
+	//	{
+	//		Etoile::Particle point = points[i];
+	//		glVertex3d(point._position.x(), point._position.y(), point._position.z());
+	//	}	
+	//	glEnd();
+	//}
 
 	void initBody()
 	{
-		_skeleton.clear();
+		_skeleton->clear();
 		Etoile::Joint* root = new Etoile::Joint("root");
 		root->setLocalPosition(Etoile::Vec3f(0,5,0));
-		_skeleton.addJoint(root, _skeleton.getJoints().size() - 1);
+		_skeleton->addJoint(root, _skeleton->getJoints().size() - 1);
 
 		Etoile::Joint* body = new Etoile::Joint("body");
 		body->setLocalPosition(Etoile::Vec3f(0,3,0));
-		_skeleton.addJoint(body, root->getId());
+		_skeleton->addJoint(body, root->getId());
 
 
 		Etoile::Joint* hipLeft = new Etoile::Joint("hipLeft");
 		hipLeft->setLocalPosition(Etoile::Vec3f(-1, -1, 0));
-		_skeleton.addJoint(hipLeft, root->getId());
+		_skeleton->addJoint(hipLeft, root->getId());
 
 		Etoile::Joint* upperLegLeft = new Etoile::Joint("upperLegLeft");
 		upperLegLeft->setLocalPosition(Etoile::Vec3f(0, -2, 0));
-		_skeleton.addJoint(upperLegLeft, hipLeft->getId());
+		_skeleton->addJoint(upperLegLeft, hipLeft->getId());
 
 		Etoile::Joint* downLegLeft = new Etoile::Joint("downLegLeft");
 		downLegLeft->setLocalPosition(Etoile::Vec3f(0, -2, 0));
-		_skeleton.addJoint(downLegLeft, upperLegLeft->getId());
+		_skeleton->addJoint(downLegLeft, upperLegLeft->getId());
 
-		_skeleton.update();
+		_skeleton->update();
 		
 		Etoile::Joint* hipRight = new Etoile::Joint("hipRight");
 		hipRight->setLocalPosition(Etoile::Vec3f(1, -1, 0));
-		_skeleton.addJoint(hipRight, root->getId());
+		_skeleton->addJoint(hipRight, root->getId());
 
 		Etoile::Joint* upperLegRight = new Etoile::Joint("upperLegRight");
 		upperLegRight->setLocalPosition(Etoile::Vec3f(0, -2, 0));
-		_skeleton.addJoint(upperLegRight, hipRight->getId());
+		_skeleton->addJoint(upperLegRight, hipRight->getId());
 
 		Etoile::Joint* downLegRight = new Etoile::Joint("downLegRight");
 		downLegRight->setLocalPosition(Etoile::Vec3f(0, -2, 0));
-		_skeleton.addJoint(downLegRight, upperLegRight->getId());
+		_skeleton->addJoint(downLegRight, upperLegRight->getId());
 		
-		_skeleton.update();
+		_skeleton->update();
 		double torqueR = 0.0;
 	
 		{
@@ -190,26 +193,26 @@ public:
 			
 			p._localRotation.setAxisAngle(Etoile::Vec3f(1,0,0), torqueR);
 			frame0.addFrameParameters("root", p);
-			_skeleton.getJoint("root")->setLocalRotation(p._localRotation);
+			_skeleton->getJoint("root")->setLocalRotation(p._localRotation);
 
 			p._localRotation.setAxisAngle(Etoile::Vec3f(1,0,0), -0.5);
 			frame0.addFrameParameters("hipLeft", p);
-			_skeleton.getJoint("hipLeft")->setLocalRotation(p._localRotation);
+			_skeleton->getJoint("hipLeft")->setLocalRotation(p._localRotation);
 
 			p._localRotation.setAxisAngle(Etoile::Vec3f(1,0,0), 1);
 			frame0.addFrameParameters("upperLegLeft", p);
-			_skeleton.getJoint("upperLegLeft")->setLocalRotation(p._localRotation);
+			_skeleton->getJoint("upperLegLeft")->setLocalRotation(p._localRotation);
 
 			p._localRotation.setAxisAngle(Etoile::Vec3f(1,0,0), -0.1);
 			frame0.addFrameParameters("hipRight", p);
-			_skeleton.getJoint("hipRight")->setLocalRotation(p._localRotation);
+			_skeleton->getJoint("hipRight")->setLocalRotation(p._localRotation);
 
 			p._localRotation.setAxisAngle(Etoile::Vec3f(1,0,0), 0.1);
 			frame0.addFrameParameters("upperLegRight", p);
-			_skeleton.getJoint("upperLegRight")->setLocalRotation(p._localRotation);
+			_skeleton->getJoint("upperLegRight")->setLocalRotation(p._localRotation);
 			
-			_skeleton.update();
-			Etoile::Vec3f pos = _skeleton.getJoint("downLegRight")->getWorldPosition();
+			_skeleton->update();
+			Etoile::Vec3f pos = _skeleton->getJoint("downLegRight")->getWorldPosition();
 			p._localRotation.setAxisAngle(Etoile::Vec3f(1,0,0), torqueR);
 			p._translation = Etoile::Vec3f(0, -pos.y(), pos.z()) + root->getWorldPosition();
 			frame0.addFrameParameters("root", p);
@@ -224,26 +227,26 @@ public:
 
 			p._localRotation.setAxisAngle(Etoile::Vec3f(1,0,0), torqueR);
 			frame1.addFrameParameters("root", p);
-			_skeleton.getJoint("root")->setLocalRotation(p._localRotation);
+			_skeleton->getJoint("root")->setLocalRotation(p._localRotation);
 
 			p._localRotation.setAxisAngle(Etoile::Vec3f(1,0,0), 0.5);
 			frame1.addFrameParameters("hipLeft", p);
-			_skeleton.getJoint("hipLeft")->setLocalRotation(p._localRotation);
+			_skeleton->getJoint("hipLeft")->setLocalRotation(p._localRotation);
 
 			p._localRotation.setAxisAngle(Etoile::Vec3f(1,0,0), 0.1);
 			frame1.addFrameParameters("upperLegLeft", p);
-			_skeleton.getJoint("upperLegLeft")->setLocalRotation(p._localRotation);
+			_skeleton->getJoint("upperLegLeft")->setLocalRotation(p._localRotation);
 
 			p._localRotation.setAxisAngle(Etoile::Vec3f(1,0,0), -0.3);
 			frame1.addFrameParameters("hipRight", p);
-			_skeleton.getJoint("hipRight")->setLocalRotation(p._localRotation);
+			_skeleton->getJoint("hipRight")->setLocalRotation(p._localRotation);
 
 			p._localRotation.setAxisAngle(Etoile::Vec3f(1,0,0), 0.1);
 			frame1.addFrameParameters("upperLegRight", p);
-			_skeleton.getJoint("upperLegRight")->setLocalRotation(p._localRotation);
+			_skeleton->getJoint("upperLegRight")->setLocalRotation(p._localRotation);
 			
-			_skeleton.update();
-			Etoile::Vec3f pos = _skeleton.getJoint("downLegRight")->getWorldPosition();
+			_skeleton->update();
+			Etoile::Vec3f pos = _skeleton->getJoint("downLegRight")->getWorldPosition();
 			p._localRotation.setAxisAngle(Etoile::Vec3f(1,0,0), torqueR);
 			p._translation = Etoile::Vec3f(0,-pos.y(),pos.z()) + root->getWorldPosition();
 			frame1.addFrameParameters("root", p);
@@ -257,26 +260,26 @@ public:
 
 			p._localRotation.setAxisAngle(Etoile::Vec3f(1,0,0), torqueR);
 			frame2.addFrameParameters("root", p);
-			_skeleton.getJoint("root")->setLocalRotation(p._localRotation);
+			_skeleton->getJoint("root")->setLocalRotation(p._localRotation);
 
 			p._localRotation.setAxisAngle(Etoile::Vec3f(1,0,0), -0.1);
 			frame2.addFrameParameters("hipLeft", p);
-			_skeleton.getJoint("hipLeft")->setLocalRotation(p._localRotation);
+			_skeleton->getJoint("hipLeft")->setLocalRotation(p._localRotation);
 
 			p._localRotation.setAxisAngle(Etoile::Vec3f(1,0,0), 0.1);
 			frame2.addFrameParameters("upperLegLeft", p);
-			_skeleton.getJoint("upperLegLeft")->setLocalRotation(p._localRotation);
+			_skeleton->getJoint("upperLegLeft")->setLocalRotation(p._localRotation);
 
 			p._localRotation.setAxisAngle(Etoile::Vec3f(1,0,0), -0.5);
 			frame2.addFrameParameters("hipRight", p);
-			_skeleton.getJoint("hipRight")->setLocalRotation(p._localRotation);
+			_skeleton->getJoint("hipRight")->setLocalRotation(p._localRotation);
 
 			p._localRotation.setAxisAngle(Etoile::Vec3f(1,0,0), 1);
 			frame2.addFrameParameters("upperLegRight", p);
-			_skeleton.getJoint("upperLegRight")->setLocalRotation(p._localRotation);
+			_skeleton->getJoint("upperLegRight")->setLocalRotation(p._localRotation);
 
-			_skeleton.update();
-			Etoile::Vec3f pos = _skeleton.getJoint("downLegLeft")->getWorldPosition();
+			_skeleton->update();
+			Etoile::Vec3f pos = _skeleton->getJoint("downLegLeft")->getWorldPosition();
 			p._localRotation.setAxisAngle(Etoile::Vec3f(1,0,0), torqueR);
 			p._translation = Etoile::Vec3f(0,-pos.y(),pos.z()) + root->getWorldPosition();
 			frame2.addFrameParameters("root", p);
@@ -290,26 +293,26 @@ public:
 
 			p._localRotation.setAxisAngle(Etoile::Vec3f(1,0,0), torqueR);
 			frame3.addFrameParameters("root", p);
-			_skeleton.getJoint("root")->setLocalRotation(p._localRotation);
+			_skeleton->getJoint("root")->setLocalRotation(p._localRotation);
 
 			p._localRotation.setAxisAngle(Etoile::Vec3f(1,0,0), -0.3);
 			frame3.addFrameParameters("hipLeft", p);
-			_skeleton.getJoint("hipLeft")->setLocalRotation(p._localRotation);
+			_skeleton->getJoint("hipLeft")->setLocalRotation(p._localRotation);
 
 			p._localRotation.setAxisAngle(Etoile::Vec3f(1,0,0), 0.1);
 			frame3.addFrameParameters("upperLegLeft", p);
-			_skeleton.getJoint("upperLegLeft")->setLocalRotation(p._localRotation);
+			_skeleton->getJoint("upperLegLeft")->setLocalRotation(p._localRotation);
 
 			p._localRotation.setAxisAngle(Etoile::Vec3f(1,0,0), 0.5);
 			frame3.addFrameParameters("hipRight", p);
-			_skeleton.getJoint("hipRight")->setLocalRotation(p._localRotation);
+			_skeleton->getJoint("hipRight")->setLocalRotation(p._localRotation);
 
 			p._localRotation.setAxisAngle(Etoile::Vec3f(1,0,0), 0.1);
 			frame3.addFrameParameters("upperLegRight", p);
-			_skeleton.getJoint("upperLegRight")->setLocalRotation(p._localRotation);
+			_skeleton->getJoint("upperLegRight")->setLocalRotation(p._localRotation);
 			
-			_skeleton.update();
-			Etoile::Vec3f pos = _skeleton.getJoint("downLegLeft")->getWorldPosition();
+			_skeleton->update();
+			Etoile::Vec3f pos = _skeleton->getJoint("downLegLeft")->getWorldPosition();
 			p._localRotation.setAxisAngle(Etoile::Vec3f(1,0,0), torqueR);
 			p._translation = Etoile::Vec3f(0,-pos.y(),pos.z()) + root->getWorldPosition();
 			frame3.addFrameParameters("root", p);
@@ -339,10 +342,10 @@ public:
 			//updateFrame(_states[3], _states[0], 0);
 		}
 		framesNb++;*/
-		for(int i = 0; i < int( _skeleton.getJoints().size()); ++i)
+		for(int i = 0; i < int( _skeleton->getJoints().size()); ++i)
 		{
 
-			Etoile::Joint* j = _skeleton.getJoint(i);
+			Etoile::Joint* j = _skeleton->getJoint(i);
 			if(j->getParent() != NULL)
 			{
 				Etoile::Joint* jp = j->getParent();
@@ -363,7 +366,7 @@ public:
 			}
 		}
 		if(_selectedJointIndex >= 0)
-			drawInfo(_skeleton.getJoint(_selectedJointIndex));
+			drawInfo(_skeleton->getJoint(_selectedJointIndex));
 
 	}
 
@@ -373,7 +376,7 @@ public:
 		for(;itor != f0.getIndices().end(); ++itor)
 		{
 			std::string name = itor->first;
-			Etoile::Joint* j = _skeleton.getJoint(name);
+			Etoile::Joint* j = _skeleton->getJoint(name);
 			if(name == "root")
 			{
 				Etoile::FrameParameters fp0 = f0.getFrameParameters()[itor->second];
@@ -486,7 +489,10 @@ protected:
 	{
 		if (e->key() == Qt::Key_F5)
 		{
-			initSkeleton();
+			if(dynamic_cast<Etoile::BipedSkeleton*>(_skeleton) )
+				initSkeleton();
+			else
+				_skeleton = new Etoile::BipedSkeleton();
 		}
 		else if (e->key() == Qt::Key_F6)
 		{
@@ -498,28 +504,46 @@ protected:
 		else if(e->key() == Qt::Key_F1)
 		{
 			Etoile::Quaternionf q = _manipulator.getCurrentRotation();
-			Etoile::Joint* j = _skeleton.getJoint(_selectedJointIndex);
+			Etoile::Joint* j = _skeleton->getJoint(_selectedJointIndex);
 
-			_pSolver = new Etoile::MassSpringSolver();
-			_pSolver->compute(_skeleton.getJoints(), Etoile::Vec3f(_manipulator.getPosition().x, _manipulator.getPosition().y, _manipulator.getPosition().z), false);
+			_pSolver = new Etoile::JacobianDLSSolver();
+			_pSolver->compute(_skeleton->getJoints(), Etoile::Vec3f(_manipulator.getPosition().x, _manipulator.getPosition().y, _manipulator.getPosition().z), false);
 
 		}
 		else if(e->key() == Qt::Key_F2)
 		{
-			body->update(.10f);
+			//body->update(.10f);
 		}
 		else if(e->key() == Qt::Key_F3)
 		{
 		
-			body->addForce(Eigen::Vector3f(-10,0,0));
+			//body->addForce(Eigen::Vector3f(-10,0,0));
 
 		}else if(e->key() == Qt::Key_F4)
 		{
-			body->addTorque(Eigen::Vector3f(0,1,0));
+			//body->addTorque(Eigen::Vector3f(0,1,0));
 		}else if(e->key() == Qt::Key_Up)
 		{
+			++number_bones;
+			solvejoints.clear();
+			Etoile::Joint* current = _skeleton->getJoint(_selectedJointIndex);
+			for(int i = 0; i < number_bones; ++i)
+			{
+				if(current == NULL) break;
+				solvejoints.insert(solvejoints.begin(), current);
+				current = current->getParent();
+			}
 		}else if(e->key() == Qt::Key_Down)
 		{
+			--number_bones;
+			solvejoints.clear();
+			Etoile::Joint* current = _skeleton->getJoint(_selectedJointIndex);
+			for(int i = 0; i < number_bones; ++i)
+			{
+				if(current == NULL) break;
+				solvejoints.insert(solvejoints.begin(), current);
+				current = current->getParent();
+			}
 		}
 		else if(e->key() == Qt::Key_Space)
 		{
@@ -600,7 +624,7 @@ protected:
 			int i = 0;
 			std::string name;
 			Etoile::Vec3f posM;
-			const Etoile::Joints& joints = _skeleton.getJoints();
+			const Etoile::Joints& joints = _skeleton->getJoints();
 			Etoile::Joints::const_iterator itor = joints.begin();
 			for(;itor != joints.end(); ++itor, ++i)
 			{
@@ -619,6 +643,14 @@ protected:
 			std::cout<<"selected Joint: " << name<<std::endl;
 			_manipulator.reset();
 			_manipulator.setOrigine(qglviewer::Vec(posM.x(), posM.y(), posM.z()));
+			solvejoints.clear();
+			Etoile::Joint* current = _skeleton->getJoint(name);
+			for(int i = 0; i < number_bones; ++i)
+			{
+				if(current == NULL) break;
+				solvejoints.insert(solvejoints.begin(), current);
+				current = current->getParent();
+			}
 
 		}
 		else
@@ -654,9 +686,9 @@ private:
 		glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 		printOpenGLError();
 
-		drawBox();
+		//drawBox();
 		drawPlane();
-		drawSkeleton(&_skeleton);
+		drawSkeleton(_skeleton);
 		printOpenGLError();
 		//drawAxis();
 		glColor3f(0.9,0.25,0.55);
@@ -734,7 +766,7 @@ private:
 		//_solvers.push_back(new JacobianDLSSolver());
 		//_solvers.push_back(new JacobianTransposeSolver());
 		//_solvers.push_back(new JacobianPseudoInverseSolver());
-		_pSolver = new Etoile::MassSpringSolver();
+		_pSolver = new Etoile::JacobianDLSSolver();
 	}
 
 	virtual QSize sizeHint () const
@@ -759,7 +791,7 @@ signals:
 		void applyJoint()
 		{
 			Etoile::Quaternionf q = _manipulator.getCurrentRotation();
-			Etoile::Joint* j = _skeleton.getJoint(_selectedJointIndex);
+			Etoile::Joint* j = _skeleton->getJoint(_selectedJointIndex);
 			if((Etoile::Vec3f(_manipulator.getPosition().x, _manipulator.getPosition().y, _manipulator.getPosition().z) -  j->getWorldPosition()).length() < 0.1)
 			{
 				j->setLocalRotation(q);
@@ -771,7 +803,8 @@ signals:
 				myTimer.start();
 				if(_pSolver != NULL)
 				{
-					_pSolver->compute(_skeleton.getJoints(), Etoile::Vec3f(_manipulator.getPosition().x, _manipulator.getPosition().y, _manipulator.getPosition().z), false);
+					_pSolver->compute(solvejoints, Etoile::Vec3f(_manipulator.getPosition().x, _manipulator.getPosition().y, _manipulator.getPosition().z), true);
+					_skeleton->update();
 					int nMilliseconds = myTimer.elapsed();
 					std::cout<<_pSolver->getIKSolverName() << " nMilliseconds : " << nMilliseconds<<std::endl;
 				}
@@ -791,8 +824,10 @@ public:
 
 	Etoile::glDrawFunctions _glDrawFunctions;
 
-	Etoile::Skeleton _skeleton;
+	Etoile::Skeleton* _skeleton;
 	Etoile::SimpleManipulator _manipulator;
 	Etoile::IKSolver* _pSolver;
+	Etoile::Joints solvejoints;
+	int number_bones;
 	//std::vector<IKSolver*> _solvers;
 };

@@ -12,7 +12,7 @@ namespace Etoile
 {
 	BipedSkeleton::BipedSkeleton(const std::string& name) : Skeleton(name)
 	{
-	
+		init();
 	}
 
 	void BipedSkeleton::init()
@@ -106,5 +106,7 @@ namespace Etoile
 		getJoint(wrist_r)->setLocalPosition(Vec3f(0, -3, 0));
 		int wrist_l = this->createJoint("wrist_l", elbow_l);
 		getJoint(wrist_l)->setLocalPosition(Vec3f(0, -3, 0));
+
+		this->update();
 	}
 }
