@@ -86,8 +86,14 @@ namespace Etoile
 		getJoint(head)->setLocalPosition(Vec3f(0, 2, 0));
 
 		int shoulder_l = this->createJoint("shoulder_l", chest);
+		getJoint(shoulder_l)->addDOF(ROTATION_X, DOFConstraint(-2.7, 0.7));
+		getJoint(shoulder_l)->addDOF(ROTATION_Y, DOFConstraint(-0.0,0.0));
+		getJoint(shoulder_l)->addDOF(ROTATION_Z, DOFConstraint(-0.1,1.6));
 		getJoint(shoulder_l)->setLocalPosition(Vec3f(2, 2, 0));
 		int shoulder_r = this->createJoint("shoulder_r", chest);
+		getJoint(shoulder_r)->addDOF(ROTATION_X, DOFConstraint(-2.7, 0.7));
+		getJoint(shoulder_r)->addDOF(ROTATION_Y, DOFConstraint(-0.0,0.0));
+		getJoint(shoulder_r)->addDOF(ROTATION_Z, DOFConstraint(-1.6,0.1));
 		getJoint(shoulder_r)->setLocalPosition(Vec3f(-2, 2, 0));
 
 		int elbow_r = this->createJoint("elbow_r", shoulder_r);

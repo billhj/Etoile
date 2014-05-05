@@ -86,6 +86,7 @@
     <ClCompile Include="..\..\core\animation\BVHLoader.cpp" />
     <ClCompile Include="..\..\core\animation\dynamics\DJoint.cpp" />
     <ClCompile Include="..\..\core\animation\dynamics\DRigidBody.cpp" />
+    <ClCompile Include="..\..\core\animation\IK\BipedIKSolver.cpp" />
     <ClCompile Include="..\..\core\animation\IK\CCDSolver.cpp" />
     <ClCompile Include="..\..\core\animation\IK\JacobianDLSSolver.cpp" />
     <ClCompile Include="..\..\core\animation\IK\JacobianPseudoInverseSolver.cpp" />
@@ -115,6 +116,7 @@
     <ClInclude Include="..\..\core\animation\fluid\GridFluid.h" />
     <ClInclude Include="..\..\core\animation\Frame.h" />
     <ClInclude Include="..\..\core\animation\FrameParameters.h" />
+    <ClInclude Include="..\..\core\animation\IK\BipedIKSolver.h" />
     <ClInclude Include="..\..\core\animation\IK\CCDSolver.h" />
     <ClInclude Include="..\..\core\animation\IK\IKSolver.h" />
     <ClInclude Include="..\..\core\animation\IK\JacobianDLSSolver.h" />
