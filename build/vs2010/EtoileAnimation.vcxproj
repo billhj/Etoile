@@ -112,6 +112,8 @@
     <ClInclude Include="..\..\core\animation\dynamics\DMultiBodySolver.h" />
     <ClInclude Include="..\..\core\animation\dynamics\DRigidBody.h" />
     <ClInclude Include="..\..\core\animation\dynamics\DSkeleton.h" />
+    <ClInclude Include="..\..\core\animation\dynamics\JointMotor.h" />
+    <ClInclude Include="..\..\core\animation\dynamics\PDJointMotor.h" />
     <ClInclude Include="..\..\core\animation\dynamics\SpatialAlgebra.h" />
     <ClInclude Include="..\..\core\animation\fluid\GridFluid.h" />
     <ClInclude Include="..\..\core\animation\Frame.h" />
