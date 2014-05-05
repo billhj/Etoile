@@ -100,18 +100,18 @@ namespace Etoile
 		getJoint(elbow_r)->addDOF(ROTATION_X, DOFConstraint(-2, 0.0));
 		getJoint(elbow_r)->addDOF(ROTATION_Y, DOFConstraint(-0.01,0.01));
 		getJoint(elbow_r)->addDOF(ROTATION_Z, DOFConstraint(-0.0,0.0));
-		getJoint(elbow_r)->setLocalPosition(Vec3f(0, -3, 0));
+		getJoint(elbow_r)->setLocalPosition(Vec3f(0, -3.5, 0));
 
 		int elbow_l = this->createJoint("elbow_l", shoulder_l);
 		getJoint(elbow_l)->addDOF(ROTATION_X, DOFConstraint(-2, 0.0));
 		getJoint(elbow_l)->addDOF(ROTATION_Y, DOFConstraint(-0.01,0.01));
 		getJoint(elbow_l)->addDOF(ROTATION_Z, DOFConstraint(-0.0,0.0));
-		getJoint(elbow_l)->setLocalPosition(Vec3f(0, -3, 0));
+		getJoint(elbow_l)->setLocalPosition(Vec3f(0, -3.5, 0));
 
 		int wrist_r = this->createJoint("wrist_r", elbow_r);
-		getJoint(wrist_r)->setLocalPosition(Vec3f(0, -3, 0));
+		getJoint(wrist_r)->setLocalPosition(Vec3f(0, -4, 0));
 		int wrist_l = this->createJoint("wrist_l", elbow_l);
-		getJoint(wrist_l)->setLocalPosition(Vec3f(0, -3, 0));
+		getJoint(wrist_l)->setLocalPosition(Vec3f(0, -4, 0));
 
 		this->update();
 	}
