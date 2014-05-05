@@ -65,9 +65,9 @@ namespace Etoile
 	{
 		if(_parent == -1)
 		{
+			_worldPosition = Vec3f(_translateFromParent);
 			_worldRotation = _localRotation ;
 			_worldRotation.normalize();
-			_worldPosition = _worldRotation * Vec3f(_translateFromParent);
 		}
 		else
 		{
