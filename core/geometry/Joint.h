@@ -29,6 +29,7 @@ namespace Etoile
 		void setParent(int parent){ _parent = parent;}
 		int getParentId(){return _parent;}
 		Joint* getParent()const;
+		std::vector<int>& getChildrenIds(){return _children;}
 		Skeleton* getSkeleton() const;
 		void setSkeleton(Skeleton*);
 
@@ -62,7 +63,7 @@ namespace Etoile
 		std::string _name;
 		int _id;
 		int _parent;
-
+		std::vector<int> _children;
 		Quaternionf _localRotation;
 		Quaternionf _worldRotation;
 		//Vec3f _scale;

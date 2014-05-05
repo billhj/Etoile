@@ -32,6 +32,10 @@ namespace Etoile
 		{
 			_dofs.push_back(DOFConstraint(-3.14159266, 3.14159266));
 		}
+		if(_pSkeleton != NULL && _parent != -1)
+		{
+			getParent()->getChildrenIds().push_back(_id);
+		}
 	}
 
 	Joint* Joint::getParent() const
