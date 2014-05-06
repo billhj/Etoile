@@ -3,6 +3,7 @@
 
 #include <QtGui/QMainWindow>
 #include "ui_DynamicsSkeletonDemo.h"
+#include "DynamicsGLWidget.h"
 
 class DynamicsSkeletonDemo : public QMainWindow
 {
@@ -14,6 +15,7 @@ public:
 
 private:
 	Ui::DynamicsSkeletonDemoClass ui;
+	DynamicsGLWidget* _widget;
 };
 
 #endif // DYNAMICSSKELETONDEMO_H

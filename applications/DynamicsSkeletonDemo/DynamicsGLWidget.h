@@ -37,7 +37,7 @@ public:
 	~DynamicsGLWidget(){}
 	void initSkeleton()
 	{
-		
+		_skeleton = new Etoile::BipedSkeleton();
 	}
 
 	void drawSkeleton(Etoile::Skeleton* skeleton)
