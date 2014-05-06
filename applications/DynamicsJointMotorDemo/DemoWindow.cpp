@@ -129,6 +129,12 @@ void DemoWindow::drawSceneSimple()
 	glVertex2d( (GLdouble)((1 >> 1) + x), (GLdouble)((1 >> 1) + y));
 	}
 	glEnd();*/
+
+	glMatrixMode(GL_MODELVIEW);
+	glPushMatrix();
+	glLoadIdentity();
+	TwDraw();
+	glPopMatrix();
 }
 
 void DemoWindow::drawScene()
@@ -181,3 +187,30 @@ void DemoWindow::keyboard(unsigned char key, int x, int y)
 	glutPostRedisplay();
 }
 
+
+void DemoWindow::initTWBar()
+{
+	glutCreateMenu(NULL);
+	// Initialize AntTweakBar
+    TwInit(TW_OPENGL, NULL);
+
+	//// Set GLUT event callbacks
+ //   // - Directly redirect GLUT mouse button events to AntTweakBar
+ //   glutMouseFunc((GLUTmousebuttonfun)TwEventMouseButtonGLUT);
+ //   // - Directly redirect GLUT mouse motion events to AntTweakBar
+ //   glutMotionFunc((GLUTmousemotionfun)TwEventMouseMotionGLUT);
+ //   // - Directly redirect GLUT mouse "passive" motion events to AntTweakBar (same as MouseMotion)
+ //   glutPassiveMotionFunc((GLUTmousemotionfun)TwEventMouseMotionGLUT);
+ //   // - Directly redirect GLUT key events to AntTweakBar
+ //   glutKeyboardFunc((GLUTkeyboardfun)TwEventKeyboardGLUT);
+ //   // - Directly redirect GLUT special key events to AntTweakBar
+ //   glutSpecialFunc((GLUTspecialfun)TwEventSpecialGLUT);
+    // - Send 'glutGetModifers' function pointer to AntTweakBar;
+    //   required because the GLUT key event functions do not report key modifiers states.
+    TwGLUTModifiersFunc(glutGetModifiers);
+	bar = TwNewBar("TweakBar");
+	TwWindowSize(100, 100);
+    TwDefine(" GLOBAL help='This example shows how to integrate AntTweakBar with GLUT and OpenGL.' "); // Message added to the help bar.
+    TwDefine(" TweakBar size='200 400' color='96 216 224' "); // change default tweak bar size and color
+
+}
