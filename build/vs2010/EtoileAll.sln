@@ -69,6 +69,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EtoileModuleApp", "..\..\ap
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "glutdemolib", "glutdemolib.vcxproj", "{41ECB40A-9525-472A-A768-62F3B83B6FF5}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DynamicsJointMotorDemo", "..\..\applications\DynamicsJointMotorDemo\DynamicsJointMotorDemo.vcxproj", "{84EDCB3A-14F8-4673-AB71-F037B4BEF18A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -183,6 +185,10 @@ Global
 		{41ECB40A-9525-472A-A768-62F3B83B6FF5}.Debug|Win32.Build.0 = Debug|Win32
 		{41ECB40A-9525-472A-A768-62F3B83B6FF5}.Release|Win32.ActiveCfg = Release|Win32
 		{41ECB40A-9525-472A-A768-62F3B83B6FF5}.Release|Win32.Build.0 = Release|Win32
+		{84EDCB3A-14F8-4673-AB71-F037B4BEF18A}.Debug|Win32.ActiveCfg = Debug|Win32
+		{84EDCB3A-14F8-4673-AB71-F037B4BEF18A}.Debug|Win32.Build.0 = Debug|Win32
+		{84EDCB3A-14F8-4673-AB71-F037B4BEF18A}.Release|Win32.ActiveCfg = Release|Win32
+		{84EDCB3A-14F8-4673-AB71-F037B4BEF18A}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
