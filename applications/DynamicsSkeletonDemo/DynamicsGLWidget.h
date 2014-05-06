@@ -111,7 +111,7 @@ protected:
 	{
 		if (e->key() == Qt::Key_F5)
 		{
-			
+			changeKey();
 		}
 		else if (e->key() == Qt::Key_F6)
 		{
@@ -415,6 +415,12 @@ private:
 			}
 		}
 	
+	}
+
+	void changeKey()
+	{
+		if(desire == &key1) desire = &key2;
+		else desire = &key1;
 	}
 signals:
 
