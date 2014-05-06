@@ -68,13 +68,13 @@ namespace Etoile
 		getJoint(spine)->addDOF(ROTATION_X, DOFConstraint(-0.3, 0.3));
 		getJoint(spine)->addDOF(ROTATION_Y, DOFConstraint(-0.1,0.1));
 		getJoint(spine)->addDOF(ROTATION_Z, DOFConstraint(-0.1,0.1));
-		getJoint(spine)->setLocalPosition(Vec3f(0, 3, 0));
+		getJoint(spine)->setLocalPosition(Vec3f(0, 3, -1));
 
 		int chest = this->createJoint("chest", spine);
 		getJoint(chest)->addDOF(ROTATION_X, DOFConstraint(-0.3, 0.3));
 		getJoint(chest)->addDOF(ROTATION_Y, DOFConstraint(-0.1,0.1));
 		getJoint(chest)->addDOF(ROTATION_Z, DOFConstraint(-0.1,0.1));
-		getJoint(chest)->setLocalPosition(Vec3f(0, 3, 0));
+		getJoint(chest)->setLocalPosition(Vec3f(0, 3, 0.4));
 
 		int neck = this->createJoint("neck", chest);
 		getJoint(neck)->addDOF(ROTATION_X, DOFConstraint(-0.3, 0.3));
@@ -100,18 +100,30 @@ namespace Etoile
 		getJoint(elbow_r)->addDOF(ROTATION_X, DOFConstraint(-2, 0.0));
 		getJoint(elbow_r)->addDOF(ROTATION_Y, DOFConstraint(-0.01,0.01));
 		getJoint(elbow_r)->addDOF(ROTATION_Z, DOFConstraint(-0.0,0.0));
-		getJoint(elbow_r)->setLocalPosition(Vec3f(0, -3.5, 0));
+		getJoint(elbow_r)->setLocalPosition(Vec3f(0, -3.2, 0));
 
 		int elbow_l = this->createJoint("elbow_l", shoulder_l);
 		getJoint(elbow_l)->addDOF(ROTATION_X, DOFConstraint(-2, 0.0));
 		getJoint(elbow_l)->addDOF(ROTATION_Y, DOFConstraint(-0.01,0.01));
 		getJoint(elbow_l)->addDOF(ROTATION_Z, DOFConstraint(-0.0,0.0));
-		getJoint(elbow_l)->setLocalPosition(Vec3f(0, -3.5, 0));
+		getJoint(elbow_l)->setLocalPosition(Vec3f(0, -3.2, 0));
 
 		int wrist_r = this->createJoint("wrist_r", elbow_r);
-		getJoint(wrist_r)->setLocalPosition(Vec3f(0, -4, 0));
+		getJoint(wrist_r)->addDOF(ROTATION_X, DOFConstraint(0, 0.0));
+		getJoint(wrist_r)->addDOF(ROTATION_Y, DOFConstraint(-0.01,0.01));
+		getJoint(wrist_r)->addDOF(ROTATION_Z, DOFConstraint(-0.5,0.5));
+		getJoint(wrist_r)->setLocalPosition(Vec3f(0, -3.5, 0));
 		int wrist_l = this->createJoint("wrist_l", elbow_l);
-		getJoint(wrist_l)->setLocalPosition(Vec3f(0, -4, 0));
+		getJoint(wrist_l)->addDOF(ROTATION_X, DOFConstraint(0, 0.0));
+		getJoint(wrist_l)->addDOF(ROTATION_Y, DOFConstraint(-0.01,0.01));
+		getJoint(wrist_l)->addDOF(ROTATION_Z, DOFConstraint(-0.5,0.5));
+		getJoint(wrist_l)->setLocalPosition(Vec3f(0, -3.5, 0));
+
+
+		int hand_r = this->createJoint("hand_r", wrist_r);
+		getJoint(hand_r)->setLocalPosition(Vec3f(0, -1.5, 0));
+		int hand_l = this->createJoint("hand_l", wrist_l);
+		getJoint(hand_l)->setLocalPosition(Vec3f(0, -1.5, 0));
 
 		this->update();
 	}

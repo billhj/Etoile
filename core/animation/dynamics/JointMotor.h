@@ -19,7 +19,7 @@ namespace Etoile
 		
 		}
 
-		void apply(float desire, float current, float speed, float accelaration, float& torque) = 0;
+		virtual void apply(float desire, float current, float speed, float accelaration, float& torque) = 0;
 
 	private:
 	};

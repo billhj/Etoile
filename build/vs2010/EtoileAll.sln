@@ -72,6 +72,9 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DynamicsJointMotorDemo", "..\..\applications\DynamicsJointMotorDemo\DynamicsJointMotorDemo.vcxproj", "{84EDCB3A-14F8-4673-AB71-F037B4BEF18A}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DynamicsSkeletonDemo", "..\..\applications\DynamicsSkeletonDemo\DynamicsSkeletonDemo.vcxproj", "{DFE56530-135B-493B-8097-3B060149EA9F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B489A447-4471-4F81-BF53-FA3601BE0E2B} = {B489A447-4471-4F81-BF53-FA3601BE0E2B}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
