@@ -20,6 +20,9 @@
 #include <QTimer>
 #include "renderer/OpenGL/glDrawFunctions.h"
 #include "Checkboard.h"
+#include "rbdl/Dynamics.h"
+#include "rbdl/Model.h"
+#include "animation/dynamics/PDJointMotor.h"
 
 #ifndef GL_MULTISAMPLE
 #define GL_MULTISAMPLE  0x809D
@@ -31,7 +34,7 @@ class DynamicsGLWidget : public QGLViewer
 	Q_OBJECT
 		static const int WIDGETWIDTH = 800, WIDGETHEIGHT = 600;
 public:
-	DynamicsGLWidget(QMainWindow* parent = 0): _pParent(parent), _selectedJointIndex(-1)
+	DynamicsGLWidget(QMainWindow* parent = 0): _pParent(parent), _selectedJointIndex(-1), _usePD(true)
 	{
 	}
 
@@ -226,7 +229,7 @@ private:
 
 		glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 		printOpenGLError();
-
+		performPhyscis();
 		//drawBox();
 		drawPlane();
 		drawSkeleton(_skeleton);
@@ -289,6 +292,11 @@ private:
 
 		initSkeleton();
 		_board.create();
+		initPhyscis();
+		dt = 0.015;
+		this->setAnimationPeriod(10);
+		this->setFPSIsDisplayed(true);
+		this->startAnimation();
 	}
 
 	virtual QSize sizeHint () const
@@ -305,8 +313,109 @@ private:
 	}
 
 
-	QMainWindow* _pParent;
+	
+	void performPhyscis()
+	{
+		applyTorque(*desire, jointRotations, jointVelocitys,jointAccelarations, torque);
+		ForwardDynamics(*_pmodel, jointRotations, jointVelocitys, torque, jointAccelarations, NULL);
+		jointVelocitys += (jointAccelarations * dt);
+		jointRotations += (jointVelocitys * dt);
+		updateSK();
+	}
 
+	void applyTorque(RigidBodyDynamics::Math::VectorNd& desire, RigidBodyDynamics::Math::VectorNd& rotations, RigidBodyDynamics::Math::VectorNd& jointVelocitys,
+			RigidBodyDynamics::Math::VectorNd& jointAccelarations,
+			RigidBodyDynamics::Math::VectorNd& torque)
+	{
+		for(unsigned int i = 0; i < _id.size(); ++i)
+		{
+			Etoile::JointMotor* motor = _motors[i];
+			float t = 0;
+			motor->apply(desire[i], rotations[i], jointVelocitys[i], jointAccelarations[i], t);
+			torque[i] = t;
+		}
+	}
+
+	void initPhyscis()
+	{
+		using namespace Etoile;
+		Joint* hand_r = _skeleton->getJoint("hand_r");
+		Joint* wrist_r = _skeleton->getJoint("wrist_r");
+		Joint* elbow_r = _skeleton->getJoint("elbow_r");
+		Joint* shoulder_r = _skeleton->getJoint("shoulder_r");
+		_id.push_back("shoulder_r");
+		_id.push_back("elbow_r");
+		_id.push_back("wrist_r");
+
+		using namespace RigidBodyDynamics;
+		_pmodel = new Model();
+		_pmodel->gravity = Math::Vector3d (0., -9.81, 0.);
+
+		Vec3f posE = elbow_r->getLocalPosition() * 0.5;
+		Vec3f posS = shoulder_r->getWorldPosition();
+		Body* bodys_e = new Body (1., Math::Vector3d (posE.x(), posE.y(), posE.z()), Math::Vector3d (1., 1., 1.));
+		RigidBodyDynamics::Joint* jointshoulder = new RigidBodyDynamics::Joint(JointTypeRevolute, Math::Vector3d (0., 0., 1.));
+		int s_e = _pmodel->AddBody(0, Math::Xtrans(Math::Vector3d(posS.x(), posS.y(), posS.z())), *jointshoulder, *bodys_e);
+
+		Vec3f posW = wrist_r->getLocalPosition() * 0.5;
+		Vec3f posEL = elbow_r->getLocalPosition();
+		Body* bodye_w = new Body (1., Math::Vector3d (posW.x(), posW.y(), posW.z()), Math::Vector3d (1., 1., 1.));
+		RigidBodyDynamics::Joint* jointelbow = new RigidBodyDynamics::Joint(JointTypeRevolute, Math::Vector3d (0., 0., 1.));
+		int e_w = _pmodel->AddBody(s_e, Math::Xtrans(Math::Vector3d(posEL.x(), posEL.y(), posEL.z())), *jointelbow, *bodye_w);
+
+
+		Vec3f posH = hand_r->getLocalPosition() * 0.5;
+		Vec3f posWR = wrist_r->getLocalPosition();
+		Body* bodyw_h = new Body (1., Math::Vector3d (posH.x(), posH.y(), posH.z()), Math::Vector3d (1., 1., 1.));
+		RigidBodyDynamics::Joint* jointwrist = new RigidBodyDynamics::Joint(JointTypeRevolute, Math::Vector3d (0., 0., 1.));
+		int w_h = _pmodel->AddBody(e_w, Math::Xtrans(Math::Vector3d(posWR.x(), posWR.y(), posWR.z())), *jointwrist, *bodyw_h);
+
+		std::cout <<"dof count"<<_pmodel->dof_count<<std::endl;
+
+		jointRotations = Math::VectorNd::Zero (_id.size());
+		jointVelocitys = Math::VectorNd::Zero (_id.size());	
+		jointAccelarations = Math::VectorNd::Zero (_id.size());
+		torque = Math::VectorNd::Zero (_id.size());
+		key1 = Math::VectorNd::Zero (_id.size()); 
+		key2 = Math::VectorNd::Zero (_id.size());
+		key1[0] = -1;
+		key1[1] = -2.3;
+		key1[2] = 0;
+		key2[0] = -1.2;
+		key2[1] = -1.3;
+		key2[2] = 0;
+		jointRotations = key1;
+		desire = &key1;
+
+		initMotor();
+		updateSK();
+	}
+
+	void updateSK()
+	{
+		using namespace Etoile;
+		for(int i = 0 ; i < _id.size(); ++i)
+		{
+			Joint* joint =  _skeleton->getJoint(_id[i]);
+			Quaternionf q;
+			q.setAxisAngle(Vec3f(0., 0., 1), jointRotations[i]);
+			joint->setLocalRotation(q);
+		}
+		_skeleton->update();
+	}
+
+	void initMotor()
+	{
+		if(_usePD)
+		{
+			using namespace Etoile;
+			for(int i = 0 ; i < _id.size(); ++i)
+			{
+				_motors.push_back(new PDJointMotor());
+			}
+		}
+	
+	}
 signals:
 
 	public slots:
@@ -315,7 +424,9 @@ signals:
 			
 		}
 public:
+	EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
+	QMainWindow* _pParent;
 	int _selectedJointIndex;
 	bool _pause;
 	bool _cycle;
@@ -323,4 +434,15 @@ public:
 	Checkboard _board;
 	Etoile::Skeleton* _skeleton;
 	Etoile::glDrawFunctions _glDrawFunctions;
+
+	RigidBodyDynamics::Model* _pmodel;
+	RigidBodyDynamics::Math::VectorNd jointRotations;
+	RigidBodyDynamics::Math::VectorNd *desire, key1, key2;
+	RigidBodyDynamics::Math::VectorNd jointVelocitys;
+	RigidBodyDynamics::Math::VectorNd jointAccelarations;
+	RigidBodyDynamics::Math::VectorNd torque;
+	std::vector<std::string> _id;
+	std::vector<Etoile::JointMotor*> _motors;
+	bool _usePD;
+	double dt;
 };
