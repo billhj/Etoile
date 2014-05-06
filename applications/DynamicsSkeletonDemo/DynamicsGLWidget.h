@@ -228,9 +228,8 @@ private:
 		printOpenGLError();
 
 		//drawBox();
-		
-		drawSkeleton(_skeleton);
 		drawPlane();
+		drawSkeleton(_skeleton);
 		printOpenGLError();
 		//drawAxis();
 		glColor3f(0.9,0.25,0.55);
