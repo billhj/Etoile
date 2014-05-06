@@ -82,6 +82,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\core\geometry\AxisAlignedBoundingBox.h" />
+    <ClInclude Include="..\..\core\geometry\BipedSkeleton.h" />
     <ClInclude Include="..\..\core\geometry\BonesAssignment.h" />
     <ClInclude Include="..\..\core\geometry\Camera.h" />
     <ClInclude Include="..\..\core\geometry\ContainmentTests.h" />
@@ -109,6 +110,7 @@
     <ClInclude Include="..\..\core\geometry\VertexBoneAssignment.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\core\geometry\BipedSkeleton.cpp" />
     <ClCompile Include="..\..\core\geometry\Camera.cpp" />
     <ClCompile Include="..\..\core\geometry\DOFConstraint.cpp" />
     <ClCompile Include="..\..\core\geometry\IcoSphere.cpp" />
