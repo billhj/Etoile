@@ -19,6 +19,7 @@
 #include <QSize>
 #include <QTimer>
 #include "renderer/OpenGL/glDrawFunctions.h"
+#include "Checkboard.h"
 
 #ifndef GL_MULTISAMPLE
 #define GL_MULTISAMPLE  0x809D
@@ -86,17 +87,18 @@ public:
 	{
 		glColor3f(0.0,0.8,0.8);
 		glPushMatrix();
-		glBegin(GL_QUADS);
-		glNormal3d(0,1,0);
-		/*glVertex3f(5000,(_boundingBox.minimum().y() - 0.1) * _scaleFactor,50000);
-		glVertex3f(5000,(_boundingBox.minimum().y() - 0.1) * _scaleFactor,-50000);
-		glVertex3f(-5000,(_boundingBox.minimum().y() - 0.1) * _scaleFactor,-50000);
-		glVertex3f(-5000,(_boundingBox.minimum().y() - 0.1) * _scaleFactor,50000);*/
-		glVertex3f(5000,0,50000);
-		glVertex3f(5000,0,-50000);
-		glVertex3f(-5000,0,-50000);
-		glVertex3f(-5000,0,50000);
-		glEnd();
+		//glBegin(GL_QUADS);
+		//glNormal3d(0,1,0);
+		///*glVertex3f(5000,(_boundingBox.minimum().y() - 0.1) * _scaleFactor,50000);
+		//glVertex3f(5000,(_boundingBox.minimum().y() - 0.1) * _scaleFactor,-50000);
+		//glVertex3f(-5000,(_boundingBox.minimum().y() - 0.1) * _scaleFactor,-50000);
+		//glVertex3f(-5000,(_boundingBox.minimum().y() - 0.1) * _scaleFactor,50000);*/
+		//glVertex3f(5000,0,50000);
+		//glVertex3f(5000,0,-50000);
+		//glVertex3f(-5000,0,-50000);
+		//glVertex3f(-5000,0,50000);
+		//glEnd();
+		_board.draw();
 		glPopMatrix();
 	}
 
@@ -318,7 +320,7 @@ public:
 	bool _pause;
 	bool _cycle;
 	unsigned int _fps;
-
+	Checkboard _board;
 	Etoile::Skeleton* _skeleton;
 	Etoile::glDrawFunctions _glDrawFunctions;
 };
