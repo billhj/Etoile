@@ -60,9 +60,9 @@ namespace Etoile
 		getJoint(ankle_l)->setLocalPosition(Vec3f(0, -6, 0));
 
 		int foot_r = this->createJoint("foot_r", ankle_r);
-		getJoint(foot_r)->setLocalPosition(Vec3f(0, 0, 1));
+		getJoint(foot_r)->setLocalPosition(Vec3f(0, 0, 2));
 		int foot_l = this->createJoint("foot_l", ankle_l);
-		getJoint(foot_l)->setLocalPosition(Vec3f(0, 0, 1));
+		getJoint(foot_l)->setLocalPosition(Vec3f(0, 0, 2));
 
 		int spine = this->createJoint("spine", root);
 		getJoint(spine)->addDOF(ROTATION_X, DOFConstraint(-0.3, 0.3));
