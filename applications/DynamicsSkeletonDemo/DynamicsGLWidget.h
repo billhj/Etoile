@@ -85,7 +85,7 @@ public:
 
 	void drawPlane()
 	{
-		glColor3f(0.0,0.8,0.8);
+		//glColor3f(0.0,0.8,0.8);
 		glPushMatrix();
 		//glBegin(GL_QUADS);
 		//glNormal3d(0,1,0);
@@ -228,8 +228,9 @@ private:
 		printOpenGLError();
 
 		//drawBox();
-		drawPlane();
+		
 		drawSkeleton(_skeleton);
+		drawPlane();
 		printOpenGLError();
 		//drawAxis();
 		glColor3f(0.9,0.25,0.55);
@@ -288,7 +289,7 @@ private:
 		glLightfv(GL_LIGHT1, GL_SPECULAR, light_specular1);
 
 		initSkeleton();
-
+		_board.create();
 	}
 
 	virtual QSize sizeHint () const

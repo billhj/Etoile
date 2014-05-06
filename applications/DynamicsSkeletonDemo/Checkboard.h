@@ -6,8 +6,9 @@ class Checkboard
 	int displayListId;
 	int width;
 	int depth;
+	int size;
 public:
-	Checkboard(int width = 10, int depth= 10): width(width), depth(depth) {create();}
+	Checkboard(int width = 50, int depth= 50, int size = 5): width(width), depth(depth), size(size) {}
 	double centerx() {return width / 2;}
 	double centerz() {return depth / 2;}
 	void create() {
@@ -16,24 +17,24 @@ public:
 		static const GLfloat GRAY[] = {.75, .75, .75};
 		displayListId = glGenLists(1);
 		glNewList(displayListId, GL_COMPILE);
-		glDisable(GL_COLOR_MATERIAL);
+		glEnable(GL_COLOR_MATERIAL);
+		glTranslatef(-(width - 1) * size/2.f, 0, -(depth-1) * size/2.f);
 
-		GLfloat lightPosition[] = {4, 3, (depth + 1) / 2 + 1, 1};
-		glTranslatef(-(width - 1)/2.f, 0, -(depth-1)/2.f);
-		glLightfv(GL_LIGHT0, GL_POSITION, lightPosition);
 		glBegin(GL_QUADS);
 		glNormal3d(0, 1, 0);
 		for (int x = 0; x < width - 1; x++) {
 			for (int z = 0; z < depth - 1; z++) {
-				glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE,
+				glColor3fv(
 					(x + z) % 2 == 0 ? GRAY : WHITE);
-				glVertex3d(x, 0, z);
-				glVertex3d(x, 0, z+1);
-				glVertex3d(x+1, 0, z+1);
-				glVertex3d(x+1, 0, z);
+				glVertex3d(x * size, 0, z * size);
+				glVertex3d(x * size, 0, (z+1) * size);
+				glVertex3d((x+1) * size, 0, (z+1) * size);
+				glVertex3d((x+1) * size, 0, z * size);
 			}
 		}
+
 		glEnd();
+		glDisable(GL_COLOR_MATERIAL);
 		glEndList();
 	}
 	void draw() {
