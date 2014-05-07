@@ -39,10 +39,7 @@ public:
 	}
 
 	~DynamicsGLWidget(){}
-	void initSkeleton()
-	{
-		_skeleton = new Etoile::BipedSkeleton();
-	}
+	
 
 	void drawSkeleton(Etoile::Skeleton* skeleton)
 	{
@@ -111,7 +108,7 @@ protected:
 	{
 		if (e->key() == Qt::Key_F5)
 		{
-			changeKey();
+			reset();
 		}
 		else if (e->key() == Qt::Key_F6)
 		{
@@ -122,7 +119,7 @@ protected:
 		}
 		else if(e->key() == Qt::Key_F1)
 		{
-			
+			changeKey();
 		}
 		else if(e->key() == Qt::Key_F2)
 		{
@@ -195,7 +192,7 @@ protected:
 				}
 			}
 			std::cout<<"selected Joint: " << name<<std::endl;
-			
+			emit jointClicked();
 		}
 		else
 			QGLViewer::mousePressEvent(event);
@@ -336,8 +333,14 @@ private:
 		}
 	}
 
+	void initSkeleton()
+	{
+		_skeleton = new Etoile::BipedSkeleton();
+	}
+
 	void initPhyscis()
 	{
+		_id.clear();
 		using namespace Etoile;
 		Joint* hand_r = _skeleton->getJoint("hand_r");
 		Joint* wrist_r = _skeleton->getJoint("wrist_r");
@@ -408,6 +411,7 @@ private:
 	{
 		if(_usePD)
 		{
+			_motors.clear();
 			using namespace Etoile;
 			for(int i = 0 ; i < _id.size(); ++i)
 			{
@@ -422,12 +426,21 @@ private:
 		if(desire == &key1) desire = &key2;
 		else desire = &key1;
 	}
+
+	
 signals:
+	void jointClicked();
 
 	public slots:
 		void applyJoint()
 		{
 			
+		}
+
+		void reset()
+		{
+			initSkeleton();
+			initPhyscis();
 		}
 public:
 	EIGEN_MAKE_ALIGNED_OPERATOR_NEW

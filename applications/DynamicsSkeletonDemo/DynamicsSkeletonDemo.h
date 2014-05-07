@@ -5,6 +5,7 @@
 #include <QDockWidget>
 #include "ui_DynamicsSkeletonDemo.h"
 #include "DynamicsGLWidget.h"
+#include <QDoubleSpinBox>
 
 class DynamicsSkeletonDemo : public QMainWindow
 {
@@ -15,10 +16,15 @@ public:
 	~DynamicsSkeletonDemo();
 	public slots:
 		void changeDeltaT(double t);
+		void jointSelected();
+		void setKp(double);
+		void setKd(double);
 private:
 	Ui::DynamicsSkeletonDemoClass ui;
 	DynamicsGLWidget* _widget;
-	QDockWidget* _dock;
+	QDockWidget* _dock_pd;
+	QDoubleSpinBox* kp;
+	QDoubleSpinBox* kd;
 };
 
 #endif // DYNAMICSSKELETONDEMO_H
