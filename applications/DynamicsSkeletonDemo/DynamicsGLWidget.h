@@ -23,6 +23,7 @@
 #include "rbdl/Dynamics.h"
 #include "rbdl/Model.h"
 #include "animation/dynamics/PDJointMotor.h"
+#include "animation/dynamics/AntagonisticJointMotor.h"
 
 #ifndef GL_MULTISAMPLE
 #define GL_MULTISAMPLE  0x809D
@@ -123,7 +124,7 @@ protected:
 		}
 		else if(e->key() == Qt::Key_F2)
 		{
-			//body->update(.10f);
+			changeController();
 		}
 		else if(e->key() == Qt::Key_F3)
 		{
@@ -235,6 +236,10 @@ private:
 		glColor3f(0.9,0.25,0.55);
 		QFont serifFont("Times", 10, QFont::Bold);
 		drawText((int)30, (int)25, QString(" shift + right_mouse : choose one joint !"), serifFont);
+		if(_usePD)
+			drawText((int)30, (int)40, QString("PDmotor!"), serifFont);
+		else
+			drawText((int)30, (int)40, QString("AntagonisticJointMotor!"), serifFont);
 	}
 
 	virtual void init()
@@ -328,7 +333,9 @@ private:
 		{
 			Etoile::JointMotor* motor = _motors[i];
 			float t = 0;
-			motor->apply(desire[i], rotations[i], jointVelocitys[i], jointAccelarations[i], t);
+			//TODO
+			motor->computeParameters(desire[i], 1);
+			motor->apply(rotations[i], jointVelocitys[i], jointAccelarations[i], t);
 			torque[i] = t;
 		}
 	}
@@ -417,6 +424,17 @@ private:
 			{
 				_motors.push_back(new PDJointMotor());
 			}
+		}else
+		{
+			_motors.clear();
+			using namespace Etoile;
+			for(int i = 0 ; i < _id.size(); ++i)
+			{
+				AntagonisticJointMotor* mo = new AntagonisticJointMotor();
+				//mo->setHigh(3);
+				//mo->setLow(0);
+				_motors.push_back(mo);
+			}
 		}
 	
 	}
@@ -427,10 +445,16 @@ private:
 		else desire = &key1;
 	}
 
-	
+	void changeController()
+	{
+		_usePD = _usePD == true ? false:true;
+		reset();
+		emit changedController();
+	}
+
 signals:
 	void jointClicked();
-
+	void changedController();
 	public slots:
 		void applyJoint()
 		{

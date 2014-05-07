@@ -19,12 +19,25 @@ public:
 		void jointSelected();
 		void setKp(double);
 		void setKd(double);
+		void setKl(double);
+		void setKh(double);
+		void setl(double);
+		void seth(double);
+		void setTension(double);
+		void changeMotor();
 private:
 	Ui::DynamicsSkeletonDemoClass ui;
 	DynamicsGLWidget* _widget;
 	QDockWidget* _dock_pd;
 	QDoubleSpinBox* kp;
 	QDoubleSpinBox* kd;
+
+	QDockWidget* _dock_ag;
+	QDoubleSpinBox* kh;
+	QDoubleSpinBox* kl;
+	QDoubleSpinBox* h;
+	QDoubleSpinBox* l;
+	QDoubleSpinBox* tension;
 };
 
 #endif // DYNAMICSSKELETONDEMO_H
