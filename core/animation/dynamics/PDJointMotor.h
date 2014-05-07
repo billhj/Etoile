@@ -35,7 +35,7 @@ namespace Etoile
 		float Kp(){return _kp;}
 		float Kd(){return _kd;}
 
-		void computeParameters(float desire, float extorque)
+		virtual void computeParameters(float desire, float extorque)
 		{
 			_desire = desire + extorque / _kp;
 		}

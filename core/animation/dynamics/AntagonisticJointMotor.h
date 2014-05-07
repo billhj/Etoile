@@ -18,8 +18,10 @@ namespace Etoile
 	public:
 		AntagonisticJointMotor() : JointMotor()
 		{
-			_kh = 1000;
-			_kl = 10;
+			_kh = 100;
+			_kl = 100;
+			_low = 0;
+			_high = -3;
 		}
 
 		/**
@@ -41,7 +43,7 @@ namespace Etoile
 		float Kl(){return _kl;}
 		float Kh(){return _kh;}
 
-		void computeParameters(float desire, float extorque)
+		virtual void computeParameters(float desire, float extorque)
 		{
 			_desire = desire;
 			float tensionConstant = _kl+_kh;
@@ -49,6 +51,10 @@ namespace Etoile
 			_kh = tensionConstant - _kl;
 		}
 
+		void setLow(float low){_low = low;}
+		void setHigh(float high){_high = high;}
+		float low(){return _low;}
+		float high(){return _high;}
 	private:
 		float _kl;
 		float _kh;
