@@ -25,18 +25,25 @@ namespace Etoile
 		/**
 		 *	 the input is the desire, current, output the torque
 		 */
-		virtual void apply(float desire, float current, float speed, float accelaration, float& torque) override
+		virtual void apply(float current, float speed, float accelaration, float& torque) override
 		{
-			torque = (desire - current) * _kp - speed * _kd;
+			torque = (_desire - current) * _kp - speed * _kd;
 		}
 
 		void setKp(float kp){ _kp = kp;}
 		void setKd(float kd){ _kd = kd;}
 		float Kp(){return _kp;}
 		float Kd(){return _kd;}
+
+		void computeParameters(float desire, float extorque)
+		{
+			_desire = desire + extorque / _kp;
+		}
 	private:
 		float _kp;
 		float _kd;
+		float _desire;
+		//desire needs to be the equilibrum
 	};
 }
 

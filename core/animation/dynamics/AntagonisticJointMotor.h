@@ -25,7 +25,7 @@ namespace Etoile
 		/**
 		 *	 the input is the desire, current, output the torque
 		 */
-		virtual void apply(float desire, float current, float speed, float accelaration, float& torque) override
+		virtual void apply(float current, float speed, float accelaration, float& torque) override
 		{
 			torque = (_low - current) * _kl +  (_high - current) * _kh;
 		}
@@ -43,8 +43,9 @@ namespace Etoile
 
 		void computeParameters(float desire, float extorque)
 		{
+			_desire = desire;
 			float tensionConstant = _kl+_kh;
-			_kl = (tensionConstant * (desire - _high) - extorque) / (_low - _high);
+			_kl = (tensionConstant * (_desire - _high) - extorque) / (_low - _high);
 			_kh = tensionConstant - _kl;
 		}
 
@@ -53,6 +54,8 @@ namespace Etoile
 		float _kh;
 		float _low;
 		float _high;
+		float _desire;
+		//desire needs to be the equilibrum
 	};
 }
 
