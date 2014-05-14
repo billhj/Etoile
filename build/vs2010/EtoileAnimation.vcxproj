@@ -107,6 +107,7 @@
     <ClInclude Include="..\..\core\animation\BVHFrame.h" />
     <ClInclude Include="..\..\core\animation\BVHLoader.h" />
     <ClInclude Include="..\..\core\animation\Controller.h" />
+    <ClInclude Include="..\..\core\animation\dynamics\AntagonisticJointMotor.h" />
     <ClInclude Include="..\..\core\animation\dynamics\DJoint.h" />
     <ClInclude Include="..\..\core\animation\dynamics\DMass.h" />
     <ClInclude Include="..\..\core\animation\dynamics\DMultiBodySolver.h" />

@@ -51,16 +51,7 @@ DynamicsSkeletonDemo::DynamicsSkeletonDemo(QWidget *parent, Qt::WFlags flags)
 		dt2->setSingleStep(0.001);
 		dt2->setDecimals(3);
 		layout2->addRow("dt", dt2);
-		kh = new QDoubleSpinBox();
-		kh->setRange(0.01, 3000);
-		kh->setValue(1000);
-		kh->setSingleStep(0.1);
-		layout2->addRow("kh", kh);
-		kl = new QDoubleSpinBox();
-		kl->setRange(0.01, 3000);
-		kl->setSingleStep(0.1);
-		kl->setValue(10);
-		layout2->addRow("kl", kl);
+		
 
 		h = new QDoubleSpinBox();
 		h->setRange(-3.1, 3.1);
@@ -76,13 +67,11 @@ DynamicsSkeletonDemo::DynamicsSkeletonDemo(QWidget *parent, Qt::WFlags flags)
 		tension = new QDoubleSpinBox();
 		tension->setRange(0.1, 3000);
 		tension->setSingleStep(1);
-		tension->setValue(kh->value() + kl->value());
+		tension->setValue(200);
 		layout2->addRow("tension", tension);
 
 		widget2->setLayout(layout2);
 		connect(dt2, SIGNAL(valueChanged(double)), this, SLOT(changeDeltaT(double)));
-		connect(kl, SIGNAL(valueChanged(double)), this, SLOT(setKl(double)));
-		connect(kh, SIGNAL(valueChanged(double)), this, SLOT(setKh(double)));
 		connect(l, SIGNAL(valueChanged(double)), this, SLOT(seth(double)));
 		connect(h, SIGNAL(valueChanged(double)), this, SLOT(setl(double)));
 		connect(tension, SIGNAL(valueChanged(double)), this, SLOT(setTension(double)));
@@ -146,8 +135,6 @@ void DynamicsSkeletonDemo::jointSelected()
 				kp->setValue(((Etoile::PDJointMotor*)motor)->Kp());
 			}else
 			{
-				kl->setValue(((Etoile::AntagonisticJointMotor*)motor)->Kl());
-				kh->setValue(((Etoile::AntagonisticJointMotor*)motor)->Kh());
 				h->setValue(((Etoile::AntagonisticJointMotor*)motor)->high());
 				l->setValue(((Etoile::AntagonisticJointMotor*)motor)->low());
 				tension->setValue(((Etoile::AntagonisticJointMotor*)motor)->tensionConstant());
@@ -157,39 +144,6 @@ void DynamicsSkeletonDemo::jointSelected()
 }
 
 
-void DynamicsSkeletonDemo::setKl(double)
-{
-	if(_widget->_usePD) return;
-	for(int i = 0; i < _widget->_id.size(); ++i)
-	{
-		Etoile::Joint* j = _widget->_skeleton->getJoint(_widget->_selectedJointIndex);
-		if(j == NULL) continue;
-		if(_widget->_id[i].compare(j->getName()) == 0)
-		{
-			Etoile::JointMotor* motor = _widget->_motors[i];
-
-			((Etoile::AntagonisticJointMotor*)motor)->setKl(kl->value());
-
-		}
-	}
-}
-
-void DynamicsSkeletonDemo::setKh(double)
-{
-	if(_widget->_usePD) return;
-	for(int i = 0; i < _widget->_id.size(); ++i)
-	{
-		Etoile::Joint* j = _widget->_skeleton->getJoint(_widget->_selectedJointIndex);
-		if(j == NULL) continue;
-		if(_widget->_id[i].compare(j->getName()) == 0)
-		{
-			Etoile::JointMotor* motor = _widget->_motors[i];
-
-			((Etoile::AntagonisticJointMotor*)motor)->setKh(kh->value());
-
-		}
-	}
-}
 void DynamicsSkeletonDemo::setl(double)
 {
 	if(_widget->_usePD) return;
@@ -236,8 +190,6 @@ void DynamicsSkeletonDemo::setTension(double)
 			Etoile::JointMotor* motor = _widget->_motors[i];
 
 			((Etoile::AntagonisticJointMotor*)motor)->setTensionConstant(tension->value());
-			kl->setValue(((Etoile::AntagonisticJointMotor*)motor)->Kl());
-			kh->setValue(((Etoile::AntagonisticJointMotor*)motor)->Kh());
 			h->setValue(((Etoile::AntagonisticJointMotor*)motor)->high());
 			l->setValue(((Etoile::AntagonisticJointMotor*)motor)->low());
 		}
@@ -258,8 +210,6 @@ void DynamicsSkeletonDemo::changeMotor()
 		_dock_ag->setVisible(true);
 		seth(0);
 		setl(0);
-		setKl(0);
-		setKh(0);
 		setTension(0);
 	}
 }

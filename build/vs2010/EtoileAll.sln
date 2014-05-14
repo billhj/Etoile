@@ -74,7 +74,10 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DynamicsSkeletonDemo", "..\..\applications\DynamicsSkeletonDemo\DynamicsSkeletonDemo.vcxproj", "{DFE56530-135B-493B-8097-3B060149EA9F}"
 	ProjectSection(ProjectDependencies) = postProject
 		{B489A447-4471-4F81-BF53-FA3601BE0E2B} = {B489A447-4471-4F81-BF53-FA3601BE0E2B}
+		{EB16B270-4A07-4664-8E68-653713770DB1} = {EB16B270-4A07-4664-8E68-653713770DB1}
 	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GlutDemoApplication", "..\..\applications\GlutDemoApplication\GlutDemoApplication.vcxproj", "{CE701CFA-A039-446E-865A-6EDE523D43F5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -198,6 +201,10 @@ Global
 		{DFE56530-135B-493B-8097-3B060149EA9F}.Debug|Win32.Build.0 = Debug|Win32
 		{DFE56530-135B-493B-8097-3B060149EA9F}.Release|Win32.ActiveCfg = Release|Win32
 		{DFE56530-135B-493B-8097-3B060149EA9F}.Release|Win32.Build.0 = Release|Win32
+		{CE701CFA-A039-446E-865A-6EDE523D43F5}.Debug|Win32.ActiveCfg = Debug|Win32
+		{CE701CFA-A039-446E-865A-6EDE523D43F5}.Debug|Win32.Build.0 = Debug|Win32
+		{CE701CFA-A039-446E-865A-6EDE523D43F5}.Release|Win32.ActiveCfg = Release|Win32
+		{CE701CFA-A039-446E-865A-6EDE523D43F5}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

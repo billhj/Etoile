@@ -40,7 +40,7 @@ public:
 	}
 
 	~DynamicsGLWidget(){}
-	
+
 
 	void drawSkeleton(Etoile::Skeleton* skeleton)
 	{
@@ -51,7 +51,7 @@ public:
 			if(j->getParent() != NULL)
 			{
 				Etoile::Joint* jp = j->getParent();
-			
+
 				Etoile::Vec3f posP = jp->getWorldPosition();
 				Etoile::Vec3f pos = j->getWorldPosition();
 				float DiffuseMaterial0[3] = {0.5, 0.0, 0.0};          // define bones color
@@ -128,7 +128,7 @@ protected:
 		}
 		else if(e->key() == Qt::Key_F3)
 		{
-		
+
 			//body->addForce(Eigen::Vector3f(-10,0,0));
 
 		}else if(e->key() == Qt::Key_F4)
@@ -136,14 +136,14 @@ protected:
 			//body->addTorque(Eigen::Vector3f(0,1,0));
 		}else if(e->key() == Qt::Key_Up)
 		{
-			
+
 		}else if(e->key() == Qt::Key_Down)
 		{
-			
+
 		}
 		else if(e->key() == Qt::Key_Space)
 		{
-		
+
 		}
 		else
 			QGLViewer::keyPressEvent(e);
@@ -162,7 +162,7 @@ protected:
 	{
 		if ((event->button() == Qt::MiddleButton))
 		{
-			
+
 		}
 		else if ((event->modifiers() & Qt::ShiftModifier))
 		{
@@ -315,7 +315,7 @@ private:
 	}
 
 
-	
+
 	void performPhyscis()
 	{
 		applyTorque(*desire, jointRotations, jointVelocitys,jointAccelarations, torque);
@@ -326,16 +326,18 @@ private:
 	}
 
 	void applyTorque(RigidBodyDynamics::Math::VectorNd& desire, RigidBodyDynamics::Math::VectorNd& rotations, RigidBodyDynamics::Math::VectorNd& jointVelocitys,
-			RigidBodyDynamics::Math::VectorNd& jointAccelarations,
-			RigidBodyDynamics::Math::VectorNd& torque)
+		RigidBodyDynamics::Math::VectorNd& jointAccelarations,
+		RigidBodyDynamics::Math::VectorNd& torque)
 	{
 		for(unsigned int i = 0; i < _id.size(); ++i)
 		{
 			Etoile::JointMotor* motor = _motors[i];
 			float t = 0;
 			//TODO
-			motor->computeParameters(desire[i], 1);
+			//motor->computeParameters(desire[i], 1);
+
 			motor->apply(rotations[i], jointVelocitys[i], jointAccelarations[i], t);
+			std::cout<<i<<"   "<< rotations[i]<<" t: "<< t <<std::endl;
 			torque[i] = t;
 		}
 	}
@@ -396,8 +398,8 @@ private:
 		key2[2] = 0;
 		jointRotations = key1;
 		desire = &key1;
-
 		initMotor();
+		setTargetKey(key2, key1);
 		updateSK();
 	}
 
@@ -436,13 +438,57 @@ private:
 				_motors.push_back(mo);
 			}
 		}
-	
+
 	}
 
 	void changeKey()
 	{
-		if(desire == &key1) desire = &key2;
-		else desire = &key1;
+		if(desire == &key1)
+		{ 
+			desire = &key2;
+			setTargetKey(key1, key2);
+		}
+		else
+		{ 
+			desire = &key1;
+			setTargetKey(key2, key1);
+		}
+	}
+
+	void setTargetKey(RigidBodyDynamics::Math::VectorNd kstart, RigidBodyDynamics::Math::VectorNd kend)
+	{
+		if(_usePD)
+		{
+			RigidBodyDynamics::Math::VectorNd tau = RigidBodyDynamics::Math::VectorNd::Zero (_id.size());
+			RigidBodyDynamics::InverseDynamics(*_pmodel, kend, RigidBodyDynamics::Math::VectorNd::Zero (_id.size()), 
+				RigidBodyDynamics::Math::VectorNd::Zero (_id.size()), tau, NULL);
+			using namespace Etoile;
+			for(int i = 0 ; i < _id.size(); ++i)
+			{
+				PDJointMotor* m = (PDJointMotor*)_motors[i];
+				m->computeParameters(kend[i], -tau[i]);
+				std::cout<<i<<"tau   "<< tau[i] <<std::endl;
+			}
+		}else
+		{
+			using namespace Etoile;
+			RigidBodyDynamics::Math::VectorNd tau = RigidBodyDynamics::Math::VectorNd::Zero (_id.size());
+			RigidBodyDynamics::Math::VectorNd tau2 = RigidBodyDynamics::Math::VectorNd::Zero (_id.size());
+
+			RigidBodyDynamics::InverseDynamics(*_pmodel, kstart, RigidBodyDynamics::Math::VectorNd::Zero (_id.size()), 
+				RigidBodyDynamics::Math::VectorNd::Zero (_id.size()), tau, NULL);
+			RigidBodyDynamics::InverseDynamics(*_pmodel, kend, RigidBodyDynamics::Math::VectorNd::Zero (_id.size()), 
+				RigidBodyDynamics::Math::VectorNd::Zero (_id.size()), tau2, NULL);
+
+			for(int i = 0 ; i < _id.size(); ++i)
+			{
+				AntagonisticJointMotor* m = (AntagonisticJointMotor*)_motors[i];
+				m->computeStartParameters(kstart[i], -tau[i]);
+				std::cout<<i<<"tau1   "<< tau[i] <<std::endl;
+				m->computeEndParameters(kend[i], -tau2[i]);
+				std::cout<<i<<"tau2   "<< tau2[i] <<std::endl;
+			}
+		}
 	}
 
 	void changeController()
@@ -458,7 +504,7 @@ signals:
 	public slots:
 		void applyJoint()
 		{
-			
+
 		}
 
 		void reset()
@@ -469,7 +515,7 @@ signals:
 public:
 	EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
-	QMainWindow* _pParent;
+		QMainWindow* _pParent;
 	int _selectedJointIndex;
 	bool _pause;
 	bool _cycle;

@@ -19,8 +19,6 @@ public:
 		void jointSelected();
 		void setKp(double);
 		void setKd(double);
-		void setKl(double);
-		void setKh(double);
 		void setl(double);
 		void seth(double);
 		void setTension(double);
@@ -33,8 +31,6 @@ private:
 	QDoubleSpinBox* kd;
 
 	QDockWidget* _dock_ag;
-	QDoubleSpinBox* kh;
-	QDoubleSpinBox* kl;
 	QDoubleSpinBox* h;
 	QDoubleSpinBox* l;
 	QDoubleSpinBox* tension;
