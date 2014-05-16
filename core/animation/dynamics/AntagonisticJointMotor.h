@@ -10,6 +10,8 @@
 #define ANTAGONISTIC_JOINT_MOTOR_H
 
 #include "JointMotor.h"
+#include <cmath>
+#include <iostream>
 
 namespace Etoile
 {
@@ -18,8 +20,8 @@ namespace Etoile
 	public:
 		AntagonisticJointMotor() : JointMotor()
 		{
-			_tension = 200;
-			_low = -3;
+			_tension = 50;
+			_low = -3.14;
 			_high = 0;
 		}
 
@@ -28,39 +30,53 @@ namespace Etoile
 		 */
 		virtual void apply(float current, float speed, float accelaration, float& torque) override
 		{
+			std::cout<<"target: "<< _key_end <<std::endl;
 			float floor = _key_end - _key_start;
-			floor = floor == 0 ? 0.0001 : floor;
+			//floor = (abs(floor) < 0.001) ? 0.0001 : floor;
 			float ratio = (current - _key_start) / floor;
 			float kl = ratio * (_kl_end - _kl_start) + _kl_start;
 			float kh = ratio * (_kh_end - _kh_start) + _kh_start;
+			//std::cout<<"kl: "<< kl<<" kh: "<< kh <<std::endl;
 			torque = (_low - current) * kl +  (_high - current) * kh;
+			//torque *= 1.2;
 		}
 
 		void setTensionConstant(float tc)
 		{
+			float ratio = tc / _tension;
+			_kl_start = _kl_start * ratio;
+			_kl_end = _kl_end * ratio;
+			_kh_start = _kh_start * ratio;
+			_kh_end = _kh_end * ratio;
 			_tension = tc;
-			/*_kl = tc * _kl / (_kl + _kh);
-			_kh = tc * _kh / (_kl + _kh);*/
 		}
 		float tensionConstant(){return _tension;}
 
 
-		void computeStartParameters(float key, float extorque)
+		void computeStartParameters(float key, float torque)
 		{
 			_key_start = key;
 			float floor = _low - _high;
-			floor = floor == 0 ? -0.0001 : floor;
-			_kl_start = (_tension * (key - _high) - extorque) / floor;
+			//floor = floor == 0 ? -0.0001 : floor;
+			_kl_start = (_tension * (key - _high) + torque) / floor;
 			_kh_start = _tension - _kl_start;
+			{
+				float torque = (_low - key) * _kl_start +  (_high - key) * _kh_start;
+				std::cout<<"generated torque: "<< torque <<std::endl;
+			}
 		}
 
-		void computeEndParameters(float key, float extorque)
+		void computeEndParameters(float key, float torque)
 		{
 			_key_end = key;
 			float floor = _low - _high;
-			floor = floor == 0 ? -0.0001 : floor;
-			_kl_end = (_tension * (key - _high) - extorque) / floor;
+			//floor = floor == 0 ? -0.0001 : floor;
+			_kl_end = (_tension * (key - _high) + torque) / floor;
 			_kh_end = _tension - _kl_end;
+			{
+				float torque = (_low - key) * _kl_end +  (_high - key) * _kh_end;
+				std::cout<<"generated torque: "<< torque <<std::endl;
+			}
 		}
 
 		void setLow(float low){_low = low;}

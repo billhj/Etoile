@@ -35,9 +35,10 @@ namespace Etoile
 		float Kp(){return _kp;}
 		float Kd(){return _kd;}
 
-		void computeParameters(float desire, float extorque)
+		void computeParameters(float desire, float torque)
 		{
-			_desire = desire + extorque / _kp;
+			//input desire is the equilibrum state
+			_desire = desire + torque / _kp;
 		}
 	private:
 		float _kp;

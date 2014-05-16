@@ -67,7 +67,7 @@ namespace Etoile
 		Joint* joint = new Joint(name, this, id, parent);
 		_joints.push_back(joint);
 		_nameIdMap[name] = id;
-		joint->setParent(parent);	
+		//joint->setParent(parent);	
 		return id;
 	}
 

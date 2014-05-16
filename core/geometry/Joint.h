@@ -26,7 +26,29 @@ namespace Etoile
 		void setName(const std::string& name){ _name = name;}
 		int getId(){ return _id;}
 		void setId(int id){ _id = id;}
-		void setParent(int parent){ _parent = parent;}
+		void setParent(int parent)
+		{ 
+			_parent = parent;
+			if(_pSkeleton != NULL && _parent != -1)
+			{
+				if(!getParent()->hasChild(_id))
+				{
+					getParent()->getChildrenIds().push_back(_id);
+				}
+			}
+		}
+		bool hasChild(int id)
+		{
+			for(int i = 0; i < _children.size(); ++i)
+			{
+				if(_children[i] == id)
+				{
+					return true;
+				}
+			}
+			return false;
+		}
+
 		int getParentId(){return _parent;}
 		Joint* getParent()const;
 		std::vector<int>& getChildrenIds(){return _children;}
