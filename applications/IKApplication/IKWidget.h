@@ -30,6 +30,7 @@
 #include "animation/dynamics/DRigidBody.h"
 #include <QTime>
 #include "geometry/BipedSkeleton.h"
+#include "../DynamicsSkeletonDemo/Checkboard.h"
 
 #ifndef GL_MULTISAMPLE
 #define GL_MULTISAMPLE  0x809D
@@ -421,17 +422,18 @@ public:
 	{
 		glColor3f(0.0,0.8,0.8);
 		glPushMatrix();
-		glBegin(GL_QUADS);
-		glNormal3d(0,1,0);
-		/*glVertex3f(5000,(_boundingBox.minimum().y() - 0.1) * _scaleFactor,50000);
-		glVertex3f(5000,(_boundingBox.minimum().y() - 0.1) * _scaleFactor,-50000);
-		glVertex3f(-5000,(_boundingBox.minimum().y() - 0.1) * _scaleFactor,-50000);
-		glVertex3f(-5000,(_boundingBox.minimum().y() - 0.1) * _scaleFactor,50000);*/
-		glVertex3f(5000,0,50000);
-		glVertex3f(5000,0,-50000);
-		glVertex3f(-5000,0,-50000);
-		glVertex3f(-5000,0,50000);
-		glEnd();
+		//glBegin(GL_QUADS);
+		//glNormal3d(0,1,0);
+		///*glVertex3f(5000,(_boundingBox.minimum().y() - 0.1) * _scaleFactor,50000);
+		//glVertex3f(5000,(_boundingBox.minimum().y() - 0.1) * _scaleFactor,-50000);
+		//glVertex3f(-5000,(_boundingBox.minimum().y() - 0.1) * _scaleFactor,-50000);
+		//glVertex3f(-5000,(_boundingBox.minimum().y() - 0.1) * _scaleFactor,50000);*/
+		//glVertex3f(5000,0,50000);
+		//glVertex3f(5000,0,-50000);
+		//glVertex3f(-5000,0,-50000);
+		//glVertex3f(-5000,0,50000);
+		//glEnd();
+		_board.draw();
 		glPopMatrix();
 	}
 
@@ -686,6 +688,10 @@ private:
 		glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 		printOpenGLError();
 
+		glPushMatrix();
+		_manipulator.draw();
+		glPopMatrix();
+
 		//drawBox();
 		drawPlane();
 		drawSkeleton(_skeleton);
@@ -695,9 +701,7 @@ private:
 		QFont serifFont("Times", 10, QFont::Bold);
 		drawText((int)30, (int)25, QString(" shift + right_mouse : choose one joint !"), serifFont);
 
-		glPushMatrix();
-		_manipulator.draw();
-		glPopMatrix();
+		
 
 		if(_pSolver != NULL)
 		{
@@ -756,7 +760,7 @@ private:
 		glLightfv(GL_LIGHT1, GL_AMBIENT, light_ambient1);
 		glLightfv(GL_LIGHT1, GL_DIFFUSE, light_diffuse1);
 		glLightfv(GL_LIGHT1, GL_SPECULAR, light_specular1);
-
+		_board.create();
 		initSkeleton();
 		//connect(&_manipulator, SIGNAL(mouseReleased()), this, SLOT(applyJoint()));
 		connect(&_manipulator, SIGNAL(moved()), this, SLOT(applyJoint()));
@@ -829,5 +833,6 @@ public:
 	Etoile::IKSolver* _pSolver;
 	Etoile::Joints solvejoints;
 	int number_bones;
+	Checkboard _board;
 	//std::vector<IKSolver*> _solvers;
 };

@@ -16,9 +16,10 @@ DynamicsSkeletonDemo::DynamicsSkeletonDemo(QWidget *parent, Qt::WFlags flags)
 		_dock_pd->setWidget(widget);
 		QFormLayout* layout = new QFormLayout();
 		QDoubleSpinBox* dt = new QDoubleSpinBox();
-		dt->setRange(0.001, 0.1);
-		dt->setSingleStep(0.001);
-		dt->setDecimals(3);
+		dt->setRange(0.0001, 0.1);
+		dt->setSingleStep(0.0001);
+		dt->setDecimals(5);
+		dt->setValue(_widget->dt);
 		layout->addRow("dt", dt);
 		kp = new QDoubleSpinBox();
 		kp->setRange(0.01, 3000);
@@ -47,21 +48,22 @@ DynamicsSkeletonDemo::DynamicsSkeletonDemo(QWidget *parent, Qt::WFlags flags)
 
 		QFormLayout* layout2 = new QFormLayout();
 		QDoubleSpinBox* dt2 = new QDoubleSpinBox();
-		dt2->setRange(0.001, 0.1);
-		dt2->setSingleStep(0.001);
-		dt2->setDecimals(3);
+		dt2->setRange(0.0001, 0.1);
+		dt2->setSingleStep(0.0001);
+		dt2->setDecimals(5);
+		dt2->setValue(_widget->dt);
 		layout2->addRow("dt", dt2);
 		
 
 		h = new QDoubleSpinBox();
 		h->setRange(-3.1, 3.1);
-		h->setValue(3);
+		//h->setValue(3);
 		h->setSingleStep(0.01);
 		layout2->addRow("h", h);
 		l = new QDoubleSpinBox();
 		l->setRange(-3.1, 3.1);
 		l->setSingleStep(0.01);
-		l->setValue(0);
+		//l->setValue(0);
 		layout2->addRow("l", l);
 
 		tension = new QDoubleSpinBox();
@@ -190,6 +192,7 @@ void DynamicsSkeletonDemo::setTension(double)
 			Etoile::JointMotor* motor = _widget->_motors[i];
 
 			((Etoile::AntagonisticJointMotor*)motor)->setTensionConstant(tension->value());
+			_widget->resetKey();
 			h->setValue(((Etoile::AntagonisticJointMotor*)motor)->high());
 			l->setValue(((Etoile::AntagonisticJointMotor*)motor)->low());
 		}
@@ -208,8 +211,8 @@ void DynamicsSkeletonDemo::changeMotor()
 	{
 		_dock_pd->setVisible(false);
 		_dock_ag->setVisible(true);
-		seth(0);
-		setl(0);
+		//seth(0);
+		//setl(0);
 		setTension(0);
 	}
 }
