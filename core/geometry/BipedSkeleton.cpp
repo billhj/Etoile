@@ -17,7 +17,10 @@ namespace Etoile
 
 	void BipedSkeleton::init()
 	{
-		int root = this->createJoint("root");
+		int baseroot = this->createJoint("baseroot");
+		getJoint(baseroot)->setLocalPosition(Vec3f(0, 0, 0));
+
+		int root = this->createJoint("root", baseroot);
 		getJoint(root)->addDOF(ROTATION_X, DOFConstraint(-0.1,0.1));
 		getJoint(root)->addDOF(ROTATION_Y, DOFConstraint(-0.1,0.1));
 		getJoint(root)->addDOF(ROTATION_Z, DOFConstraint(-0.1,0.1));
