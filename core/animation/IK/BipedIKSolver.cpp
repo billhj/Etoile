@@ -12,7 +12,10 @@ namespace Etoile
 	
 	BipedIKSolver::BipedIKSolver(BipedSkeleton* skel) : _pSkeleton(skel)
 	{
-		
+		_maxLoop = 300;
+		_thresholdDistance = 0.05;
+		_distanceStep = 3;
+		_rotationStep = 0.01;
 	}
 	
 	void BipedIKSolver::solve()
@@ -73,7 +76,7 @@ namespace Etoile
 				entry.normalize();
 				axis[1] = shoulder_l->getWorldRotation().inverse() * axis[1];
 				axis[1].normalize();
-				VecNf v(3, &entry[1]);
+				VecNf v(3, &entry[0]);
 				jacobian.setColumn(1, v);
 			}
 
@@ -90,7 +93,7 @@ namespace Etoile
 				entry.normalize();
 				axis[2] = elbow_l->getWorldRotation().inverse() * axis[2];
 				axis[2].normalize();
-				VecNf v(3, &entry[2]);
+				VecNf v(3, &entry[0]);
 				jacobian.setColumn(2, v);
 			}
 
@@ -140,6 +143,9 @@ namespace Etoile
 			hand_l->update();
 			//hand_l->setLocalRotation(ankle_l->getWorldRotation().inverse());
 			//hand_l->update();
+			Vec3f currentEnd = hand_l->getWorldPosition();
+			distance.set(target.x() - currentEnd.x(), target.y() - currentEnd.y(), target.z() - currentEnd.z());
+			++loop;
 		}
 	}
 
@@ -191,7 +197,7 @@ namespace Etoile
 				entry.normalize();
 				axis[1] = shoulder_r->getWorldRotation().inverse() * axis[1];
 				axis[1].normalize();
-				VecNf v(3, &entry[1]);
+				VecNf v(3, &entry[0]);
 				jacobian.setColumn(1, v);
 			}
 
@@ -208,7 +214,7 @@ namespace Etoile
 				entry.normalize();
 				axis[2] = elbow_r->getWorldRotation().inverse() * axis[2];
 				axis[2].normalize();
-				VecNf v(3, &entry[2]);
+				VecNf v(3, &entry[0]);
 				jacobian.setColumn(2, v);
 			}
 
@@ -258,6 +264,9 @@ namespace Etoile
 			hand_r->update();
 			//hand_r->setLocalRotation(ankle_l->getWorldRotation().inverse());
 			//hand_r->update();
+			Vec3f currentEnd = hand_r->getWorldPosition();
+			distance.set(target.x() - currentEnd.x(), target.y() - currentEnd.y(), target.z() - currentEnd.z());
+			++loop;
 		}
 	}
 
@@ -306,7 +315,7 @@ namespace Etoile
 				entry.normalize();
 				axis[1] = knee_l->getWorldRotation().inverse() * axis[1];
 				axis[1].normalize();
-				VecNf v(3, &entry[1]);
+				VecNf v(3, &entry[0]);
 				jacobian.setColumn(1, v);
 			}
 
@@ -342,6 +351,9 @@ namespace Etoile
 			ankle_l->update();
 			ankle_l->setLocalRotation(ankle_l->getWorldRotation().inverse());
 			ankle_l->update();
+			Vec3f currentEnd = ankle_l->getWorldPosition();
+			distance.set(target.x() - currentEnd.x(), target.y() - currentEnd.y(), target.z() - currentEnd.z());
+			++loop;
 		}
 	}
 
@@ -390,21 +402,25 @@ namespace Etoile
 				entry.normalize();
 				axis[1] = knee_r->getWorldRotation().inverse() * axis[1];
 				axis[1].normalize();
-				VecNf v(3, &entry[1]);
+				VecNf v(3, &entry[0]);
 				jacobian.setColumn(1, v);
 			}
 
 			//compute the transpose
 			MatrixMNf transpose = jacobian.transpose();
+			/*std::cout<<"jacobian:"<<jacobian<<std::endl;
+			std::cout<<"transpose:"<<transpose<<std::endl;*/
 
 			VecNf force(3);
 			force[0] = distance.x() * _distanceStep;
 			force[1] = distance.y() * _distanceStep;
 			force[2] = distance.z() * _distanceStep;
 			
+			/*std::cout<<"transpose:"<<transpose<<std::endl;
+			std::cout<<"force:"<<force<<std::endl;*/
 			//computing q'
 			VecNf q = transpose * force;
-
+			//std::cout<<"q:"<<q<<std::endl;
 			{
                 double r = q[0];
                 Quaternionf rotation;
@@ -426,11 +442,21 @@ namespace Etoile
 			ankle_r->update();
 			ankle_r->setLocalRotation(ankle_r->getWorldRotation().inverse());
 			ankle_r->update();
+			Vec3f currentEnd = ankle_r->getWorldPosition();
+			distance.set(target.x() - currentEnd.x(), target.y() - currentEnd.y(), target.z() - currentEnd.z());
+			std::cout<<distance.length()<<std::endl;
+			++loop;
 		}
+		std::cout<<"loop: "<<loop<<std::endl;
 	}
 
 
-
+	void BipedIKSolver::solveLowerBody(Vec3f baseOffset)
+	{
+		//_pSkeleton->reset();
+		solveLeftLeg(baseOffset, Vec3f());
+		solveRightLeg(baseOffset, Vec3f());
+	}
 
 
 	void BipedIKSolver::applyConstraint(Joint* j, float xMin, float xMax, float yMin, float yMax, float zMin, float zMax)

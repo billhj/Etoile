@@ -24,6 +24,7 @@ namespace Etoile
 		void solveLeftLeg(Vec3f baseOffset, Vec3f legOffset);
 		void solveRightLeg(Vec3f baseOffset, Vec3f legOffset);
 		void applyConstraint(Joint* j, float xMin, float xMax, float yMin, float yMax, float zMin, float zMax);
+		void solveLowerBody(Vec3f baseOffset);
 	private:
 		BipedSkeleton* _pSkeleton;
 		std::map<std::string, Vec3f> _target;
