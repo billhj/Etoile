@@ -8,7 +8,7 @@ namespace Etoile
 		_dir = "C:/Users/Jing/Documents/etoile_github/trunk/bin/pics"; // directory where the images will be stored
 		_ext = ".jpg"; // extension of the images
 		_logfile = "C:/Users/Jing/Documents/etoile_github/trunk/bin/motion_src/log";
-		_delay = 500; // in mseconds, take a picture every 1/2 second
+		_delay = 50; // in mseconds, take a picture every 1/2 second
 	}
 
 
@@ -147,7 +147,7 @@ namespace Etoile
 
 	void MotionDetector::apply()
 	{
-
+		//cvNamedWindow("GeckoGeek Window", CV_WINDOW_AUTOSIZE);
 		directoryExistsOrCreate(_dir.c_str());
 		// Format of directory
 		string DIR_FORMAT = "%Y_%m_%d"; // 1Jan1970
@@ -197,6 +197,9 @@ namespace Etoile
 			prev_frame = current_frame;
 			current_frame = next_frame;
 			next_frame = cvQueryFrame(camera);
+			
+			//cvShowImage("GeckoGeek Window", &next_frame);
+
 			result = next_frame;
 			cvtColor(next_frame, next_frame, CV_RGB2GRAY);
 
@@ -209,7 +212,7 @@ namespace Etoile
 			erode(motion, motion, kernel_ero);
 
 			number_of_changes = detectMotion(motion, result, result_cropped,  x_start, x_stop, y_start, y_stop, max_deviation, color);
-
+			imshow("VIDEO", result);
 			// If a lot of changes happened, we assume something changed.
 			if(number_of_changes>=there_is_motion)
 			{
@@ -225,6 +228,12 @@ namespace Etoile
 				// Delay, wait a 1/2 second.
 				cvWaitKey (_delay);
 			}
+			if(waitKey(30) == 27) //wait for 'esc' key press for 30 ms. If 'esc' key is pressed, break loop
+		   {
+					cout << "esc key is pressed by user" << endl; 
+					return exit(0);
+					break; 
+		   }
 		}
 	}
 
