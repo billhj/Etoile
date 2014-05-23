@@ -453,7 +453,7 @@ namespace Etoile
 
 	void BipedIKSolver::solveLowerBody(Vec3f baseOffset)
 	{
-		//_pSkeleton->reset();
+		_pSkeleton->reset();
 		solveLeftLeg(baseOffset, Vec3f());
 		solveRightLeg(baseOffset, Vec3f());
 	}

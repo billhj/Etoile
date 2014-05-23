@@ -161,9 +161,10 @@ namespace Etoile
 
 	void Skeleton::reset()
 	{
-		if(_joints.size() > 0)
+		Joints::iterator itor;
+		for(itor = _joints.begin(); itor != _joints.end(); ++itor)
 		{
-			Joint* j = _joints[0];
+			Joint* j = (*itor);
 			j->reset();
 		}
 
