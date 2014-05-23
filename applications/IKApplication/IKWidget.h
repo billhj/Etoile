@@ -31,6 +31,7 @@
 #include <QTime>
 #include "geometry/BipedSkeleton.h"
 #include "../DynamicsSkeletonDemo/Checkboard.h"
+#include "animation/IK/BipedIKSolver.h"
 
 #ifndef GL_MULTISAMPLE
 #define GL_MULTISAMPLE  0x809D
@@ -494,7 +495,10 @@ protected:
 			if(dynamic_cast<Etoile::BipedSkeleton*>(_skeleton) )
 				initSkeleton();
 			else
+			{
 				_skeleton = new Etoile::BipedSkeleton();
+				_original = _skeleton->getJoint(1)->getWorldPosition();
+			}
 		}
 		else if (e->key() == Qt::Key_F6)
 		{
@@ -796,22 +800,33 @@ signals:
 		{
 			Etoile::Quaternionf q = _manipulator.getCurrentRotation();
 			Etoile::Joint* j = _skeleton->getJoint(_selectedJointIndex);
-			if((Etoile::Vec3f(_manipulator.getPosition().x, _manipulator.getPosition().y, _manipulator.getPosition().z) -  j->getWorldPosition()).length() < 0.1)
-			{
-				j->setLocalRotation(q);
-				j->update();
-			}
-			else
-			{
-				QTime myTimer;
-				myTimer.start();
-				if(_pSolver != NULL)
+			if(j->getName().compare("root") != 0){
+				if((Etoile::Vec3f(_manipulator.getPosition().x, _manipulator.getPosition().y, _manipulator.getPosition().z) -  j->getWorldPosition()).length() < 0.1)
 				{
-					_pSolver->compute(solvejoints, Etoile::Vec3f(_manipulator.getPosition().x, _manipulator.getPosition().y, _manipulator.getPosition().z), true);
-					_skeleton->update();
-					int nMilliseconds = myTimer.elapsed();
-					std::cout<<_pSolver->getIKSolverName() << " nMilliseconds : " << nMilliseconds<<std::endl;
+					j->setLocalRotation(q);
+					j->update();
 				}
+				else
+				{
+					QTime myTimer;
+					myTimer.start();
+					if(_pSolver != NULL)
+					{
+						_pSolver->compute(solvejoints, Etoile::Vec3f(_manipulator.getPosition().x, _manipulator.getPosition().y, _manipulator.getPosition().z), true);
+						_skeleton->update();
+						int nMilliseconds = myTimer.elapsed();
+						std::cout<<_pSolver->getIKSolverName() << " nMilliseconds : " << nMilliseconds<<std::endl;
+					}
+				}
+			}else
+			{
+				Etoile::BipedIKSolver* solve = new Etoile::BipedIKSolver((Etoile::BipedSkeleton*)_skeleton);
+				Etoile::Vec3f current = Etoile::Vec3f(_manipulator.getPosition().x, _manipulator.getPosition().y, _manipulator.getPosition().z);
+				Etoile::Vec3f offset = current - _original;
+				solve->solveLowerBody(offset);
+				Etoile::Joint* j = _skeleton->getJoint("root");
+				//j->setLocalPosition(j->getLocalPosition() + offset);
+				_skeleton->update();
 			}
 		}
 public:
@@ -834,5 +849,6 @@ public:
 	Etoile::Joints solvejoints;
 	int number_bones;
 	Checkboard _board;
+	Etoile::Vec3f _original;
 	//std::vector<IKSolver*> _solvers;
 };
