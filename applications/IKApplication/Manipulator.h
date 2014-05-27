@@ -65,7 +65,7 @@ namespace Etoile
 			RepY = qglviewer::Vec(0,1,0);
 			RepZ = qglviewer::Vec(0,0,1);
 			Origine = qglviewer::Vec(0,0,0);
-			display_scale = 1.f;
+			display_scale = 5.f;
 			mode_modification = 0;
 			Xscale = Yscale = Zscale = 1.f;
 		}
@@ -149,7 +149,7 @@ namespace Etoile
 				float Selection[3] = {1.f , 1.f , 0.f};
 
 				glDisable(GL_LIGHTING);
-				glLineWidth( 2.f );
+				glLineWidth( 5.f );
 				qglviewer::Vec p;
 				glBegin( GL_LINES );
 				if(mode_modification == 1)
@@ -249,7 +249,7 @@ namespace Etoile
 				drawSphere(p[0],p[1],p[2],display_scale/15,5,5);
 				p = Origine - (1.5 * Zscale * display_scale) * RepZ;
 				drawSphere(p[0],p[1],p[2],display_scale/15,5,5);
-				glEnable(GL_LIGHTING);
+				//glEnable(GL_LIGHTING);
 			}
 		}
 

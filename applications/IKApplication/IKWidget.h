@@ -681,6 +681,12 @@ protected:
 private:
 	virtual void draw()
 	{
+		
+		glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
+		printOpenGLError();
+
+		
+
 		GLfloat light_position0[] = { 0, 30, 50, 1.0 };
 		glLightfv(GL_LIGHT0, GL_POSITION, light_position0);
 
@@ -689,12 +695,6 @@ private:
 
 		printOpenGLError();
 
-		glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
-		printOpenGLError();
-
-		glPushMatrix();
-		_manipulator.draw();
-		glPopMatrix();
 
 		//drawBox();
 		drawPlane();
@@ -705,7 +705,9 @@ private:
 		QFont serifFont("Times", 10, QFont::Bold);
 		drawText((int)30, (int)25, QString(" shift + right_mouse : choose one joint !"), serifFont);
 
-		
+		glPushMatrix();
+		_manipulator.draw();
+		glPopMatrix();
 
 		if(_pSolver != NULL)
 		{
