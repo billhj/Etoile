@@ -823,9 +823,11 @@ signals:
 				Etoile::BipedIKSolver* solve = new Etoile::BipedIKSolver((Etoile::BipedSkeleton*)_skeleton);
 				Etoile::Vec3f current = Etoile::Vec3f(_manipulator.getPosition().x, _manipulator.getPosition().y, _manipulator.getPosition().z);
 				Etoile::Vec3f offset = current - _original;
+				//j->setLocalPosition(Etoile::Vec3f(0,10,0));
+				//_skeleton->update();
 				solve->solveLowerBody(offset);
 				Etoile::Joint* j = _skeleton->getJoint("root");
-				//j->setLocalPosition(j->getLocalPosition() + offset);
+				j->setLocalPosition(Etoile::Vec3f(0,10,0) + offset);
 				_skeleton->update();
 			}
 		}
