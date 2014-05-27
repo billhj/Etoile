@@ -446,7 +446,7 @@ namespace Etoile
 			ankle_r->update();
 			currentEnd = ankle_r->getWorldPosition();
 			distance.set(target.x() - currentEnd.x(), target.y() - currentEnd.y(), target.z() - currentEnd.z());
-			std::cout<<distance.length()<<std::endl;
+			//std::cout<<distance.length()<<std::endl;
 			++loop;
 		}
 		std::cout<<"loop: "<<loop<<std::endl;
