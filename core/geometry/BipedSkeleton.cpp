@@ -42,25 +42,25 @@ namespace Etoile
 		getJoint(knee_r)->addDOF(ROTATION_X, DOFConstraint(-0, 1.5));
 		getJoint(knee_r)->addDOF(ROTATION_Y, DOFConstraint(-0.0,0.0));
 		getJoint(knee_r)->addDOF(ROTATION_Z, DOFConstraint(-0.00,0.00));
-		getJoint(knee_r)->setLocalPosition(Vec3f(0, -4, 0));
+		getJoint(knee_r)->setLocalPosition(Vec3f(0, -4, 0.5));
 
 		int knee_l = this->createJoint("knee_l", hip_l);
 		getJoint(knee_l)->addDOF(ROTATION_X, DOFConstraint(-0, 1.5));
 		getJoint(knee_l)->addDOF(ROTATION_Y, DOFConstraint(-0.0,0.0));
 		getJoint(knee_l)->addDOF(ROTATION_Z, DOFConstraint(-0.00,0.00));
-		getJoint(knee_l)->setLocalPosition(Vec3f(0, -4, 0));
+		getJoint(knee_l)->setLocalPosition(Vec3f(0, -4, 0.5));
 
 		int ankle_r = this->createJoint("ankle_r", knee_r);
 		getJoint(ankle_r)->addDOF(ROTATION_X, DOFConstraint(-0.0, 0.5));
 		getJoint(ankle_r)->addDOF(ROTATION_Y, DOFConstraint(-0.1,0.1));
 		getJoint(ankle_r)->addDOF(ROTATION_Z, DOFConstraint(-0.00,0.00));
-		getJoint(ankle_r)->setLocalPosition(Vec3f(0, -6, 0));
+		getJoint(ankle_r)->setLocalPosition(Vec3f(0, -6, -0.5));
 
 		int ankle_l = this->createJoint("ankle_l", knee_l);
 		getJoint(ankle_l)->addDOF(ROTATION_X, DOFConstraint(-0.0, 0.5));
 		getJoint(ankle_l)->addDOF(ROTATION_Y, DOFConstraint(-0.1,0.1));
 		getJoint(ankle_l)->addDOF(ROTATION_Z, DOFConstraint(-0.00,0.00));
-		getJoint(ankle_l)->setLocalPosition(Vec3f(0, -6, 0));
+		getJoint(ankle_l)->setLocalPosition(Vec3f(0, -6, -0.5));
 
 		int foot_r = this->createJoint("foot_r", ankle_r);
 		getJoint(foot_r)->setLocalPosition(Vec3f(0, 0, 2));

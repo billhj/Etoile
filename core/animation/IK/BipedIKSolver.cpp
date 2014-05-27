@@ -143,7 +143,7 @@ namespace Etoile
 			hand_l->update();
 			//hand_l->setLocalRotation(ankle_l->getWorldRotation().inverse());
 			//hand_l->update();
-			Vec3f currentEnd = hand_l->getWorldPosition();
+			currentEnd = hand_l->getWorldPosition();
 			distance.set(target.x() - currentEnd.x(), target.y() - currentEnd.y(), target.z() - currentEnd.z());
 			++loop;
 		}
@@ -264,7 +264,7 @@ namespace Etoile
 			hand_r->update();
 			//hand_r->setLocalRotation(ankle_l->getWorldRotation().inverse());
 			//hand_r->update();
-			Vec3f currentEnd = hand_r->getWorldPosition();
+			currentEnd = hand_r->getWorldPosition();
 			distance.set(target.x() - currentEnd.x(), target.y() - currentEnd.y(), target.z() - currentEnd.z());
 			++loop;
 		}
@@ -351,7 +351,7 @@ namespace Etoile
 			ankle_l->update();
 			ankle_l->setLocalRotation(ankle_l->getWorldRotation().inverse());
 			ankle_l->update();
-			Vec3f currentEnd = ankle_l->getWorldPosition();
+			currentEnd = ankle_l->getWorldPosition();
 			distance.set(target.x() - currentEnd.x(), target.y() - currentEnd.y(), target.z() - currentEnd.z());
 			++loop;
 		}
@@ -367,6 +367,7 @@ namespace Etoile
 		Vec3f target = currentEnd + offset;
 		Vec3f distance = offset;
 		int loop = 0;
+		//std::cout<<"currentEnd0: "<<currentEnd << std::endl;
 
 		MatrixMNf jacobian(3, 2);
 		std::vector<Vec3f> axis(2);
@@ -376,6 +377,7 @@ namespace Etoile
 			{
 				Vec3f currentPos = hip_r->getWorldPosition();
 				Vec3f vend = currentEnd - currentPos;
+				//std::cout<<"currentEnd: "<<currentEnd << std::endl;
 				vend.normalize();
 				Vec3f vgoal = target - currentPos;
 				vgoal.normalize();
@@ -442,7 +444,7 @@ namespace Etoile
 			ankle_r->update();
 			ankle_r->setLocalRotation(ankle_r->getWorldRotation().inverse());
 			ankle_r->update();
-			Vec3f currentEnd = ankle_r->getWorldPosition();
+			currentEnd = ankle_r->getWorldPosition();
 			distance.set(target.x() - currentEnd.x(), target.y() - currentEnd.y(), target.z() - currentEnd.z());
 			std::cout<<distance.length()<<std::endl;
 			++loop;
