@@ -199,7 +199,7 @@ void MocapWidget::updateSkeleton(Skeleton* skeleton)
 		j->setLocalRotation(infos[idx]._localRotation);
 		j->update();
 	}
-
+	skeleton->update();
 }
 
 void MocapWidget::drawSkeleton(Skeleton* skeleton)

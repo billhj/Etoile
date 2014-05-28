@@ -79,6 +79,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DynamicsSkeletonDemo", "..\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GlutDemoApplication", "..\..\applications\GlutDemoApplication\GlutDemoApplication.vcxproj", "{CE701CFA-A039-446E-865A-6EDE523D43F5}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MotionDetection", "..\..\applications\MotionDetection\MotionDetection.vcxproj", "{319F8D86-4254-4075-B598-43269D3F5E9C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -205,12 +207,16 @@ Global
 		{CE701CFA-A039-446E-865A-6EDE523D43F5}.Debug|Win32.Build.0 = Debug|Win32
 		{CE701CFA-A039-446E-865A-6EDE523D43F5}.Release|Win32.ActiveCfg = Release|Win32
 		{CE701CFA-A039-446E-865A-6EDE523D43F5}.Release|Win32.Build.0 = Release|Win32
+		{319F8D86-4254-4075-B598-43269D3F5E9C}.Debug|Win32.ActiveCfg = Debug|Win32
+		{319F8D86-4254-4075-B598-43269D3F5E9C}.Debug|Win32.Build.0 = Debug|Win32
+		{319F8D86-4254-4075-B598-43269D3F5E9C}.Release|Win32.ActiveCfg = Release|Win32
+		{319F8D86-4254-4075-B598-43269D3F5E9C}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		QtVersion = $(DefaultQtVersion)
 		Qt5Version = 4.8.5
+		QtVersion = $(DefaultQtVersion)
 	EndGlobalSection
 EndGlobal
