@@ -3,7 +3,8 @@
 
 #include <QMainWindow>
 #include "ui_EtoileStartWindow.h"
-
+#include <QMap>
+#include <QLibrary>
 
 struct EApplicationHeader 
 {
@@ -11,7 +12,9 @@ struct EApplicationHeader
 	QString _name;
 	QString _author;
 	QString _dllName;
-	QString _functionName;
+	QString _loadfunction;
+	QString _unloadfunction;
+	bool _loaded;
 
 	QString detail()
 	{
@@ -20,7 +23,8 @@ struct EApplicationHeader
 		detail.append("name: "+_name+" \n");
 		detail.append("author: "+_author+" \n");
 		detail.append("dll: "+_dllName+" \n");
-		detail.append("function: "+_functionName+" \n");
+		detail.append("loadfunction: "+_loadfunction+" \n");
+		detail.append("unloadfunction: "+_unloadfunction+" \n");
 		return detail;
 	}
 };
@@ -35,7 +39,7 @@ public:
 	~EtoileStartWindow();
 	void loadInit();
 	void loadInterface();
-	bool callApp(EApplicationHeader header, QString& feedback);
+	bool callApp(EApplicationHeader& header, QString& feedback);
 	public slots:
 		void buttonClicked(QAbstractButton * button);
 
@@ -45,6 +49,7 @@ private:
 	QList<EApplicationHeader> _appHeaders;
 	QMap<QString, int> _groupMap;
 	QButtonGroup* _buttongroup;
+	QMap<QString, QLibrary*> _libs;
 };
 
 #endif // ETOILESTARTWINDOW_H

@@ -8,6 +8,7 @@
 
 
 extern "C" __declspec(dllexport)  void startEtoileVideoPlayer();
+extern "C" __declspec(dllexport)  void endEtoileVideoPlayer();
 
 class EtoileVideoPlayer : public QWidget
 {

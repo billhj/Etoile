@@ -6,6 +6,21 @@
 #include "math/Vec4.h"
 
 //extern int applyFFT(float* input, float* output, int size);
+ImageViewer* viewer = NULL;
+void startEtoileImageViewer()
+{
+	viewer = new ImageViewer();
+	viewer->setVisible(true);
+}
+
+void endEtoileImageViewer()
+{
+	if(viewer != NULL)
+	{
+		viewer->setVisible(false);
+		viewer = NULL;
+	}
+}
 
 ImageViewer::ImageViewer()
 {
@@ -26,6 +41,10 @@ ImageViewer::ImageViewer()
 
 	setWindowTitle(tr("Image Viewer"));
 	resize(500, 400);
+}
+
+ImageViewer::~ImageViewer()
+{
 }
 
 void ImageViewer::openImage(Etoile::Image * image)

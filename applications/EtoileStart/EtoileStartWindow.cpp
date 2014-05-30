@@ -4,7 +4,7 @@
 #include <QButtonGroup>
 #include <QMessageBox>
 #include <QGraphicsDropShadowEffect>
-#include <QLibrary>
+
 
 EtoileStartWindow::EtoileStartWindow(QWidget *parent)
 	: QMainWindow(parent)
@@ -63,8 +63,9 @@ void EtoileStartWindow::loadInit()
 #else if
 		header._dllName = settingapps.value("dll").toString();
 #endif
-		header._functionName = settingapps.value("function").toString();
-
+		header._loadfunction = settingapps.value("loadfunction").toString();
+		header._unloadfunction = settingapps.value("unloadfunction").toString();
+		header._loaded= false;
 		_appHeaders.append(header);
 	}
 	settingapps.endArray();
@@ -113,8 +114,9 @@ void EtoileStartWindow::buttonClicked(QAbstractButton * button)
 {
 	QString name = button->text();
 	bool hasApp = false;
-	foreach(EApplicationHeader header, _appHeaders)
+	for(unsigned int i = 0; i < _appHeaders.size(); ++i)
 	{
+		EApplicationHeader& header = _appHeaders[i];
 		if(header._name.compare(name) == 0)
 		{
 			QString feedback;
@@ -135,18 +137,35 @@ void EtoileStartWindow::buttonClicked(QAbstractButton * button)
 }
 
 typedef void (*StartApp)();
-
-bool EtoileStartWindow::callApp(EApplicationHeader header, QString& feedback)
+typedef void (*EndApp)();
+bool EtoileStartWindow::callApp(EApplicationHeader& header, QString& feedback)
 {
 	bool callDll = false;
-	QLibrary mylib(header._dllName);
-	if (mylib.load())  
+	if(header._loaded)
 	{
-		StartApp function = (StartApp)mylib.resolve(header._functionName.toStdString().c_str());
+		EndApp function = (EndApp)_libs[header._dllName]->resolve(header._unloadfunction.toStdString().c_str());
 		if(function)
 		{
 			function();
+			bool unload = _libs[header._dllName]->unload();
+			_libs.remove(header._dllName);
+			header._loaded = false;
+			feedback.append("unload: "+unload);
+		}
+		return true;
+	}
+
+	QLibrary* mylib = new QLibrary(header._dllName);
+	if (mylib->load())  
+	{
+		_libs[header._dllName] = mylib;
+		StartApp function = (StartApp)mylib->resolve(header._loadfunction.toStdString().c_str());
+		if(function)
+		{
+			function();
+			header._loaded = true;
 			callDll = true;
+			feedback.append("function is loaded!");
 		}
 		else
 		{

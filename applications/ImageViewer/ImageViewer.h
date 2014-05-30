@@ -12,6 +12,10 @@
  class QScrollArea;
  class QScrollBar;
 
+ 
+extern "C" __declspec(dllexport)  void startEtoileImageViewer();
+extern "C" __declspec(dllexport)  void endEtoileImageViewer();
+
  class ImageViewer : public QMainWindow
  {
      Q_OBJECT
@@ -20,6 +24,7 @@
      ImageViewer();
 	 void openImage(Etoile::Image* image);
 	 void openFile(const std::string& filename);
+	 virtual~ImageViewer();
 	protected:
  private slots:
      void open();

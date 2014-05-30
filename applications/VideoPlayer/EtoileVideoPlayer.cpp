@@ -7,11 +7,21 @@
 #include <QUrl>
 #include <qlayout.h>
 
+EtoileVideoPlayer* player = NULL;
 void startEtoileVideoPlayer()
 {
-	EtoileVideoPlayer* player = new EtoileVideoPlayer();
+	player = new EtoileVideoPlayer();
 	player->show();
 	player->raise();
+}
+
+void endEtoileVideoPlayer()
+{
+	if(player != NULL)
+	{
+		player->setVisible(false);
+		player = NULL;
+	}
 }
 
 EtoileVideoPlayer::EtoileVideoPlayer(QWidget *parent): QWidget(parent)

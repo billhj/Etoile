@@ -21,3 +21,9 @@ copy  ".\graph\*.*" "..\Etoile-release\graph\"
 copy  ".\img\*.*" "..\Etoile-release\img\"
 copy  ".\shader\*.*" "..\Etoile-release\shader\"
 copy  ".\styles\*.*" "..\Etoile-release\styles\"
+
+
+copy "..\lib\VideoPlayerd.dll" ".\apps\"
+copy "..\lib\VideoPlayer.dll" ".\apps\"
+copy "..\lib\ImageViewerd.dll" ".\apps\"
+copy "..\lib\ImageViewer.dll" ".\apps\"
