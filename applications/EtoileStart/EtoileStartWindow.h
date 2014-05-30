@@ -42,7 +42,7 @@ public:
 	bool callApp(EApplicationHeader& header, QString& feedback);
 	public slots:
 		void buttonClicked(QAbstractButton * button);
-
+		void showAbout();
 private:
 	Ui::EtoileStartWindow ui;
 	QString _initfile;

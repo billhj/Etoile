@@ -10,6 +10,7 @@ EtoileStartWindow::EtoileStartWindow(QWidget *parent)
 	: QMainWindow(parent)
 {
 	ui.setupUi(this);
+	connect(ui.actionAbout, SIGNAL(triggered()), this, SLOT(showAbout()));
 	_buttongroup = new QButtonGroup();
 	ui.toolBox->setItemText(0, "&Release");
 	ui.toolBox->setItemText(1, "&Beta");
@@ -180,4 +181,14 @@ bool EtoileStartWindow::callApp(EApplicationHeader& header, QString& feedback)
 	}
 
 	return callDll;
+}
+
+void EtoileStartWindow::showAbout()
+{
+	QMessageBox msgBox;
+	QString about = "author: Jing HUANG \n";
+	about.append("email: gabriel.jing.huang@gmail.com \n");
+	about.append("Copyright (C) <2012> <Jing HUANG>");
+	msgBox.setText(about);
+	msgBox.exec();
 }
