@@ -44,7 +44,7 @@ void EtoileStartWindow::loadInit()
 	settingapps.endArray();*/
 
 	int groupIndex = 0;
-	int size = settingapps.beginReadArray("apps");
+	int size = settingapps.beginReadArray("app");
 	for (int i = 0; i < size; ++i) 
 	{
 		settingapps.setArrayIndex(i);
@@ -58,7 +58,11 @@ void EtoileStartWindow::loadInit()
 
 		header._name = settingapps.value("name").toString();
 		header._author = settingapps.value("author").toString();
+#if defined(_DEBUG) || defined(DEBUG)	
+		header._dllName = settingapps.value("dll_debug").toString();
+#else if
 		header._dllName = settingapps.value("dll").toString();
+#endif
 		header._functionName = settingapps.value("function").toString();
 
 		_appHeaders.append(header);
@@ -138,7 +142,7 @@ bool EtoileStartWindow::callApp(EApplicationHeader header, QString& feedback)
 	QLibrary mylib(header._dllName);
 	if (mylib.load())  
 	{
-		StartApp function = (StartApp)mylib.resolve(header._functionName.toLatin1().data());
+		StartApp function = (StartApp)mylib.resolve(header._functionName.toStdString().c_str());
 		if(function)
 		{
 			function();

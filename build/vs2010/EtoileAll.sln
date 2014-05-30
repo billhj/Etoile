@@ -81,6 +81,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GlutDemoApplication", "..\.
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MotionDetection", "..\..\applications\MotionDetection\MotionDetection.vcxproj", "{319F8D86-4254-4075-B598-43269D3F5E9C}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EtoileStart", "..\..\applications\EtoileStart\EtoileStart.vcxproj", "{504BC2F9-C353-4A2B-917B-BB7F314B8155}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -211,12 +213,16 @@ Global
 		{319F8D86-4254-4075-B598-43269D3F5E9C}.Debug|Win32.Build.0 = Debug|Win32
 		{319F8D86-4254-4075-B598-43269D3F5E9C}.Release|Win32.ActiveCfg = Release|Win32
 		{319F8D86-4254-4075-B598-43269D3F5E9C}.Release|Win32.Build.0 = Release|Win32
+		{504BC2F9-C353-4A2B-917B-BB7F314B8155}.Debug|Win32.ActiveCfg = Debug|Win32
+		{504BC2F9-C353-4A2B-917B-BB7F314B8155}.Debug|Win32.Build.0 = Debug|Win32
+		{504BC2F9-C353-4A2B-917B-BB7F314B8155}.Release|Win32.ActiveCfg = Release|Win32
+		{504BC2F9-C353-4A2B-917B-BB7F314B8155}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		Qt5Version = 4.8.5
 		QtVersion = $(DefaultQtVersion)
+		Qt5Version = 4.8.5
 	EndGlobalSection
 EndGlobal

@@ -6,6 +6,9 @@
 #include "PhononPlayerWidget.h"
 #include "PlayListWidget.h"
 
+
+extern "C" __declspec(dllexport)  void startEtoileVideoPlayer();
+
 class EtoileVideoPlayer : public QWidget
 {
 	Q_OBJECT
@@ -31,5 +34,6 @@ private:
 	PlayListWidget * _pPlaylistWidget;
 	QString _currentMedia;
 };
+
 
 #endif // ETOILEVIDEOPLAYER_H

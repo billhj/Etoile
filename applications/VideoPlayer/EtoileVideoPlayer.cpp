@@ -7,6 +7,13 @@
 #include <QUrl>
 #include <qlayout.h>
 
+void startEtoileVideoPlayer()
+{
+	EtoileVideoPlayer* player = new EtoileVideoPlayer();
+	player->show();
+	player->raise();
+}
+
 EtoileVideoPlayer::EtoileVideoPlayer(QWidget *parent): QWidget(parent)
 {
 	ui.setupUi(this);
