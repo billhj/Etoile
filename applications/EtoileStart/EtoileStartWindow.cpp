@@ -4,6 +4,7 @@
 #include <QButtonGroup>
 #include <QMessageBox>
 #include <QGraphicsDropShadowEffect>
+#include <QLibrary>
 
 EtoileStartWindow::EtoileStartWindow(QWidget *parent)
 	: QMainWindow(parent)
@@ -112,13 +113,14 @@ void EtoileStartWindow::buttonClicked(QAbstractButton * button)
 	{
 		if(header._name.compare(name) == 0)
 		{
-			hasApp = callApp(header);
+			QString feedback;
+			hasApp = callApp(header, feedback);
 
 			if(!hasApp)
 			{
 				QMessageBox msgBox;
 				msgBox.setText("cannot open EApp: " + header._name);
-				msgBox.setDetailedText(header.detail());
+				msgBox.setDetailedText(header.detail().append(feedback));
 				msgBox.exec();
 			}
 
@@ -128,10 +130,31 @@ void EtoileStartWindow::buttonClicked(QAbstractButton * button)
 	
 }
 
-bool EtoileStartWindow::callApp(EApplicationHeader header)
+typedef void (*StartApp)();
+
+bool EtoileStartWindow::callApp(EApplicationHeader header, QString& feedback)
 {
 	bool callDll = false;
-
+	QLibrary mylib(header._dllName);
+	if (mylib.load())  
+	{
+		StartApp function = (StartApp)mylib.resolve(header._functionName.toLatin1().data());
+		if(function)
+		{
+			function();
+			callDll = true;
+		}
+		else
+		{
+			callDll = false;
+			feedback.append("function is not found!");
+		}
+	}
+	else
+	{
+		callDll = false;
+		feedback.append("dll is not loaded!");
+	}
 
 	return callDll;
 }

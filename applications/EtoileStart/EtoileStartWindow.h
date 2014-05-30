@@ -35,7 +35,7 @@ public:
 	~EtoileStartWindow();
 	void loadInit();
 	void loadInterface();
-	bool callApp(EApplicationHeader header);
+	bool callApp(EApplicationHeader header, QString& feedback);
 	public slots:
 		void buttonClicked(QAbstractButton * button);
 
