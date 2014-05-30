@@ -31,7 +31,6 @@
   </property>
   <property name="styleSheet">
    <string notr="true">background-image: url(img/startbg.png);
-border-color: rgb(18, 18, 18);
 font: 75 8pt &quot;Lucida Calligraphy&quot;;
 color: rgb(236, 219, 255);
 background-color: rgb(26, 26, 26);
@@ -62,24 +61,14 @@ background-color: rgb(26, 26, 26);
        <x>0</x>
        <y>0</y>
        <width>200</width>
-       <height>342</height>
+       <height>371</height>
       </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
      </property>
      <attribute name="label">
       <string>Page 1</string>
-     </attribute>
-    </widget>
-    <widget class="QWidget" name="SecondaryPage">
-     <property name="geometry">
-      <rect>
-       <x>0</x>
-       <y>0</y>
-       <width>200</width>
-       <height>342</height>
-      </rect>
-     </property>
-     <attribute name="label">
-      <string>Page 2</string>
      </attribute>
     </widget>
    </widget>
