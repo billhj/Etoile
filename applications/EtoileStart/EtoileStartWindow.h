@@ -14,7 +14,7 @@ struct EApplicationHeader
 	QString _dllName;
 	QString _loadfunction;
 	QString _unloadfunction;
-	bool _loaded;
+	//bool _loaded;
 
 	QString detail()
 	{
@@ -40,6 +40,7 @@ public:
 	void loadInit();
 	void loadInterface();
 	bool callApp(EApplicationHeader& header, QString& feedback);
+	void releaseApp(EApplicationHeader& header);
 	public slots:
 		void buttonClicked(QAbstractButton * button);
 		void showAbout();

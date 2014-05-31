@@ -22,7 +22,7 @@ void endEtoileMocapViewer()
 {
 	if(player != NULL)
 	{
-		//player->setVisible(false);
+		player->setVisible(false);
 		player->close();
 		player = NULL;
 	}

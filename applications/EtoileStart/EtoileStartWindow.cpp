@@ -12,6 +12,7 @@ EtoileStartWindow::EtoileStartWindow(QWidget *parent)
 	ui.setupUi(this);
 	connect(ui.actionAbout, SIGNAL(triggered()), this, SLOT(showAbout()));
 	_buttongroup = new QButtonGroup();
+	_buttongroup->setExclusive(false);
 	ui.toolBox->setItemText(0, "&Release");
 	ui.toolBox->setItemText(1, "&Beta");
 
@@ -67,7 +68,6 @@ void EtoileStartWindow::loadInit()
 #endif
 		header._loadfunction = settingapps.value("loadfunction").toString();
 		header._unloadfunction = settingapps.value("unloadfunction").toString();
-		header._loaded= false;
 		_appHeaders.append(header);
 	}
 	settingapps.endArray();
@@ -99,8 +99,10 @@ void EtoileStartWindow::loadInterface()
 		QString group = header._group;
 		QWidget* widget = ui.toolBox->widget(_groupMap[group]);
 		QPushButton* button = new QPushButton(header._name);
+		button->setCheckable(true);
+		//button->setAutoExclusive(false);
 		button->setFlat(false);
-		button->setStyleSheet("QPushButton { border: 2px solid rgb(100, 0, 100, 50); border-radius: 4px; background-color: rgb(100, 0, 100, 50);} QPushButton:hover { background-color: blue; } QPushButton:pressed{ border: 2px solid rgb(100, 100, 100, 50); padding-left : 2px;padding-top : 2px;border-radius: 4px; }");
+		button->setStyleSheet("QPushButton { border: 2px solid rgb(200, 0, 180, 50); border-radius: 4px; background-color: rgb(100, 0, 100, 50);} QPushButton:checked { border: 3px solid rgb(0, 60, 50, 50); border-radius: 4px; background-color: rgb(100, 0, 100, 50);} QPushButton:hover { background-color: blue; } QPushButton:pressed{ border: 2px solid rgb(100, 100, 100, 50); padding-left : 2px;padding-top : 2px;border-radius: 4px; }");
 		QGraphicsDropShadowEffect *effet = new QGraphicsDropShadowEffect(widget);
 		effet->setColor(QColor(215, 195, 120, 255));
 		effet->setOffset(2);
@@ -122,14 +124,22 @@ void EtoileStartWindow::buttonClicked(QAbstractButton * button)
 		if(header._name.compare(name) == 0)
 		{
 			QString feedback;
-			hasApp = callApp(header, feedback);
 
-			if(!hasApp)
+			if(!button->isChecked())
 			{
-				QMessageBox msgBox;
-				msgBox.setText("cannot open EApp: " + header._name);
-				msgBox.setDetailedText(header.detail().append(feedback));
-				msgBox.exec();
+				releaseApp(header);
+			}
+			else
+			{
+				hasApp = callApp(header, feedback);
+
+				if(!hasApp)
+				{
+					QMessageBox msgBox;
+					msgBox.setText("cannot open EApp: " + header._name);
+					msgBox.setDetailedText(header.detail().append(feedback));
+					msgBox.exec();
+				}
 			}
 
 			break;
@@ -143,20 +153,6 @@ typedef void (*EndApp)();
 bool EtoileStartWindow::callApp(EApplicationHeader& header, QString& feedback)
 {
 	bool callDll = false;
-	if(header._loaded)
-	{
-		EndApp function = (EndApp)_libs[header._dllName]->resolve(header._unloadfunction.toStdString().c_str());
-		if(function)
-		{
-			function();
-			bool unload = _libs[header._dllName]->unload();
-			_libs.remove(header._dllName);
-			header._loaded = false;
-			feedback.append("unload: "+unload);
-		}
-		return true;
-	}
-
 	QLibrary* mylib = new QLibrary(header._dllName);
 	if (mylib->load())  
 	{
@@ -165,7 +161,6 @@ bool EtoileStartWindow::callApp(EApplicationHeader& header, QString& feedback)
 		if(function)
 		{
 			function();
-			header._loaded = true;
 			callDll = true;
 			feedback.append("function is loaded!");
 		}
@@ -182,6 +177,17 @@ bool EtoileStartWindow::callApp(EApplicationHeader& header, QString& feedback)
 	}
 
 	return callDll;
+}
+
+void EtoileStartWindow::releaseApp(EApplicationHeader& header)
+{
+	EndApp function = (EndApp)_libs[header._dllName]->resolve(header._unloadfunction.toStdString().c_str());
+	if(function)
+	{
+		function();
+		bool unload = _libs[header._dllName]->unload();
+		_libs.remove(header._dllName);
+	}
 }
 
 void EtoileStartWindow::showAbout()
