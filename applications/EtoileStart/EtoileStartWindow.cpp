@@ -4,7 +4,7 @@
 #include <QButtonGroup>
 #include <QMessageBox>
 #include <QGraphicsDropShadowEffect>
-
+#include <QWindowsStyle>
 
 EtoileStartWindow::EtoileStartWindow(QWidget *parent)
 	: QMainWindow(parent)
@@ -19,8 +19,9 @@ EtoileStartWindow::EtoileStartWindow(QWidget *parent)
 	loadInit();
 	loadInterface();
 	connect(_buttongroup, SIGNAL(buttonClicked(QAbstractButton*)), this, SLOT(buttonClicked(QAbstractButton*)));
-
-	QApplication::setStyle("Plastic");
+	//QWindowsStyle, QMacStyle, QMotifStyle, "Plastic"
+	//"windows", "motif", "cde", "plastique", "windowsxp", or "macintosh"
+	QApplication::setStyle("windows");
 }
 
 EtoileStartWindow::~EtoileStartWindow()
