@@ -13,6 +13,10 @@
 #include "MocapWidget.h"
 #include "module/flowgraph/GraphScene.h"
 
+
+extern "C" __declspec(dllexport)  void startEtoileMocapViewer();
+extern "C" __declspec(dllexport)  void endEtoileMocapViewer();
+
 class MocapViewer : public QMainWindow
 {
 	Q_OBJECT

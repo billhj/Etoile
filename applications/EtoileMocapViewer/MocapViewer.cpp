@@ -9,6 +9,25 @@
 #include "MocapViewer.h"
 #include <QMessageBox>
 
+
+MocapViewer* player = NULL;
+void startEtoileMocapViewer()
+{
+	player = new MocapViewer();
+	player->show();
+	player->raise();
+}
+
+void endEtoileMocapViewer()
+{
+	if(player != NULL)
+	{
+		//player->setVisible(false);
+		player->close();
+		player = NULL;
+	}
+}
+
 MocapViewer::MocapViewer(QWidget *parent, Qt::WFlags flags)
 	: QMainWindow(parent, flags)
 {
