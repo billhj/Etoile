@@ -5,7 +5,8 @@
 #include <QMessageBox>
 #include <QGraphicsDropShadowEffect>
 #include <QWindowsStyle>
-
+#include <QThread>
+#include <windows.h>
 EtoileStartWindow::EtoileStartWindow(QWidget *parent)
 	: QMainWindow(parent)
 {
@@ -127,9 +128,16 @@ void EtoileStartWindow::buttonClicked(QAbstractButton * button)
 
 			if(!button->isChecked())
 			{
-				releaseApp(header);
+				/*if(_libs[header._dllName]->isLoaded())
+				{*/
+					releaseApp(header);
+				/*}
+				else
+				{
+					button->setChecked(true);
+				}*/
 			}
-			else
+			else if(button->isChecked())
 			{
 				hasApp = callApp(header, feedback);
 
@@ -163,6 +171,8 @@ bool EtoileStartWindow::callApp(EApplicationHeader& header, QString& feedback)
 			function();
 			callDll = true;
 			feedback.append("function is loaded!");
+			mylib->unload();
+			//Sleep(2000);
 		}
 		else
 		{
