@@ -171,7 +171,7 @@ bool EtoileStartWindow::callApp(EApplicationHeader& header, QString& feedback)
 			function();
 			callDll = true;
 			feedback.append("function is loaded!");
-			mylib->unload();
+			//mylib->unload();
 			//Sleep(2000);
 		}
 		else
