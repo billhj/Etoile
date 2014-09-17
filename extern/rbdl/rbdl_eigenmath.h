@@ -7,11 +7,8 @@
 
 #ifndef _RBDL_EIGENMATH_H
 #define _RBDL_EIGENMATH_H
-#include <Eigen/Dense>
-#include <Eigen/StdVector>
-#include <Eigen/QR>
 
-class  Vector3_t : public Eigen::Vector3d
+class RBDL_DLLAPI Vector3_t : public Eigen::Vector3d
 {
 	public:
 		typedef Eigen::Vector3d Base;
@@ -48,7 +45,7 @@ class  Vector3_t : public Eigen::Vector3d
 		}
 };
 
-class  Matrix3_t : public Eigen::Matrix3d
+class RBDL_DLLAPI Matrix3_t : public Eigen::Matrix3d
 {
 	public:
 		typedef Eigen::Matrix3d Base;
@@ -84,7 +81,7 @@ class  Matrix3_t : public Eigen::Matrix3d
 		}
 };
 
-class  Vector4_t : public Eigen::Vector4d
+class RBDL_DLLAPI Vector4_t : public Eigen::Vector4d
 {
 	public:
 		typedef Eigen::Vector4d Base;
@@ -121,7 +118,7 @@ class  Vector4_t : public Eigen::Vector4d
 		}
 };
 
-class  SpatialVector_t : public Eigen::Matrix<double, 6, 1>
+class RBDL_DLLAPI SpatialVector_t : public Eigen::Matrix<double, 6, 1>
 {
 	public:
 		typedef Eigen::Matrix<double, 6, 1> Base;
@@ -162,7 +159,7 @@ class  SpatialVector_t : public Eigen::Matrix<double, 6, 1>
 		}
 };
 
-class  SpatialMatrix_t : public Eigen::Matrix<double, 6, 6>
+class RBDL_DLLAPI SpatialMatrix_t : public Eigen::Matrix<double, 6, 6>
 {
 	public:
 		typedef Eigen::Matrix<double, 6, 6> Base;

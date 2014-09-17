@@ -145,8 +145,7 @@ enum JointType {
  * contains the joint type and the axis of the joint. See \ref joint_description for detailed description.
  *
  */
-struct  Joint {
-	EIGEN_MAKE_ALIGNED_OPERATOR_NEW
+struct RBDL_DLLAPI Joint {
 	Joint() :
 		mJointAxes (NULL),
 		mJointType (JointTypeUndefined),
@@ -495,7 +494,7 @@ struct  Joint {
  * \param q        joint state variables
  * \param qdot     joint velocity variables
  */
-
+RBDL_DLLAPI
 void jcalc (
 		Model &model,
 		unsigned int joint_id,
@@ -506,11 +505,18 @@ void jcalc (
 		const Math::VectorNd &qdot
 		);
 
-
+RBDL_DLLAPI
 Math::SpatialTransform jcalc_XJ (
 		Model &model,
 		unsigned int joint_id,
 		const Math::VectorNd &q);
+
+RBDL_DLLAPI
+void jcalc_X_lambda_S (
+		Model &model,
+		unsigned int joint_id,
+		const Math::VectorNd &q
+		);
 
 }
 

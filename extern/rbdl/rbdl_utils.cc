@@ -50,7 +50,7 @@ string get_body_name (const RigidBodyDynamics::Model &model, unsigned int body_i
 	return model.GetBodyName(body_id);
 }
 
- std::string GetModelDOFOverview (const Model &model) {
+RBDL_DLLAPI std::string GetModelDOFOverview (const Model &model) {
 	stringstream result ("");
 
 	for (unsigned int i = 1; i < model.mBodies.size(); i++) {
@@ -111,7 +111,7 @@ std::string print_hierarchy (const RigidBodyDynamics::Model &model, unsigned int
 	return result.str();
 }
 
- std::string GetModelHierarchy (const Model &model) {
+RBDL_DLLAPI std::string GetModelHierarchy (const Model &model) {
 	stringstream result ("");
 
 	result << print_hierarchy (model);
@@ -119,7 +119,7 @@ std::string print_hierarchy (const RigidBodyDynamics::Model &model, unsigned int
 	return result.str();
 }
 
- std::string GetNamedBodyOriginsOverview (Model &model) {
+RBDL_DLLAPI std::string GetNamedBodyOriginsOverview (Model &model) {
 	stringstream result ("");
 
 	VectorNd Q (VectorNd::Zero(model.dof_count));
@@ -139,7 +139,7 @@ std::string print_hierarchy (const RigidBodyDynamics::Model &model, unsigned int
 	return result.str();
 }
 
- void CalcCenterOfMass (Model &model, const Math::VectorNd &q, const Math::VectorNd &qdot, double &mass, Math::Vector3d &com, Math::Vector3d *com_velocity, bool update_kinematics) {
+RBDL_DLLAPI void CalcCenterOfMass (Model &model, const Math::VectorNd &q, const Math::VectorNd &qdot, double &mass, Math::Vector3d &com, Math::Vector3d *com_velocity, bool update_kinematics) {
 	if (update_kinematics)
 		UpdateKinematicsCustom (model, &q, &qdot, NULL);
 
@@ -171,7 +171,7 @@ std::string print_hierarchy (const RigidBodyDynamics::Model &model, unsigned int
 		*com_velocity = Vector3d (htot[3] / mass, htot[4] / mass, htot[5] / mass);
 }
 
- double CalcPotentialEnergy (Model &model, const Math::VectorNd &q, bool update_kinematics) {
+RBDL_DLLAPI double CalcPotentialEnergy (Model &model, const Math::VectorNd &q, bool update_kinematics) {
 	double mass;
 	Vector3d com;
 	CalcCenterOfMass (model, q, VectorNd::Zero (model.qdot_size), mass, com, NULL, update_kinematics);
@@ -182,7 +182,7 @@ std::string print_hierarchy (const RigidBodyDynamics::Model &model, unsigned int
 	return mass * com.dot(g);
 }
 
- double CalcKineticEnergy (Model &model, const Math::VectorNd &q, const Math::VectorNd &qdot, bool update_kinematics) {
+RBDL_DLLAPI double CalcKineticEnergy (Model &model, const Math::VectorNd &q, const Math::VectorNd &qdot, bool update_kinematics) {
 	if (update_kinematics)
 		UpdateKinematicsCustom (model, &q, &qdot, NULL);
 
@@ -194,7 +194,7 @@ std::string print_hierarchy (const RigidBodyDynamics::Model &model, unsigned int
 	return result;
 }
 
- Vector3d CalcAngularMomentum (Model &model, const Math::VectorNd &q, const Math::VectorNd &qdot, bool update_kinematics) {
+RBDL_DLLAPI Vector3d CalcAngularMomentum (Model &model, const Math::VectorNd &q, const Math::VectorNd &qdot, bool update_kinematics) {
 	if (update_kinematics)
 		UpdateKinematicsCustom (model, &q, &qdot, NULL);
 
@@ -202,10 +202,6 @@ std::string print_hierarchy (const RigidBodyDynamics::Model &model, unsigned int
 		model.Ic[i].createFromMatrix(model.mBodies[i].mSpatialInertia);
 		model.hc[i] = model.Ic[i].toMatrix() * model.v[i];
 	}
-
-	double mass;
-	Vector3d com;
-	CalcCenterOfMass (model, q, qdot, mass, com, NULL, false);
 
 	SpatialVector htot (SpatialVector::Zero(6));
 
@@ -218,6 +214,10 @@ std::string print_hierarchy (const RigidBodyDynamics::Model &model, unsigned int
 			htot = htot + model.X_lambda[i].applyTranspose (model.hc[i]);
 		}
 	}
+
+	double mass;
+	Vector3d com;
+	CalcCenterOfMass (model, q, qdot, mass, com, NULL, false);
 
 	LOG << "com : " << com.transpose() << std::endl;
 	LOG << "htot: " << htot.transpose() << std::endl;

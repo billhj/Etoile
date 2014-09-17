@@ -116,8 +116,7 @@ namespace RigidBodyDynamics {
  *
  * \note To query the number of degrees of freedom use Model::dof_count.
  */
-struct  Model {
-	EIGEN_MAKE_ALIGNED_OPERATOR_NEW
+struct RBDL_DLLAPI Model {
 	Model();
 
 	// Structural information
@@ -341,7 +340,7 @@ struct  Model {
 	 */
 	unsigned int GetBodyId (const char *body_name) const {
 		if (mBodyNameMap.count(body_name) == 0) {
-			return (std::numeric_limits<unsigned int>::max)();
+			return std::numeric_limits<unsigned int>::max();
 		}
 
 		return mBodyNameMap.find(body_name)->second;
@@ -365,7 +364,7 @@ struct  Model {
 	 */
 	bool IsFixedBodyId (unsigned int body_id) {
 		if (body_id >= fixed_body_discriminator 
-				&& body_id < (std::numeric_limits<unsigned int>::max)()
+				&& body_id < std::numeric_limits<unsigned int>::max() 
 				&& body_id - fixed_body_discriminator < mFixedBodies.size()) {
 			return true;
 		}
@@ -375,7 +374,7 @@ struct  Model {
 	bool IsBodyId (unsigned int id) {
 		if (id > 0 && id < mBodies.size())
 			return true;
-		if (id >= fixed_body_discriminator && id < (std::numeric_limits<unsigned int>::max)()) {
+		if (id >= fixed_body_discriminator && id < std::numeric_limits<unsigned int>::max()) {
 			if (id - fixed_body_discriminator < mFixedBodies.size())
 				return true;
 		}

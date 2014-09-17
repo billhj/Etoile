@@ -54,7 +54,7 @@ struct Model;
  * before it can be used in \link RigidBodyDynamics::ForwardDynamicsContacts
  * ForwardDynamicsContacts \endlink.
  */
-struct  ConstraintSet {
+struct RBDL_DLLAPI ConstraintSet {
 	ConstraintSet() :
 		linear_solver (Math::LinearSolverColPivHouseholderQR),
 		bound (false)
@@ -182,8 +182,6 @@ struct  ConstraintSet {
 	/// Workspace when applying constraint forces
 	Math::VectorNd d_d;
 
-	std::vector<Math::Matrix63> d_multdof3_U;
-	std::vector<Math::Matrix3d> d_multdof3_Dinv;
 	std::vector<Math::Vector3d> d_multdof3_u;
 };
 
@@ -237,7 +235,7 @@ struct  ConstraintSet {
  * of the force acting along the normal.
  *
  */
-
+RBDL_DLLAPI
 void ForwardDynamicsContactsLagrangian (
 		Model &model,
 		const Math::VectorNd &Q,
@@ -294,7 +292,7 @@ void ForwardDynamicsContactsLagrangian (
  * \param CS the set of active constraints
  * \param QDotPlus velocities of the internals joints after the impact (output)
  */
-
+RBDL_DLLAPI
 void ComputeContactImpulsesLagrangian (
 		Model &model,
 		const Math::VectorNd &Q,
@@ -365,7 +363,7 @@ void ComputeContactImpulsesLagrangian (
  *
  * \todo Allow for external forces
  */
-
+RBDL_DLLAPI
 void ForwardDynamicsContacts (
 		Model &model,
 		const Math::VectorNd &Q,

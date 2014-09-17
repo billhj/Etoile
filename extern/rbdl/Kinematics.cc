@@ -20,13 +20,13 @@ namespace RigidBodyDynamics {
 
 using namespace Math;
 
-
+RBDL_DLLAPI
 void UpdateKinematics (Model &model,
 		const VectorNd &Q,
 		const VectorNd &QDot,
 		const VectorNd &QDDot
 		) {
-	//LOG << "-------- " << __func__ << " --------" << std::endl;
+	LOG << "-------- " << __func__ << " --------" << std::endl;
 
 	unsigned int i;
 
@@ -73,13 +73,13 @@ void UpdateKinematics (Model &model,
 	}
 }
 
-
+RBDL_DLLAPI
 void UpdateKinematicsCustom (Model &model,
 		const VectorNd *Q,
 		const VectorNd *QDot,
 		const VectorNd *QDDot
 		) {
-	//LOG << "-------- " << __func__ << " --------" << std::endl;
+	LOG << "-------- " << __func__ << " --------" << std::endl;
 	
 	unsigned int i;
 
@@ -150,7 +150,7 @@ void UpdateKinematicsCustom (Model &model,
 	}
 }
 
-
+RBDL_DLLAPI
 Vector3d CalcBodyToBaseCoordinates (
 		Model &model,
 		const VectorNd &Q,
@@ -180,7 +180,7 @@ Vector3d CalcBodyToBaseCoordinates (
 	return body_position + body_rotation * point_body_coordinates;
 }
 
-
+RBDL_DLLAPI
 Vector3d CalcBaseToBodyCoordinates (
 		Model &model,
 		const VectorNd &Q,
@@ -210,13 +210,12 @@ Vector3d CalcBaseToBodyCoordinates (
 	return body_rotation * (point_base_coordinates - body_position);
 }
 
-
+RBDL_DLLAPI
 Matrix3d CalcBodyWorldOrientation (
 		Model &model,
 		const VectorNd &Q,
 		const unsigned int body_id,
-		bool update_kinematics) 
-{
+		bool update_kinematics) {
 	// update the Kinematics if necessary
 	if (update_kinematics) {
 		UpdateKinematicsCustom (model, &Q, NULL, NULL);
@@ -224,7 +223,7 @@ Matrix3d CalcBodyWorldOrientation (
 
 	if (body_id >= model.fixed_body_discriminator) {
 		unsigned int fbody_id = body_id - model.fixed_body_discriminator;
-		model.mFixedBodies[fbody_id].mBaseTransform = model.X_base[model.mFixedBodies[fbody_id].mMovableParent] * model.mFixedBodies[fbody_id].mParentTransform;
+		model.mFixedBodies[fbody_id].mBaseTransform = model.mFixedBodies[fbody_id].mParentTransform * model.X_base[model.mFixedBodies[fbody_id].mMovableParent];
 
 		return model.mFixedBodies[fbody_id].mBaseTransform.E;
 	}
@@ -232,7 +231,7 @@ Matrix3d CalcBodyWorldOrientation (
 	return model.X_base[body_id].E;
 }
 
-
+RBDL_DLLAPI
 void CalcPointJacobian (
 		Model &model,
 		const VectorNd &Q,
@@ -241,7 +240,7 @@ void CalcPointJacobian (
 		MatrixNd &G,
 		bool update_kinematics
 	) {
-	//LOG << "-------- " << __func__ << " --------" << std::endl;
+	LOG << "-------- " << __func__ << " --------" << std::endl;
 
 	// update the Kinematics if necessary
 	if (update_kinematics) {
@@ -313,7 +312,7 @@ void CalcPointJacobian (
 	delete[] e;
 }
 
-
+RBDL_DLLAPI
 Vector3d CalcPointVelocity (
 		Model &model,
 		const VectorNd &Q,
@@ -322,7 +321,7 @@ Vector3d CalcPointVelocity (
 		const Vector3d &point_position,
 		bool update_kinematics
 	) {
-//	LOG << "-------- " << __func__ << " --------" << std::endl;
+	LOG << "-------- " << __func__ << " --------" << std::endl;
 	assert (model.IsBodyId(body_id));
 	assert (model.q_size == Q.size());
 	assert (model.qdot_size == QDot.size());
@@ -369,7 +368,7 @@ Vector3d CalcPointVelocity (
 			);
 }
 
-
+RBDL_DLLAPI
 Vector3d CalcPointAcceleration (
 		Model &model,
 		const VectorNd &Q,
@@ -380,7 +379,7 @@ Vector3d CalcPointAcceleration (
 		bool update_kinematics
 	)
 {
-//	LOG << "-------- " << __func__ << " --------" << std::endl;
+	LOG << "-------- " << __func__ << " --------" << std::endl;
 
 	// Reset the velocity of the root body
 	model.v[0].setZero();
@@ -441,7 +440,7 @@ Vector3d CalcPointAcceleration (
 			);
 }
 
- 
+RBDL_DLLAPI 
 bool InverseKinematics (
 		Model &model,
 		const VectorNd &Qinit,

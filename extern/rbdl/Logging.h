@@ -9,6 +9,7 @@
 #define LOGGING_H
 
 #include <sstream>
+#include <rbdl/rbdl_config.h>
 
 class _NoLogging;
 
@@ -18,18 +19,17 @@ class _NoLogging;
  *
  * \warning Logging has a huge impact on performance.
  */
-//#define RBDL_ENABLE_LOGGING
 
 #ifndef RBDL_ENABLE_LOGGING
 	#define LOG if (false) LogOutput 
 	#define SUPPRESS_LOGGING ;
 #else
-#define LOG std::cout
+	#define LOG LogOutput
 	#define SUPPRESS_LOGGING _NoLogging _nolog
 #endif
 
-extern  std::ostringstream LogOutput;
- void ClearLogOutput ();
+extern RBDL_DLLAPI std::ostringstream LogOutput;
+RBDL_DLLAPI void ClearLogOutput ();
 
 /** \brief Helper object to ignore any logs that happen during its lifetime
  *
@@ -56,7 +56,7 @@ extern  std::ostringstream LogOutput;
  * \endcode
  *
  */
-class  _NoLogging {
+class RBDL_DLLAPI _NoLogging {
 	public:
 		_NoLogging() {
 			log_backup.str("");
