@@ -11,12 +11,17 @@ namespace Math {
  *
  * order: x,y,z,w
  */
+
+inline bool isnan(double x) {
+    return x != x;
+}
+
 class Quaternion : public Vector4d {
 	public:
 		Quaternion () :
 			Vector4d (0.f, 0.f, 0.f, 1.f)
 		{}
-		Quaternion (const Vector4d vec4) :
+		Quaternion (const Vector4d& vec4) :
 			Vector4d (vec4)
 		{}
 		Quaternion (double x, double y, double z, double w):
@@ -67,10 +72,10 @@ class Quaternion : public Vector4d {
 			assert (s != 0.);
 
 			double angle = acos (dot(quat) / s);
-			if (angle == 0. || std::isnan(angle)) {
+			if (angle == 0. || isnan(angle)) {
 				return *this;
 			}
-			assert(!std::isnan(angle));
+			assert(!isnan(angle));
 
 			double d = 1. / std::sin (angle);
 			double p0 = std::sin ((1. - alpha) * angle);

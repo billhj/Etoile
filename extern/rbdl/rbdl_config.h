@@ -4,7 +4,7 @@
  *
  * Licensed under the zlib license. See LICENSE for more details.
  */
-
+#define RBDL_STATIC
 #ifndef _RBDLCONFIG_H
 #define _RBDLCONFIG_H
 
