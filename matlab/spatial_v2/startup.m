@@ -18,4 +18,4 @@
 %     startup.m in that directory, then simply add the (edited) line
 %     below to that file.
 
-addpath( genpath( 'C:/Users/Jing/Documents/MATLAB/spatial_v2' ) );
+addpath( genpath( 'C:/Users/Jing/Documents/etoile_git/trunk/matlab/spatial_v2' ) );
