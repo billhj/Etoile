@@ -18,7 +18,22 @@ model = loadHuman(skeleton);
 
 end %functionend
 
+function skeleton = computeFirstSecondDeriv(skeleton)
+for joint = skeleton
+    for i = 1 : size(joint.Dxyz, 1)
+        joint.Dxyz1(i) =  (joint.Dxyz(i+1) - joint.Dxyz(i - 1)) * 0.5;
+        joint.rxyz1(i) =  (joint.rxyz(i+1) - joint.rxyz(i - 1)) * 0.5;
+    end
+end
 
+for joint = skeleton
+    for i = 1 : size(joint.Dxyz1, 1)
+        joint.Dxyz2(i) =  (joint.Dxyz1(i+1) - joint.Dxyz1(i - 1)) * 0.5;
+        joint.rxyz2(i) =  (joint.rxyz1(i+1) - joint.rxyz1(i - 1)) * 0.5;
+    end
+end
+
+end
 
 function model = loadHuman(skeleton)
 % model.NB = 23;
