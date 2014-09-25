@@ -4,4 +4,4 @@ addpath( genpath( 'C:/Users/Jing/Documents/etoile_git/trunk/matlab/bvh-matlab-ma
 
 
 [humanoid] = loadModelFromSkeleton('C:/Users/Jing/Documents/etoile_git/trunk/matlab/nadine session-011_Suit 00131313_11037-14163#Suit 00131313.bvh');
-[humanoid.skeleton] = loadSkeletonData(humanoid.skeleton);
+% [humanoid.skeleton] = loadSkeletonData(humanoid.skeleton);
