@@ -4,6 +4,7 @@ function [skeleton] = loadModelFromSkeleton(skeletonfile)
 addpath( genpath( 'C:/Users/Jing/Documents/etoile_git/trunk/matlab' ) );
 addpath( genpath( 'C:/Users/Jing/Documents/etoile_git/trunk/matlab/bvh-matlab-master' ) );
 [skeleton,time] = loadbvh(skeletonfile);
+skeleton.file = skeletonfile;
 end %functionend
 
 
