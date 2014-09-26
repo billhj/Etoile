@@ -5,12 +5,18 @@ namespace Etoile
 {
 	MotionDetector::MotionDetector(void)
 	{
-		_dir = "C:/Users/Jing/Documents/etoile_github/trunk/bin/pics"; // directory where the images will be stored
+		_dir = "/motion_src/pics"; // directory where the images will be stored
 		_ext = ".jpg"; // extension of the images
-		_logfile = "C:/Users/Jing/Documents/etoile_github/trunk/bin/motion_src/log";
+		_logfile = "/motion_src/log";
 		_delay = 50; // in mseconds, take a picture every 1/2 second
+		_enable = true;
 	}
 
+	void MotionDetector::setDirectory(const std::string& path)
+	{
+		_dir = path + _dir;
+		_logfile = path + _logfile;
+	}
 
 	MotionDetector::~MotionDetector(void)
 	{
@@ -192,7 +198,7 @@ namespace Etoile
 
 		// All settings have been set, now go in endless loop and
 		// take as many pictures you want..
-		while (true){
+		while (_enable){
 			// Take a new image
 			prev_frame = current_frame;
 			current_frame = next_frame;
@@ -212,7 +218,7 @@ namespace Etoile
 			erode(motion, motion, kernel_ero);
 
 			number_of_changes = detectMotion(motion, result, result_cropped,  x_start, x_stop, y_start, y_stop, max_deviation, color);
-			imshow("VIDEO", result);
+			if(_show) imshow("VIDEO", result);
 			// If a lot of changes happened, we assume something changed.
 			if(number_of_changes>=there_is_motion)
 			{

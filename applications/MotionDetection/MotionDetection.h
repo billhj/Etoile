@@ -12,7 +12,8 @@ class MotionDetection : public QMainWindow
 public:
 	MotionDetection(QWidget *parent = 0, Qt::WFlags flags = 0);
 	~MotionDetection();
-
+	void closeEvent(QCloseEvent *event);
+	void start();
 private:
 	Ui::MotionDetectionClass ui;
 	Etoile::MotionDetector detector;
