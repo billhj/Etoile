@@ -36,14 +36,16 @@ MotionDetection::~MotionDetection()
 
 }
 
+#include <QCloseEvent>
 void MotionDetection::closeEvent(QCloseEvent *event)
 {
 	detector.setEnable(false);
 	detector.setShow(false);
 	Sleep(1000);
-	//t.terminate();
-	//QMainWindow::closeEvent(event);
+	t.terminate();
+	close();
 	//exit(0);
+	//event->accept();
 }
 
 void MotionDetection::reactToToggleCapture(bool checked)
