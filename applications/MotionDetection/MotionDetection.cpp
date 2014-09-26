@@ -7,8 +7,8 @@ MotionDetection::MotionDetection(QWidget *parent, Qt::WFlags flags)
 	: QMainWindow(parent, flags)
 {
 	setWindowIcon(QIcon("./styles/icon.png"));
-	this->setWindowTitle("Detector");
 	ui.setupUi(this);
+	this->setWindowTitle("Detector");
 	detector.setDirectory(QDir::currentPath().toStdString());
 	vlayout = new QVBoxLayout(this);
 	this->centralWidget()->setLayout(vlayout);
@@ -24,8 +24,8 @@ MotionDetection::MotionDetection(QWidget *parent, Qt::WFlags flags)
 	vlayout->addWidget(new QLabel("Delay in mills"));
 	QSpinBox* sp = new QSpinBox();
 	vlayout->addWidget(sp);
-	sp->setValue(500);
 	sp->setRange(1, 10000);
+	sp->setValue(500);
 	connect(sp, SIGNAL(valueChanged(int)), this, SLOT(setDelay(int)));
 	this->setFixedWidth(100);
 	this->setFixedHeight(200);
@@ -38,8 +38,12 @@ MotionDetection::~MotionDetection()
 
 void MotionDetection::closeEvent(QCloseEvent *event)
 {
-	QMainWindow::closeEvent(event);
-	exit(0);
+	detector.setEnable(false);
+	detector.setShow(false);
+	Sleep(1000);
+	//t.terminate();
+	//QMainWindow::closeEvent(event);
+	//exit(0);
 }
 
 void MotionDetection::reactToToggleCapture(bool checked)

@@ -219,7 +219,13 @@ namespace Etoile
 			erode(motion, motion, kernel_ero);
 
 			number_of_changes = detectMotion(motion, result, result_cropped,  x_start, x_stop, y_start, y_stop, max_deviation, color);
-			if(_show) imshow("VIDEO", result);
+			if(_show)
+			{ 
+				imshow("VIDEO", result);
+			}else
+			{
+				//cvDestroyWindow("VIDEO");
+			}
 			// If a lot of changes happened, we assume something changed.
 			if(number_of_changes>=there_is_motion)
 			{
