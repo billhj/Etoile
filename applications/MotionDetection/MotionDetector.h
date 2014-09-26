@@ -29,7 +29,11 @@ namespace Etoile
 		void setDirectory(const std::string& path);
 		void cleanDirectory();
 		void setEnable(bool b){ _enable = b;}
-		void isShow(bool b){_show = b;}
+		void setShow(bool b){_show = b;}
+		/*
+		* in millisecond
+		*/
+		void setDelay(int d){_delay = d;}
 	private:
 		string _dir;
 		string _ext;

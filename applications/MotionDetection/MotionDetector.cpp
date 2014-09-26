@@ -8,8 +8,9 @@ namespace Etoile
 		_dir = "/motion_src/pics"; // directory where the images will be stored
 		_ext = ".jpg"; // extension of the images
 		_logfile = "/motion_src/log";
-		_delay = 50; // in mseconds, take a picture every 1/2 second
-		_enable = true;
+		_delay = 500; // in mseconds, take a picture every 1/2 second
+		_enable = false;
+		_show = false;
 	}
 
 	void MotionDetector::setDirectory(const std::string& path)
