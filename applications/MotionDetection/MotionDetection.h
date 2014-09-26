@@ -35,9 +35,13 @@ public:
 	MotionDetection(QWidget *parent = 0, Qt::WFlags flags = 0);
 	~MotionDetection();
 	void closeEvent(QCloseEvent *event);
+	
 public slots:
 	void reactToToggleCapture(bool checked);
 	void reactToToggleShow(bool checked);
+	void setDelay(int d){
+		detector.setDelay(d);
+	}
 private:
 	Ui::MotionDetectionClass ui;
 	Etoile::MotionDetector detector;
