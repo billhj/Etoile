@@ -1,0 +1,104 @@
+\section{姓名： 黄晶}
+\section{当前职位}
+\cventry{2013--now}{博士后研究员}{CNRS法國國家科學研究中心}{巴黎}{}
+{
+\begin{itemize}
+	\item "Greta" "VIB" 人机互动系统
+	\item 笑声情感驱动的动画合成系统 (欧洲项目 ilhaire)
+	\item Uncanny Valley 虚拟动画及渲染
+\end{itemize}
+}
+
+
+\section{教育背景}
+\cventry{2009--2013}{博士学位}{Ecole Mine-Telecom de Paris 巴黎高科}{巴黎}{计算机图形学}
+{博士导师： Catherine Pelachaud 和 Tamy Boubekeur (PhD 论文: 3D Emotional Rendering and Animation Models)
+\begin{itemize}
+	\item 三维人机互动系统 "Greta"
+	\item 动画渲染系统 (C++ and JAVA)
+	\item Etoile-Edison 系统 (三维引擎 C++ and GPU)
+\end{itemize}
+}  % arguments 3 to 6 can be left empty
+
+\cventry{2007--2009}{硕士学位}{University of Paris Descartes (Paris 5)巴黎5大笛卡尔大学 and Pasteur Institute 巴斯德研究所}{巴黎}{计算机科学和生物技术}
+{导师： Florence Cloppet 和 Vannary Meas-Yedid (Master 论文: Segmentation Evaluation for microscopy images)
+}
+\cventry{2002--2006}{本科学位}{杭州师范大学}{杭州}{生命科学}{}
+
+
+\section{工作经历}
+
+\subsection{GPU相关项目}
+\cventry{2013--2013}{PBGI}{巴黎高科 CNRS法國國家科學研究中心}{巴黎}{}
+{
+GPU项目使用CUDA: Factorized Point-Based Global Illumination  基于点计算的全局照明
+\begin{itemize}
+	\item caching step: build point (sphere) based hierarchical structure and shade pixels with only the direct lighting and shadow
+	\item rasterization step: rasterize spheres into each pixel's microbuffer with Z-buffer algorithm for visibility and convolve the BRDF for the pixel (the spheres projection process can be parallel using CUDA)
+\end{itemize}
+}
+
+\cventry{2010--2013}{Virtual Character System 虚拟人物系统}{巴黎高科}{巴黎}{}
+{
+\begin{itemize}
+\item High level emotion driven animation planner deciding human behavior
+\item Animation behavior generating virtual character's interactions
+\item Low level rendering using Ogre3D engine (c++, java and OpenGL/GLSL)
+\end{itemize}
+}
+
+\cventry{2009--2012}{Etoile et Edison 系统}{巴黎高科}{巴黎}{}
+{
+A plugin system and libraries (Windows/Linux): Rendering, Animation, DataMing, etc.
+using C++, OpenGL/GLSL, CUDA
+}
+
+\cventry{2010--2011}{Separable Ambient Occlusion 可分环境光照}{巴黎高科}{巴黎}{}
+{
+Propose a low computational cost, global illumination simulation approach for 3D rendering using OpenGL/GLSL.
+\begin{itemize}
+\item Noise Pattern Generations
+\item Exploring Separable Technique Fashion
+\item Using local randomizations with interleaved filtering techniques
+\end{itemize}
+}
+
+\subsection{教学经验}
+\cventry{2013--2014}{课程}{Telecom ParisSud}{巴黎}{}
+{
+动画渲染
+}
+
+\section{语言}
+\cvitemwithcomment{中文}{母语}{}
+\cvitemwithcomment{英语}{流利}{}
+\cvitemwithcomment{法语}{流利}{}
+
+\section{计算机技术}
+\cvitem{Programming}{C/C++, OpenGL, WebGL, GLSL, HLSL, CUDA, OpenCL, JAVA/J2EE, JSF, Python, Basic, UML, 
+XML, design patterns, etc}
+\cvitem{Data Base}{SQL, PL/SQL, Oracle (administration, Tuning, development, under 9i, 10g, 11g), PostgreSQL, MySQL (version 5.0), etc}
+\cvitem{Web}{HTML, PHP, CSS, JAVASCRIPT, etc}
+\cvitem{Image Proc.}{Photoshop, Illustrator, ImageJ, Adobe Premiere, etc}
+\cvitem{Data Ming}{Weka, Matlab, Numpy, etc}
+\cvitem{3D Modeling}{Blender, 3DS Max, etc}
+\cvitem{Presentation}{\LaTeX, OpenOffice, Word, PowerPoint, etc}
+
+\section{荣誉}
+\cvlistitem{Prize "EGIDE" 法国对外国留学生}
+
+
+\section{发表}
+%\renewcommand{\listitemsymbol}{-~}            % change the symbol for lists
+
+% Publications from a BibTeX file without multibib
+%  for numerical labels: \renewcommand{\bibliographyitemlabel}{\@biblabel{\arabic{enumiv}}}
+%  to redefine the heading string ("Publications"): \renewcommand{\refname}{Articles}
+\nocite{*}
+\bibliographystyle{plain}
+\bibliography{publications}                   % 'publications' is the name of a BibTeX file
+
+\section{推荐人}
+\cvlistitem{ Dr. Catherine Pelachaud  \url{http://perso.telecom-paristech.fr/~pelachau/}}
+\cvlistitem{Dr. Tamy Boubekeur  \url{http://perso.telecom-paristech.fr/~boubek/}}
+\cvlistitem{Dr. Elmar Eisemann  \url{http://graphics.tudelft.nl/~eisemann/}}
