@@ -1,5 +1,6 @@
 
 function model = buildDynamicsBodyBySkeleton(skeleton)
+disp('buildDynamicsBodyBySkeleton');
 % model.NB = 23;
 % model.nameMVN{1} = 'Pelvis';
 % model.nameMVN{2} = 'L5';
@@ -53,6 +54,7 @@ model.nameMVN{11} = 'T12_y';
 model.nameMVN{12} = 'T12_x';
 
 model.parent = [0,1,2,3,4,5,6,5,8,9,10,11];
+model.NB = 12;
 model.jtype = {'Rz','Ry','Rx', 'Rz','Ry','Rx', 'Rz','Ry','Rx', 'Rz','Ry','Rx'};
 
 model.Xtree{1} = xlt([0 0 0]);
@@ -173,7 +175,7 @@ model.I{12} = mcI(mass, endJ - startJ, inertia);
 % model.nameBAP{21} = 'LeftLowerLeg';
 % model.nameBAP{22} = 'LeftFoot';
 % model.nameBAP{23} = 'LeftToe';
-
+disp('end buildDynamicsBodyBySkeleton');
 end %functionend
 
 function inertiaMatrix = computeBoneInertiaMatrix(startJ, endJ, x, y, z, mass)

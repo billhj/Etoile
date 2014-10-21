@@ -1,5 +1,5 @@
 function [humanoid] = loadModelFromSkeleton(skeletonfile)
-
+disp('loadModelFromSkeleton');
 % load bvh file with skeleton and animation data
 addpath( genpath( 'C:/Users/Jing/Documents/etoile_git/trunk/matlab' ) );
 addpath( genpath( 'C:/Users/Jing/Documents/etoile_git/trunk/matlab/bvh-matlab-master' ) );
@@ -53,6 +53,7 @@ end
 
 humanoid.file = skeletonfile;
 humanoid.skeleton = skeleton;
+disp('end loadModelFromSkeleton');
 end %functionend
 
 

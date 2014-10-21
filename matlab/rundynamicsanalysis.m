@@ -6,4 +6,5 @@ addpath( genpath( 'C:/Users/Jing/Documents/etoile_git/trunk/matlab/bvh-matlab-ma
 [humanoid] = loadModelFromSkeleton('C:/Users/Jing/Documents/etoile_git/trunk/matlab/convertedZYX_caroline_l#Suit00131313.bvh');
 [humanoid.skeleton] = loadSkeletonData(humanoid.skeleton);
 [model] = buildDynamicsBodyBySkeleton(humanoid.skeleton);
+[model] = computeTorque(model);
 % 
