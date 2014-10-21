@@ -39,38 +39,39 @@ for joint = skeleton
     end
 end
 model.gravity = [0; -9.8; 0];
-model.nameMVN{1} = 'Pelvis_x';
+model.nameMVN{1} = 'Pelvis_z';
 model.nameMVN{2} = 'Pelvis_y';
-model.nameMVN{3} = 'Pelvis_z';
-model.nameMVN{4} = 'L5_x';
+model.nameMVN{3} = 'Pelvis_x';
+model.nameMVN{4} = 'L5_z';
 model.nameMVN{5} = 'L5_y';
-model.nameMVN{6} = 'L5_z';
-model.nameMVN{7} = 'L3_x';
+model.nameMVN{6} = 'L5_x';
+model.nameMVN{7} = 'L3_z';
 model.nameMVN{8} = 'L3_y';
-model.nameMVN{9} = 'L3_z';
-model.nameMVN{10} = 'T12_x';
+model.nameMVN{9} = 'L3_x';
+model.nameMVN{10} = 'T12_z';
 model.nameMVN{11} = 'T12_y';
-model.nameMVN{12} = 'T12_z';
+model.nameMVN{12} = 'T12_x';
 
 model.parent = [0,1,2,3,4,5,6,5,8,9,10,11];
-model.jtype = {'Rx','Ry','Rz', 'Rx','Ry','Rz', 'Rx','Ry','Rz', 'Rx','Ry','Rz'};
-model.Xtree{1} = xlt([0 0 0]);
+model.jtype = {'Rz','Ry','Rx', 'Rz','Ry','Rx', 'Rz','Ry','Rx', 'Rz','Ry','Rx'};
+
+model.Xtree{1} = xlt(ChestJoint.offset);
 model.Xtree{2} = xlt([0 0 0]);
 model.Xtree{3} = xlt([0 0 0]);
 
-model.Xtree{4} = xlt([0 1 0]);
+model.Xtree{4} = xlt([Chest2Joint.offset]);
 model.Xtree{5} = xlt([0 0 0]);
 model.Xtree{6} = xlt([0 0 0]);
 
-model.Xtree{7} = xlt([0 1 0]);
+model.Xtree{7} = xlt([Chest3Joint.offset]);
 model.Xtree{8} = xlt([0 0 0]);
 model.Xtree{9} = xlt([0 0 0]);
 
-model.Xtree{10} = xlt([0 1 0]);
+model.Xtree{10} = xlt([Chest4Joint.offset]);
 model.Xtree{11} = xlt([0 0 0]);
 model.Xtree{12} = xlt([0 0 0]);
 
-mass = 20;
+mass = 10;
 x = 0.5;
 y= 1;
 z = 0.5;
@@ -82,7 +83,7 @@ model.I{1} = mcI(0, [0,0,0], zeros(3,3));
 model.I{2} = mcI(0, [0,0,0], zeros(3,3));
 model.I{3} = mcI(mass, endJ - startJ, inertia);
 
-mass = 30;
+mass = 10;
 startJ = ChestJoint.worldposition;
 endJ = Chest2Joint.worldposition;
 inertia = computeBoneInertiaMatrix(startJ,endJ, x,y,z,mass);
@@ -91,7 +92,7 @@ model.I{4} = mcI(0, [0,0,0], zeros(3,3));
 model.I{5} = mcI(0, [0,0,0], zeros(3,3));
 model.I{6} = mcI(mass, endJ - startJ, inertia);
 
-mass = 40;
+mass = 10;
 startJ = Chest2Joint.worldposition;
 endJ = Chest3Joint.worldposition;
 inertia = computeBoneInertiaMatrix(startJ,endJ, x,y,z,mass);
@@ -100,7 +101,7 @@ model.I{7} = mcI(0, [0,0,0], zeros(3,3));
 model.I{8} = mcI(0, [0,0,0], zeros(3,3));
 model.I{9} = mcI(mass, endJ - startJ, inertia);
 
-mass = 50;
+mass = 20;
 startJ = Chest3Joint.worldposition;
 endJ = Chest4Joint.worldposition;
 inertia = computeBoneInertiaMatrix(startJ, endJ, x,y,z,mass);

@@ -5,6 +5,13 @@ addpath( genpath( 'C:/Users/Jing/Documents/etoile_git/trunk/matlab' ) );
 addpath( genpath( 'C:/Users/Jing/Documents/etoile_git/trunk/matlab/bvh-matlab-master' ) );
 [skeleton,time] = loadbvh(skeletonfile);
 
+if(true)
+    skeleton.offset = skeleton.offset / 100.0;
+    skeleton.worldposition = skeleton.worldposition / 100.0;
+    skeleton.Dxyz = skeleton.Dxyz / 100.0;
+    skeleton.worldposition = skeleton.worldposition / 100.0;
+end
+
 pas = 4;
 for j = 1:size(skeleton,2)
     if not(isspace(skeleton(1,j).name))
@@ -72,7 +79,5 @@ RxRyRz(:,:,2) = [c(2) 0 s(2); 0 1 0; -s(2) 0 c(2)];
 RxRyRz(:,:,3) = [c(3) -s(3) 0; s(3) c(3) 0; 0 0 1];
 
 rotM = RxRyRz(:,:,order(1))*RxRyRz(:,:,order(2))*RxRyRz(:,:,order(3));
-
 transM = [rotM, displ; 0 0 0 1];
-
 end
