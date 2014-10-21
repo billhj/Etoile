@@ -33,11 +33,11 @@ for j = 1:size(skeleton,2)
         rxyz3 = skeleton(1,j).rxyz(3,:);
         while i+pas <=max
             Dxyz(1,index) = mean(Dxyz1(i:i+pas));
-            rxyz(1,index) = mean(rxyz1(i:i+pas));
+            rxyz(1,index) = mean(rxyz1(i:i+pas)) * (3.14159265 / 180);
             Dxyz(2,index) = mean(Dxyz2(i:i+pas));
-            rxyz(2,index) = mean(rxyz2(i:i+pas));
+            rxyz(2,index) = mean(rxyz2(i:i+pas)) * (3.14159265 / 180);
             Dxyz(3,index) = mean(Dxyz3(i:i+pas));
-            rxyz(3,index) = mean(rxyz3(i:i+pas));
+            rxyz(3,index) = mean(rxyz3(i:i+pas)) * (3.14159265 / 180);
             i = i + pas;
             index = index + 1;
         end
