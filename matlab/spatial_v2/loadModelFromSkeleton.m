@@ -6,10 +6,13 @@ addpath( genpath( 'C:/Users/Jing/Documents/etoile_git/trunk/matlab/bvh-matlab-ma
 [skeleton,time] = loadbvh(skeletonfile);
 
 if(true)
-    skeleton.offset = skeleton.offset / 100.0;
-    skeleton.worldposition = skeleton.worldposition / 100.0;
-    skeleton.Dxyz = skeleton.Dxyz / 100.0;
-    skeleton.worldposition = skeleton.worldposition / 100.0;
+    for j = 1:size(skeleton,2)
+        %if not(isspace(skeleton(1,j).name))
+            skeleton(1,j).offset = skeleton(1,j).offset / 100.0;
+            skeleton(1,j).worldposition = skeleton(1,j).worldposition / 100.0;
+            skeleton(1,j).Dxyz = skeleton(1,j).Dxyz / 100.0;
+        %end
+    end
 end
 
 pas = 4;
