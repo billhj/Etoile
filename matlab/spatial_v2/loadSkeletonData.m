@@ -1,5 +1,6 @@
 function skeleton = loadSkeletonData(skeleton)
 disp('loadSkeletonExtraData');
+time = 1.0 / skeleton.frequency;
 %computer first dev / speed
 for j = 1:size(skeleton,2)
     if not(isspace(skeleton(1,j).name))
@@ -7,15 +8,15 @@ for j = 1:size(skeleton,2)
         skeleton(1,j).rxyz1 =zeros(size(skeleton(1,j).Dxyz));
         for i = 1:size(skeleton(1,j).Dxyz, 2)
              if (i == 1)
-                 skeleton(1,j).Dxyz1(:,i) = substraction(skeleton(1,j).Dxyz(:,i+1) , skeleton(1,j).Dxyz(:,i));
-                 skeleton(1,j).rxyz1(:,i) = substraction(skeleton(1,j).rxyz(:,i+1) , skeleton(1,j).rxyz(:,i));
+                 skeleton(1,j).Dxyz1(:,i) = substraction(skeleton(1,j).Dxyz(:,i+1) , skeleton(1,j).Dxyz(:,i)) / time;
+                 skeleton(1,j).rxyz1(:,i) = substraction(skeleton(1,j).rxyz(:,i+1) , skeleton(1,j).rxyz(:,i)) / time;
              else
                  if i == size(skeleton(1,j).Dxyz, 2)
-                    skeleton(1,j).Dxyz1(:,i) = substraction(skeleton(1,j).Dxyz(:,i) , skeleton(1,j).Dxyz(:,i - 1));
-                    skeleton(1,j).rxyz1(:,i) = substraction(skeleton(1,j).rxyz(:,i) , skeleton(1,j).rxyz(:,i - 1));
+                    skeleton(1,j).Dxyz1(:,i) = substraction(skeleton(1,j).Dxyz(:,i) , skeleton(1,j).Dxyz(:,i - 1)) / time;
+                    skeleton(1,j).rxyz1(:,i) = substraction(skeleton(1,j).rxyz(:,i) , skeleton(1,j).rxyz(:,i - 1)) / time;
                  else
-                    skeleton(1,j).Dxyz1(:,i) =  substraction(skeleton(1,j).Dxyz(:,i+1) , skeleton(1,j).Dxyz(:,i - 1)) * 0.5;
-                    skeleton(1,j).rxyz1(:,i) =  substraction(skeleton(1,j).rxyz(:,i+1) , skeleton(1,j).rxyz(:,i - 1)) * 0.5;
+                    skeleton(1,j).Dxyz1(:,i) =  substraction(skeleton(1,j).Dxyz(:,i+1) , skeleton(1,j).Dxyz(:,i - 1)) * 0.5 / time;
+                    skeleton(1,j).rxyz1(:,i) =  substraction(skeleton(1,j).rxyz(:,i+1) , skeleton(1,j).rxyz(:,i - 1)) * 0.5 / time;
                  end
              end
         end
@@ -29,15 +30,15 @@ for j = 1:size(skeleton,2)
         skeleton(1,j).rxyz2 =zeros(size(skeleton(1,j).Dxyz1));
         for i = 1:size(skeleton(1,j).Dxyz, 2)
              if (i == 1)
-                    skeleton(1,j).Dxyz2(:,i) = substraction(skeleton(1,j).Dxyz1(:,i+1) , skeleton(1,j).Dxyz1(:,i));
-                    skeleton(1,j).rxyz2(:,i) = substraction(skeleton(1,j).rxyz1(:,i+1) , skeleton(1,j).rxyz1(:,i));
+                    skeleton(1,j).Dxyz2(:,i) = substraction(skeleton(1,j).Dxyz1(:,i+1) , skeleton(1,j).Dxyz1(:,i)) / time;
+                    skeleton(1,j).rxyz2(:,i) = substraction(skeleton(1,j).rxyz1(:,i+1) , skeleton(1,j).rxyz1(:,i)) / time;
              else
                  if i == size(skeleton(1,j).Dxyz, 2)
-                    skeleton(1,j).Dxyz2(:,i) = substraction(skeleton(1,j).Dxyz1(:,i) , skeleton(1,j).Dxyz1(:,i - 1));
-                    skeleton(1,j).rxyz2(:,i) = substraction(skeleton(1,j).rxyz1(:,i) , skeleton(1,j).rxyz1(:,i - 1));
+                    skeleton(1,j).Dxyz2(:,i) = substraction(skeleton(1,j).Dxyz1(:,i) , skeleton(1,j).Dxyz1(:,i - 1)) / time;
+                    skeleton(1,j).rxyz2(:,i) = substraction(skeleton(1,j).rxyz1(:,i) , skeleton(1,j).rxyz1(:,i - 1)) / time;
                  else
-                    skeleton(1,j).Dxyz2(:,i) =  substraction(skeleton(1,j).Dxyz1(:,i+1) , skeleton(1,j).Dxyz1(:,i - 1)) * 0.5;
-                    skeleton(1,j).rxyz2(:,i) =  substraction(skeleton(1,j).rxyz1(:,i+1) , skeleton(1,j).rxyz1(:,i - 1)) * 0.5;
+                    skeleton(1,j).Dxyz2(:,i) =  substraction(skeleton(1,j).Dxyz1(:,i+1) , skeleton(1,j).Dxyz1(:,i - 1)) * 0.5 / time;
+                    skeleton(1,j).rxyz2(:,i) =  substraction(skeleton(1,j).rxyz1(:,i+1) , skeleton(1,j).rxyz1(:,i - 1)) * 0.5 / time;
                  end
              end
         end
