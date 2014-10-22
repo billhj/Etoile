@@ -1,6 +1,6 @@
 function skeleton = loadSkeletonData(skeleton)
 disp('loadSkeletonExtraData');
-time = 1.0 / skeleton.frequency;
+time = 1.0 / 30;
 %computer first dev / speed
 for j = 1:size(skeleton,2)
     if not(isspace(skeleton(1,j).name))

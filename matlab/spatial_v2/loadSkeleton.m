@@ -4,7 +4,6 @@ disp('loadSkeleton');
 addpath( genpath( 'C:/Users/Jing/Documents/etoile_git/trunk/matlab' ) );
 addpath( genpath( 'C:/Users/Jing/Documents/etoile_git/trunk/matlab/bvh-matlab-master' ) );
 [skeleton,time] = loadbvh(skeletonfile);
-skeleton.frequency = 120;
 skeleton2 = skeleton;
 if(true)
     for j = 1:size(skeleton,2)
@@ -58,7 +57,7 @@ for j = 1:size(skeleton,2)
     end
 end
 
-skeleton.frequency = 30;
+
 humanoid.file = skeletonfile;
 humanoid.skeleton = skeleton;
 disp('end loadSkeleton');
