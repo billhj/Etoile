@@ -1,10 +1,10 @@
-function [humanoid] = loadModelFromSkeleton(skeletonfile)
-disp('loadModelFromSkeleton');
+function [humanoid, skeleton2] = loadSkeleton(skeletonfile)
+disp('loadSkeleton');
 % load bvh file with skeleton and animation data
 addpath( genpath( 'C:/Users/Jing/Documents/etoile_git/trunk/matlab' ) );
 addpath( genpath( 'C:/Users/Jing/Documents/etoile_git/trunk/matlab/bvh-matlab-master' ) );
 [skeleton,time] = loadbvh(skeletonfile);
-
+skeleton2 = skeleton;
 if(true)
     for j = 1:size(skeleton,2)
         %if not(isspace(skeleton(1,j).name))
@@ -32,12 +32,19 @@ for j = 1:size(skeleton,2)
         rxyz2 = skeleton(1,j).rxyz(2,:);
         rxyz3 = skeleton(1,j).rxyz(3,:);
         while i+pas <=max
-            Dxyz(1,index) = mean(Dxyz1(i:i+pas));
-            rxyz(1,index) = mean(rxyz1(i:i+pas)) * (3.14159265 / 180);
-            Dxyz(2,index) = mean(Dxyz2(i:i+pas));
-            rxyz(2,index) = mean(rxyz2(i:i+pas)) * (3.14159265 / 180);
-            Dxyz(3,index) = mean(Dxyz3(i:i+pas));
-            rxyz(3,index) = mean(rxyz3(i:i+pas)) * (3.14159265 / 180);
+%             Dxyz(1,index) = mean(Dxyz1(i:i+pas));
+%             rxyz(1,index) = mean(rxyz1(i:i+pas)) * (3.14159265 / 180);
+%             Dxyz(2,index) = mean(Dxyz2(i:i+pas));
+%             rxyz(2,index) = mean(rxyz2(i:i+pas)) * (3.14159265 / 180);
+%             Dxyz(3,index) = mean(Dxyz3(i:i+pas));
+%             rxyz(3,index) = mean(rxyz3(i:i+pas)) * (3.14159265 / 180);
+            
+            Dxyz(1,index) = Dxyz1(i);
+            rxyz(1,index) = rxyz1(i) * (3.14159265 / 180);
+            Dxyz(2,index) = Dxyz2(i);
+            rxyz(2,index) = rxyz2(i) * (3.14159265 / 180);
+            Dxyz(3,index) = Dxyz3(i);
+            rxyz(3,index) = rxyz3(i) * (3.14159265 / 180);
             i = i + pas;
             index = index + 1;
         end
@@ -53,7 +60,7 @@ end
 
 humanoid.file = skeletonfile;
 humanoid.skeleton = skeleton;
-disp('end loadModelFromSkeleton');
+disp('end loadSkeleton');
 end %functionend
 
 
