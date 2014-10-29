@@ -19,6 +19,8 @@
 #include "rbdl/Dynamics.h"
 #include "rbdl/Kinematics.h"
 
+#define LOG std::cout
+
 namespace RigidBodyDynamics {
 
 using namespace Math;
@@ -64,14 +66,14 @@ void ForwardDynamics (
 
 		model.v[i] = model.X_lambda[i].apply( model.v[lambda]) + v_J;
 
-		/*
+		
 		LOG << "X_J (" << i << "):" << std::endl << X_J << std::endl;
 		LOG << "v_J (" << i << "):" << std::endl << v_J << std::endl;
 		LOG << "v_lambda" << i << ":" << std::endl << model.v.at(lambda) << std::endl;
 		LOG << "X_base (" << i << "):" << std::endl << model.X_base[i] << std::endl;
 		LOG << "X_lambda (" << i << "):" << std::endl << model.X_lambda[i] << std::endl;
 		LOG << "SpatialVelocity (" << i << "): " << model.v[i] << std::endl;
-		*/
+		
 
 		model.c[i] = c_J + crossm(model.v[i],v_J);
 		model.IA[i] = model.mBodies[i].mSpatialInertia;
@@ -158,6 +160,7 @@ void ForwardDynamics (
 			model.a[i] = model.a[i] + model.multdof3_S[i] * qdd_temp;
 		} else {
 			QDDot[q_index] = (1./model.d[i]) * (model.u[i] - model.U[i].dot(model.a[i]));
+			//std::cout<<"QDDot"<<QDDot[q_index]  << "  model.d[i] " <<model.d[i] << " <<model.u[i] " <<model.u[i]<<"  model.U[i] " <<model.U[i]<< " model.a[i] "<<model.a[i]<<std::endl;
 			model.a[i] = model.a[i] + model.S[i] * QDDot[q_index];
 		}
 	}

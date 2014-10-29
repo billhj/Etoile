@@ -229,6 +229,7 @@ struct RBDL_DLLAPI Body {
 	Math::SpatialMatrix mSpatialInertia;
 
 	bool mIsVirtual;
+	EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 };
 
 /** \brief Keeps the information of a body and how it is attached to another body.
