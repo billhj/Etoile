@@ -53,7 +53,7 @@ model.nameMVN{10} = 'T12_z';
 model.nameMVN{11} = 'T12_y';
 model.nameMVN{12} = 'T12_x';
 
-model.parent = [0,1,2,3,4,5,6,5,8,9,10,11];
+model.parent = [0,1,2,3,4,5,6,7,8,9,10,11];
 model.NB = 12;
 model.jtype = {'Rz','Ry','Rx', 'Rz','Ry','Rx', 'Rz','Ry','Rx', 'Rz','Ry','Rx'};
 
