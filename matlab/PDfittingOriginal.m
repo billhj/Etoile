@@ -2,10 +2,10 @@
 disp('torque regression-----------');
 mdl_originalPD = cell(12,1);
 for i = 1 : 12
-    q1 = model.q{1,i};
-    q2 = model.qd{1,i};
+    q1 = model.q(i, :);
+    q2 = model.qd(i, :);
     x = [q1', q2'];
-    tau1 = model.tau{1,i};
+    tau1 = model.tau(i, :);
     y = tau1';
     mdl_originalPD{i} = LinearModel.fit(x,y);
     mdl_originalPD{i};

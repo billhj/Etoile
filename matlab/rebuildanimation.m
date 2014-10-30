@@ -14,14 +14,14 @@ qddout = zeros{dof, framesize};
 q = zeros(1,dof);
 qd = zeros(1,dof);
 qdd = zeros(1,dof);
-
+tau = zeros(1,dof);
 for j = 1 : framesize
     
     if(j == 1)
         for n = 1 : dof
             q(n) = model.q{1,n}(1,j);
             qd(n) = model.qd{1,n}(1,j);
-            tau(n) = ;
+            tau(n) = model.tau{1, n}(1);
         end
     end
     qdd = FDab(model, q, qd, tau, f_ext );
@@ -32,7 +32,7 @@ for j = 1 : framesize
     for n = 1 : 3
         q(n) = model.q{1,n}(1,j);
         qd(n) = model.qd{1,n}(1,j);
-        tau(n) = ;
+        tau(n) = model.tau{1, n}(j);
     end
     for n = 4 : dof
         qd(n) = qd(n) + qdd(n) * time; 

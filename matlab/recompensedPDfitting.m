@@ -2,10 +2,10 @@
 disp('torque regression-----------');
 mdl_recompensePD = cell(12,1);
 for i = 1 : 3
-    q1 = model.q{1,i};
-    q2 = model.qd{1,i};
+    q1 = model.q(i, :);
+    q2 = model.qd(i, :);
     x = [q1', q2'];
-    tau1 = model.tau{1,i};
+    tau1 = model.tau(i, :);
     y = tau1';
     mdl_recompensePD{i} = LinearModel.fit(x,y);
     mdl_recompensePD{i};
@@ -20,11 +20,11 @@ for i = 1 : 3
 end
 
 for i = 4 : 12
-    q1 = model.q{1,i};
-    q2 = model.qd{1,i};
-    tau0 = model.tau{1, i - 3};
+    q1 = model.q(i, :);
+    q2 = model.qd(i, :);
+    tau0 = model.tau(i - 3, :);
     x = [q1', q2', tau0'];
-    tau1 = model.tau{1,i};
+    tau1 = model.tau(i, :);
     y = tau1';
     mdl_recompensePD{i} = LinearModel.fit(x,y);
     mdl_recompensePD{i};
