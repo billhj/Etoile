@@ -21,7 +21,7 @@ for n = 1 : dof
 end
 qddout(:,j) = FDab(model, qout(:,j), qdout(:,j), tauout(:,j));
 
-for j = 2 : framesize
+for j = 2 : 100
     if mod(j,100)==0
      disp(j)
     end
@@ -35,8 +35,9 @@ for j = 2 : framesize
         qdout(n,j) = qdout(n,j-1) + qddout(n, j-1) * time; 
         qout(n,j) = qout(n,j-1) + qdout(n, j-1) * time;
         x = [1, qout(n,j), qdout(n,j), tauout(n - 3, j)];
-        para = [mdl_recompensePD{n}.Coefficients{1,1}, mdl_recompensePD{n}.Coefficients{2,1}, mdl_recompensePD{n}.Coefficients{3,1}, mdl_recompensePD{n}.Coefficients{4,1}];
+        para = [mdl_accurecompensePD{n}.Coefficients{1,1}, mdl_accurecompensePD{n}.Coefficients{2,1}, mdl_accurecompensePD{n}.Coefficients{3,1}, mdl_accurecompensePD{n}.Coefficients{4,1}];
         tauout(n,j) = para * x';
+%         tauout(n,j) = model.tau(n,j);
     end
     
     qddout(:,j) = FDab(model, qout(:,j), qdout(:,j), tauout(:,j));
