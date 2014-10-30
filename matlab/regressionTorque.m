@@ -29,14 +29,17 @@ for i = 7 : 7
     q1 = model.q{1,i};
     q2 = model.qd{1,i};
      tau0 = model.tau{1,4};
-%     q10 = model.q{1,1};
-%     q20 = model.qd{1,1};
-%      x = [q1', q2', tau0',q10', q20'];
-     x = [q1', q2'];
+     q10 = model.q{1,1};
+     q20 = model.qd{1,1};
+      x = [q1', q2', tau0',q10', q20'];
+%      x = [q1', q2'];
     tau1 = model.tau{1,i};
     y = tau1';
     mdl = LinearModel.fit(x,y);
     mdl
+    plot(tau1, 'red');
+    hold on
+    plot(mdl.Fitted, 'blue');
 end
 
 disp('end torque regression-----------');
