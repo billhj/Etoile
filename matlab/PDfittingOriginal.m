@@ -1,4 +1,5 @@
 %torque regression
+h = figure;
 disp('torque regression-----------');
 mdl_originalPD = cell(12,1);
 for i = 1 : 12

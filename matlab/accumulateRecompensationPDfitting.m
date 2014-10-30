@@ -1,4 +1,5 @@
 %torque regression
+h = figure;
 disp('torque regression-----------');
 mdl_accurecompensePD = cell(12,1);
 newFitted = zeros(size(model.tau));
