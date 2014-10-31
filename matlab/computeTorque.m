@@ -18,7 +18,7 @@ for j = 1 : framesize
          qd(n) = model.qd(n,j);
          qdd(n) = model.qdd(n,j);
     end
-    disp(q);
+%     disp(q);
     tau = ID(model, q, qd, qdd);
 %     qdnext = qd + qdd /30;
 %     qnext = q + qd / 30;
