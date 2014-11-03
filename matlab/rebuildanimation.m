@@ -2,7 +2,7 @@ disp('rebuild');
 framesize = size(model.q, 2);
 dof = size(model.q, 1);
 %model.tau = zeros(1,dof);
-time = 1.0 / 30;
+time = 1.0 / 120;
 
 qout = zeros(dof, framesize);
 qdout = zeros(dof, framesize);
@@ -41,10 +41,10 @@ for j = 2 : 100
         if qout(n,j) < -3.1415
             qout(n,j) = qout(n,j) + 3.14159265 * 2;
         end
-          x = [1, qout(n,j), qdout(n,j), tauout(n - 3, j)];
-       %  x = [1, qout(n,j), qdout(n,j)];
-          para = [mdl_accurecompensePD{n}.Coefficients{1,1}, mdl_accurecompensePD{n}.Coefficients{2,1}, mdl_accurecompensePD{n}.Coefficients{3,1}, mdl_accurecompensePD{n}.Coefficients{4,1}];
-      % para = [mdl_originalPD{n}.Coefficients{1,1}, mdl_originalPD{n}.Coefficients{2,1}, mdl_originalPD{n}.Coefficients{3,1}];
+         %  x = [1, qout(n,j), qdout(n,j), tauout(n - 3, j), qout(n - 3,j), qdout(n - 3,j)];
+        x = [1, qout(n,j), qdout(n,j)];
+       %    para = [mdl_accurecompensePD{n}.Coefficients{1,1}, mdl_accurecompensePD{n}.Coefficients{2,1}, mdl_accurecompensePD{n}.Coefficients{3,1}, mdl_accurecompensePD{n}.Coefficients{4,1}, mdl_accurecompensePD{n}.Coefficients{4,1}, mdl_accurecompensePD{n}.Coefficients{6,1}];
+      para = [mdl_originalPD{n}.Coefficients{1,1}, mdl_originalPD{n}.Coefficients{2,1}, mdl_originalPD{n}.Coefficients{3,1}];
         tau1 = para * x';
 %         if tau1 > 1
 %             tau1 = 1;

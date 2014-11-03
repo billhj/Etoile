@@ -15,7 +15,7 @@ if(true)
     end
 end
 
-pas = 4;
+pas = 1;
 for j = 1:size(skeleton,2)
     if not(isspace(skeleton(1,j).name))
         max = size(skeleton(1,j).Dxyz, 2);

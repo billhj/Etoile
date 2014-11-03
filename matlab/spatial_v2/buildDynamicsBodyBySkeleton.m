@@ -149,33 +149,6 @@ model.I{10} = mcI(0, [0,0,0], zeros(3,3));
 model.I{11} = mcI(0, [0,0,0], zeros(3,3));
 model.I{12} = mcI(mass, endJ - startJ, inertia);
 
-
-% model.parent = [0,1,2,3,4,5,6,5,8,9,10, 5,12,13,14];%  1,16,17,18, 1,20,21,22];
-% model.jtype = {};
-
-% model.nameBAP{1} = 'Pelvis';
-% model.nameBAP{2} = 'L5';
-% model.nameBAP{3} = 'L3';
-% model.nameBAP{4} = 'T12';
-% model.nameBAP{5} = 'T8';
-% model.nameBAP{6} = 'Neck';
-% model.nameBAP{7} = 'Head';
-% model.nameBAP{8} = 'RightShoulder';
-% model.nameBAP{9} = 'RightUpperArm';
-% model.nameBAP{10} = 'RightForeArm';
-% model.nameBAP{11} = 'RightHand';
-% model.nameBAP{12} = 'LeftShoulder';
-% model.nameBAP{13} = 'LeftUpperArm';
-% model.nameBAP{14} = 'LeftForeArm';
-% model.nameBAP{15} = 'LeftHand';
-% model.nameBAP{16} = 'RightUpperLeg';
-% model.nameBAP{17} = 'RightLowerLeg';
-% model.nameBAP{18} = 'RightFoot';
-% model.nameBAP{19} = 'RightToe';
-% model.nameBAP{20} = 'LeftUpperLeg';
-% model.nameBAP{21} = 'LeftLowerLeg';
-% model.nameBAP{22} = 'LeftFoot';
-% model.nameBAP{23} = 'LeftToe';
 disp('end buildDynamicsBodyBySkeleton');
 end %functionend
 
