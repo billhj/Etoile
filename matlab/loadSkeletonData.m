@@ -8,9 +8,9 @@ for j = 1:size(skeleton,2)
         skeleton(1,j).Dxyz1 =zeros(size(skeleton(1,j).Dxyz));
         skeleton(1,j).rxyz1 =zeros(size(skeleton(1,j).Dxyz));
         for i = 1:size(skeleton(1,j).Dxyz, 2)
-            if i == 706
-                disp(i)
-            end
+%             if i == 706
+%                 disp(i)
+%             end
              if (i == 1)
                  vD = substraction(skeleton(1,j).Dxyz(:,i+1) , skeleton(1,j).Dxyz(:,i));
                  skeleton(1,j).Dxyz1(:,i) = vD * frequency;

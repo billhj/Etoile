@@ -44,7 +44,9 @@ for j = 2 : 100
          %  x = [1, qout(n,j), qdout(n,j), tauout(n - 3, j), qout(n - 3,j), qdout(n - 3,j)];
         x = [1, qout(n,j), qdout(n,j)];
        %    para = [mdl_accurecompensePD{n}.Coefficients{1,1}, mdl_accurecompensePD{n}.Coefficients{2,1}, mdl_accurecompensePD{n}.Coefficients{3,1}, mdl_accurecompensePD{n}.Coefficients{4,1}, mdl_accurecompensePD{n}.Coefficients{4,1}, mdl_accurecompensePD{n}.Coefficients{6,1}];
-      para = [mdl_originalPD{n}.Coefficients{1,1}, mdl_originalPD{n}.Coefficients{2,1}, mdl_originalPD{n}.Coefficients{3,1}];
+    %   para = [mdl_originalPD{n}.Coefficients{1,1}, mdl_originalPD{n}.Coefficients{2,1}, mdl_originalPD{n}.Coefficients{3,1}];
+    para = [mdl_originalPDrotation{n}.Coefficients{1,1}, mdl_originalPDrotation{n}.Coefficients{2,1}, -sqrt(mdl_originalPDrotation{n}.Coefficients{2,1}) * 2];
+    %  para = [0, 40, -28];
         tau1 = para * x';
 %         if tau1 > 1
 %             tau1 = 1;
