@@ -64,7 +64,7 @@
 
 %-------------------------------------------------------------------------
 \section{Introduction}
-section
+section~\cite{Buhmann:1998:DCQ}
 
 \subsection{Margins and page numbering}
 subsection
