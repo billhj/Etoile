@@ -1,0 +1,62 @@
+% macros, définitions et nouvelles commandes perso
+\def\argmax{\operatornamewithlimits{arg\,max}}
+\def\argmin{\operatornamewithlimits{arg\,min}}
+\newcommand{\dtc}{\ensuremath{\operatorname{d_{tc}}}}
+
+\DeclareMathOperator*{\Mult}{Mult}
+
+
+%\def\I{{\mathbf{I}}}
+%\def\q{{\mathbf{q}}}
+%\def\t{{\mathbf{t}}}
+%\def\p{{\mathbf{p}}}
+%\def\R{{\mathbb{R}}}
+%\def\N{{\mathbb{N}}}
+%\def\Z{{\mathbb{Z}}}
+%\def\P{{\mathbb{P}}}
+%\def\E{{\mathbb{E}}}
+%\def\DD{{\mathcal{D}}}
+%\def\HH{{\mathcal{H}}}
+%\def\NN{{\mathcal{N}}}
+%\def\JJ{{\mathcal{J}}}
+%\def\eps{{\epsilon}}
+
+
+\def\figurePath{fig/}
+\def\myfigure#1#2#3{\begin{figure}[ht]\centering\includegraphics*[width = \linewidth]{\figurePath#2}\caption{#3}\label{fig:#1}\end{figure}}
+\def\mycfigure#1#2#3{\begin{figure*}[t]\centering\includegraphics*[clip, width = \linewidth]{\figurePath#2}\caption{#3}\label{fig:#1}\end{figure*}}
+\def\myfigurew#1#2#3#4{\begin{figure*}[t]\centering\includegraphics*[clip, width =#4]{\figurePath#2}\caption{#3}\label{fig:#1}\end{figure*}}
+
+% For i.e. and e.g.
+\newcommand{\ie}{i.\,e.\ }	% please leave it like this. either i.e AND e.g. need a comma afterwards or none
+\newcommand{\eg}{e.\,g.\ }	% it's more a british (but not purely) thing to put a comma afterwards. but we use american style most of the time. like color samples
+\newcommand{\etal}{et~al.\ }
+\newcommand{\shortcite}[1]{\cite{#1}}
+\usepackage[T1]{fontenc}
+\newcommand{\bb}[1]{{\textbf #1}}
+\newcommand{\R}{\mathrm{I\!R}}
+\def \P {\mathcal{P}}
+
+% Wraps sections with label
+\def\mypart#1#2{\part{#1}\label{part:#2}}
+\def\mychapter#1#2{\chapter{#1}\label{chapter:#2}}
+\def\mysection#1#2{\section{#1}\label{sec:#2}}
+\def\mysectionNoTOC#1#2{\section*{#1}\label{sec:#2}}
+\def\mysubsection#1#2{\subsection{#1}\label{subsec:#2}}
+\def\mysubsubsection#1#2{\subsubsection{#1}\label{subsubsec:#2}}
+\def\myparagraph#1#2{\paragraph{#1}\label{paragraph:#2}}
+
+
+\newcommand{\todo}[1]{[\textcolor{red}{\textbf{TODO:}} #1]}
+\newcommand{\note}[1]{\textcolor{blue}#1}
+
+
+
+\usepackage[normalem]{ulem}
+\newcommand{\jtodel}[1]{\textcolor{red}{\sout{#1}}}
+\newcommand{\jtoadd}[1]{\textcolor{blue}{#1}}
+\renewcommand{\jtodel}[1]{}
+\renewcommand{\jtoadd}[1]{#1}
+
+\newcommand{\hiddenData}[1]{\textcolor{green}{\sout{#1}}}
+\renewcommand{\hiddenData}[1]{}
