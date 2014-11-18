@@ -3,7 +3,7 @@ disp('computeTorque');
 framesize = size(model.q, 2);
 dof = size(model.q, 1);
 %model.tau = zeros(1,dof);
-model.NB = 12;
+model.NB = dof;
 
 model.tau = zeros(size(model.q));
 model.tauNoAcc = zeros(size(model.q));
