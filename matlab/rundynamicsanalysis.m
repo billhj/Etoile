@@ -7,4 +7,5 @@ addpath( genpath( 'C:/Users/Jing/Documents/etoile_git/trunk/matlab/bvh-matlab-ma
 [humanoid.skeleton] = loadSkeletonData(humanoid.skeleton);
 [model] = buildDynamicsBodyBySkeleton(humanoid.skeleton);
 [model] = computeTorque(model);
+armmodel = buildarmdynamicsmodel(humanoid.skeleton);
 % 

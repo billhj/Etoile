@@ -47,7 +47,7 @@ model.parent = [0,1,2,3,4,5];
 model.NB = 6;
 model.jtype = {'Rz','Ry','Rx', 'Rz','Ry','Rx'};
 
-model.q = zeros(model.NB, size(RightShoulder.rxyz,2));
+model.q = zeros(model.NB, size(RightShoulderJoint.rxyz,2));
 model.Xtree{1} = xlt([0 0 0]);
 model.Xtree{2} = xlt([0 0 0]);
 model.Xtree{3} = xlt([0 0 0]);
@@ -61,7 +61,7 @@ model.qdd(1,:) = RightShoulderJoint.rxyz2(3,:);
 model.qdd(2,:) = RightShoulderJoint.rxyz2(2,:);
 model.qdd(3,:) = RightShoulderJoint.rxyz2(1,:);
 
-model.Xtree{4} = xlt([RightElbow.offset]);
+model.Xtree{4} = xlt([RightElbowJoint.offset]);
 model.Xtree{5} = xlt([0 0 0]);
 model.Xtree{6} = xlt([0 0 0]);
 model.q(4,:) = RightElbowJoint.rxyz(3,:);
@@ -130,6 +130,8 @@ if(dot(direction, ydir) > 0)
     rotationMatrix = [xdir_new', ydir_new', zdir_new'];
     inertiaMatrix = computeUniformBox(x, y, z, mass);
     inertiaMatrix = rotateInertia(inertiaMatrix, rotationMatrix);
+else
+    inertiaMatrix = computeUniformBox(x, y, z, mass);
 end
 
 end

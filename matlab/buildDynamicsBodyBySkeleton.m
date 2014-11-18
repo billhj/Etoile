@@ -169,6 +169,8 @@ if(dot(direction, ydir) > 0)
     rotationMatrix = [xdir_new', ydir_new', zdir_new'];
     inertiaMatrix = computeUniformBox(x, y, z, mass);
     inertiaMatrix = rotateInertia(inertiaMatrix, rotationMatrix);
+else
+    inertiaMatrix = computeUniformBox(x, y, z, mass);
 end
 
 end
