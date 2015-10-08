@@ -32,8 +32,8 @@
 \subsection{Related Projects}
 \cventry{2015--2016}{Parallel Constrained Inverse Kinematics}{CNRS/Telecom ParisTech}{Paris}{}
 {
-a method of Inverse Kinematics based on Octree searching and significant performance improvement by using parallel algorithm
-}
+A Parallel high performance algorithm of Inverse Kinematics: learning IK parameters from real data by inversing IK process and fill constraint parameters tree, real-time synthesis computation can be made in parallel process by fast tree searching}
+
 \cventry{2014--2015}{HMM based laughter synthesis}{CNRS/Telecom ParisTech}{Paris}{}
 {
 an algorithm based on hidden markov chain to find out the correlation between laughter phoneme and skeleton rotations for animation synthesis 
@@ -45,6 +45,7 @@ Factorized Point-Based Global Illumination : first introducing \textbf{Screen Sp
 \begin{itemize}
 	\item caching step: build point (sphere) based hierarchical structure and shade pixels with only the direct lighting and shadow
 	\item rasterization step: rasterize spheres into each pixel's microbuffer with Z-buffer algorithm for visibility and convolve the BRDF for the pixel (the spheres projection process can be parallel using CUDA)
+	\item improvement: an estimated starting node for travesaling octree is used based on the \textbf{Screen Space Clustering}, the travesaling time can be significantly minimized.
 \end{itemize}
 }
 
