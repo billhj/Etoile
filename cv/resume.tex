@@ -45,7 +45,7 @@ Factorized Point-Based Global Illumination : first introducing \textbf{Screen Sp
 \begin{itemize}
 	\item caching step: build point (sphere) based hierarchical structure and shade pixels with only the direct lighting and shadow
 	\item rasterization step: rasterize spheres into each pixel's microbuffer with Z-buffer algorithm for visibility and convolve the BRDF for the pixel (the spheres projection process can be parallel using CUDA)
-	\item improvement: an estimated starting node for travesaling octree is used based on the \textbf{Screen Space Clustering}, the travesaling time can be significantly minimized.
+	\item improvement: an estimated starting node for travesaling octree is used based on the \textbf{Screen Space Clustering} using K-Means, the travesaling time can be significantly minimized.
 \end{itemize}
 }
 
